@@ -42,7 +42,7 @@ Instrucciones de instalación y ejecución
 Prerrequisitos: Node.js (v18 o superior), npm, y MongoDB en ejecución local (o URI de Atlas).
 1. Clonar el repositorio
 ```sh
-git clone https://github.com/tucuenta/cattleya-tp.git
+git clone https://github.com/IsabelleRoselli/TPFINALUTN.git
 cd cattleya-tp
 ```
 2. Instalar dependencias

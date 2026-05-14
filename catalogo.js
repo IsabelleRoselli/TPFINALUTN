@@ -18,10 +18,7 @@ function getImageUrl(p) {
   return p.image_url || p.imageUrl || "https://via.placeholder.com/400x400?text=Sin+Imagen";
 }
 
-/**
- * Devuelve el "data-categoria" que usan tus botones data-filter, según el SKU.
- * Esto mantiene las subcategorías SIN tocar backend, solo con prefijos.
- */
+
 function inferDataCategoriaFromSku(product) {
   const sku = String(product?.sku ?? "").toUpperCase();
 
@@ -57,13 +54,7 @@ function inferDataCategoriaFromSku(product) {
   return "todas"; // fallback
 }
 
-/**
- * Filtra por subcategoría/sub-subcategoría cuando la página lo define con:
- * window.CATALOGO_SUBCATEGORY / window.CATALOGO_SUBSUBCATEGORY
- *
- * OJO: tus páginas hoy filtran con window.CATALOGO_SUBCATEGORY_FILTER (grandes/medianos/...).
- * Ese filtro lo aplicamos aparte (más abajo) usando data-categoria.
- */
+
 function matchesSubcategory(product, sub, subsub) {
   const sku = String(product?.sku ?? "").toUpperCase();
 
@@ -139,8 +130,7 @@ function renderCard(p) {
 }
 
 function applyInitialUiFilterIfAny() {
-  // Tus HTML setean esto cuando tocás botones:
-  // window.CATALOGO_SUBCATEGORY_FILTER = "grandes" | "medianos" | etc.
+  
   const filter = window.CATALOGO_SUBCATEGORY_FILTER;
   if (!filter || filter === "todas") return;
 

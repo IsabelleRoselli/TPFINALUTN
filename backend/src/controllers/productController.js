@@ -15,11 +15,12 @@ async function adminList(req, res) {
 }
 
 async function adminCreate(req, res) {
+  console.log("REQ.BODY EN ADMIN CREATE:", req.body); 
   try {
-    console.log("REQ.BODY EN ADMIN CREATE:", req.body);
     const created = await productService.createProduct(req.body);
     res.status(201).json(created);
   } catch (e) {
+    console.log("ERROR EN ADMIN CREATE:", e); 
     res.status(400).json({ error: e.message });
   }
 }
