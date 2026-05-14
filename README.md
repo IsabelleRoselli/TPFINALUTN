@@ -124,5 +124,16 @@ JWT_SECRET=cattleyatiendadefloresartefloral26
 ADMIN_EMAIL=cattleya@admin.com
 ADMIN_PASSWORD=Artefloral26
 
+POST /api/products (sospecha de error)
+Actualmente, el endpoint POST /api/products devuelve error 400 (Bad Request).
+Sospecha:
+Posiblemente el error ocurre porque el backend no recibe correctamente el body del request (puede faltar express.json() en la app).
+Hay campos requeridos que no están siendo enviados o llegan como undefined (por ejemplo, categoryId, priceCents).
+Puede haber un problema en el service o en el modelo Mongoose (algún campo esperado obligatorio falta o el tipo no coincide).
+De acuerdo a los logs en consola, la función createProduct recibe un objeto vacío o incompleto, lo que provoca el error de validación y la respuesta 400.
+Pasos que intenté para solucionarlo:
+Verifiqué los nombres y tipos de los campos que envío al backend.
+Agregué logs (console.log) en el controller y service para ver qué llega en el body.
+Revisé el schema de Producto para entender los campos requeridos.
+El resto de los métodos GET/PUT/DELETE funcionan correctamente.
 
-Desarrollado por Isabelle Roselli  
