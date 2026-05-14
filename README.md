@@ -118,5 +118,4 @@ Ejemplo para crear un producto (_/admin/products_):
   "imageUrl": "http://localhost:3001/uploads/1672883813_ramo_girasoles.jpg"
 }
 
-Autor y contacto
 Desarrollado por Isabelle Roselli  
