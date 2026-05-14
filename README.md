@@ -117,5 +117,12 @@ Ejemplo para crear un producto (_/admin/products_):
   "status": "active",
   "imageUrl": "http://localhost:3001/uploads/1672883813_ramo_girasoles.jpg"
 }
+.env.example
+PORT=3001
+MONGO_URI=mongodb+srv://cattleyaAdmin:Artefloral26@cattleya.ug3lryr.mongodb.net/cattleya?retryWrites=true&w=majority&appName=cattleya
+JWT_SECRET=cattleyatiendadefloresartefloral26
+ADMIN_EMAIL=cattleya@admin.com
+ADMIN_PASSWORD=Artefloral26
+
 
 Desarrollado por Isabelle Roselli  
