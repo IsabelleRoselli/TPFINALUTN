@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores y Ramos - CATTLEYA</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- SIDEBAR CATEGORÍAS -->
+    <div class="sidebar-catalogo" id="sidebarCatalogo">
+        <button class="close-btn" id="closeBtnCatalogo">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="sidebar-header">
+            <h2>CATEGORÍAS</h2>
+        </div>
+
+        <!-- NAV: dejamos FLORES con subniveles MANUAL y el resto lo inyecta sidebar-catalogo.js -->
+        <nav class="sidebar-nav">
+            <!-- FLORES Y RAMOS (manual con subniveles) -->
+            <button class="sidebar-link-catalogo toggle-subcategorias activa" id="toggleFlores">
+                <i class="fas fa-star"></i>
+                <span>Flores y Ramos</span>
+                <i class="fas fa-chevron-right toggle-icon"></i>
+            </button>
+
+            <!-- SUBCATEGORÍAS FLORES Y RAMOS -->
+            <div class="sidebar-subcategorias" id="subFlores">
+                <a href="#" class="sidebar-subcategoria" data-filter="todas">
+                    <i class="fas fa-th"></i> Ver Todo
+                </a>
+                <a href="#" class="sidebar-subcategoria" data-filter="grandes">
+                    <i class="fas fa-flower"></i> Ramos Grandes
+                </a>
+                <a href="#" class="sidebar-subcategoria" data-filter="medianos">
+                    <i class="fas fa-leaf"></i> Ramos Medianos
+                </a>
+                <a href="#" class="sidebar-subcategoria" data-filter="chicos">
+                    <i class="fas fa-clover"></i> Ramos Chicos
+                </a>
+
+                <!-- ROSAS CON SUB-NIVEL 3 -->
+                <button class="sidebar-link-catalogo toggle-subcategorias" id="toggleRosas">
+                    <i class="fas fa-flower"></i>
+                    <span>Rosas</span>
+                    <i class="fas fa-chevron-right toggle-icon"></i>
+                </button>
+                <div class="sidebar-subcategorias sub-level-3" id="subRosas">
+                    <a href="#" class="sidebar-subcategoria" data-filter="importadas">
+                        <i class="fas fa-globe"></i> Rosas Importadas
+                    </a>
+                    <a href="#" class="sidebar-subcategoria" data-filter="nacionales">
+                        <i class="fas fa-flag"></i> Rosas Nacionales
+                    </a>
+                </div>
+            </div>
+
+            <!-- Resto del menú: inyectado por sidebar-catalogo.js -->
+            <div id="sidebarNavAuto"></div>
+        </nav>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="sidebar-cta">
+            <a href="https://wa.me/5491162948671" target="_blank" class="btn-sidebar-whatsapp">
+                <i class="fab fa-whatsapp"></i> Consultar
+            </a>
+        </div>
+    </div>
+
+    <!-- OVERLAY SIDEBAR -->
+    <div class="sidebar-overlay" id="sidebarOverlayCatalogo"></div>
+
+    <!-- HEADER CON BOTÓN -->
+    <header class="catalogo-header">
+        <div class="catalogo-header-content">
+            <button class="btn btn-menu" id="menuBtnCatalogo">
+                <i class="fas fa-bars"></i> Categorías
+            </button>
+
+            <h1 id="catalogoTitulo">Flores y Ramos</h1>
+
+            <a href="../index.html" class="btn btn-volver">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- FILTROS DE SUBCATEGORÍAS (BARRA HORIZONTAL) -->
+    <section class="subcategorias-section">
+        <div class="subcategorias-container">
+            <button class="subcategoria-btn activa" data-filter="todas">
+                <i class="fas fa-th"></i> Ver Todo
+            </button>
+            <button class="subcategoria-btn" data-filter="grandes">
+                <i class="fas fa-flower"></i> Ramos Grandes
+            </button>
+            <button class="subcategoria-btn" data-filter="medianos">
+                <i class="fas fa-leaf"></i> Ramos Medianos
+            </button>
+            <button class="subcategoria-btn" data-filter="chicos">
+                <i class="fas fa-clover"></i> Ramos Chicos
+            </button>
+            <button class="subcategoria-btn" data-filter="importadas">
+                <i class="fas fa-globe"></i> Rosas Importadas
+            </button>
+            <button class="subcategoria-btn" data-filter="nacionales">
+                <i class="fas fa-flag"></i> Rosas Nacionales
+            </button>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FLORES Y RAMOS -->
+    <section class="catalogo-section">
+        <div class="catalogo-grid" id="catalogoGrid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
+            </div>
+
+            <div class="footer-section">
+                <h3>Ubicación</h3>
+                <p>Necochea 27, Ramos Mejía</p>
+                <p>Buenos Aires</p>
+                <p>CP: 1704</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5491162948671" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:info@cattleya.com" target="_blank" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Teléfono: +54 9 11 6294-8671</p>
+                <p>Email: info@cattleya.com</p>
+                <p>Horarios: Lun - Dom 9:00 - 20:00</p>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CATTLEYA - Tienda de Flores. Todos los derechos reservados.</p>
+            <p class="credits">Imágenes © <a href="#">CATTLEYA</a> | Diseño web © <a href="#">Isabelle Roselli</a></p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN SCROLL TO TOP -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // SIDEBAR TOGGLE
+        const menuBtnCatalogo = document.getElementById('menuBtnCatalogo');
+        const sidebarCatalogo = document.getElementById('sidebarCatalogo');
+        const closeBtnCatalogo = document.getElementById('closeBtnCatalogo');
+        const sidebarOverlayCatalogo = document.getElementById('sidebarOverlayCatalogo');
+        const sidebarLinksCatalogo = document.querySelectorAll('.sidebar-link-catalogo:not(.toggle-subcategorias)');
+
+        menuBtnCatalogo.addEventListener('click', () => {
+            sidebarCatalogo.classList.add('active');
+            sidebarOverlayCatalogo.classList.add('active');
+        });
+
+        const closeSidebarCatalogo = () => {
+            sidebarCatalogo.classList.remove('active');
+            sidebarOverlayCatalogo.classList.remove('active');
+        };
+
+        closeBtnCatalogo.addEventListener('click', closeSidebarCatalogo);
+        sidebarOverlayCatalogo.addEventListener('click', closeSidebarCatalogo);
+
+        sidebarLinksCatalogo.forEach(link => {
+            link.addEventListener('click', closeSidebarCatalogo);
+        });
+
+        // TOGGLE SUBCATEGORÍAS EN SIDEBAR
+        const toggleSubcategorias = document.querySelectorAll('.toggle-subcategorias');
+
+        toggleSubcategorias.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const id = btn.id;
+                const subId = id.replace('toggle', 'sub');
+                const submenu = document.getElementById(subId);
+                const toggleIcon = btn.querySelector('.toggle-icon');
+
+                if (submenu) {
+                    submenu.classList.toggle('open');
+                    toggleIcon.style.transform = submenu.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+                }
+            });
+        });
+
+        // Helpers para filtrar cards que se cargan dinámicamente
+        const getCatalogoCards = () => Array.from(document.querySelectorAll('.catalogo-card'));
+
+        function applyFilter(filter) {
+            // Guardamos el filtro global para que lo use catalogo.js al renderizar
+            window.CATALOGO_SUBCATEGORY_FILTER = filter;
+
+            // Filtramos las cards ya renderizadas
+            const cards = getCatalogoCards();
+            cards.forEach(card => {
+                if (filter === 'todas') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = card.getAttribute('data-categoria') === filter ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // FILTRADO DE SUBCATEGORÍAS (SIDEBAR)
+        const subcategoriasLinks = document.querySelectorAll('.sidebar-subcategoria');
+
+        subcategoriasLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filter = link.getAttribute('data-filter');
+                applyFilter(filter);
+                closeSidebarCatalogo();
+            });
+        });
+
+        // FILTRADO DE SUBCATEGORÍAS (BARRA HORIZONTAL)
+        const subcategoriaBtns = document.querySelectorAll('.subcategoria-btn');
+
+        subcategoriaBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                subcategoriaBtns.forEach(b => b.classList.remove('activa'));
+                btn.classList.add('activa');
+
+                const filter = btn.getAttribute('data-filter');
+                applyFilter(filter);
+            });
+        });
+
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <!-- IMPORTANTE: definimos la categoría y cargamos el catálogo -->
+    <script>
+        window.CATALOGO_CATEGORY = "flores-y-ramos";
+        window.CATALOGO_SUBCATEGORY_FILTER = "todas";
+    </script>
+
+    <!-- Inyecta el resto del menú (Orquídeas/Plantas/Regalos/.../Varios) sin romper subniveles -->
+    <script src="./sidebar-catalogo.js"></script>
+
+    <!-- Carga productos -->
+    <script src="./catalogo.js"></script>
+</body>
+</html>

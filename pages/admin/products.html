@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Administración | CATTLEYA</title>
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER estilo tu catálogo -->
+  <header class="catalogo-header">
+    <div class="catalogo-header-content">
+      <button class="btn btn-menu" id="btnGoCatalogo" type="button">
+        <i class="fas fa-eye"></i> Catálogo
+      </button>
+
+      <h1 id="catalogoTitulo">Administración</h1>
+
+      <button class="btn btn-volver" id="btnLogout" type="button">
+        <i class="fas fa-right-from-bracket"></i> Salir
+      </button>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <section class="catalogo-section">
+    <div style="max-width:1100px;margin:0 auto;display:grid;gap:16px;">
+
+      <div style="background: rgba(255,255,255,.92); border-radius: 16px; padding: 18px;">
+        <h2 style="margin-top:0;">Crear / Editar producto</h2>
+
+        <form id="createForm" style="display:grid;gap:10px;">
+          <!-- MODO EDICIÓN: si hay id, products.js hace PUT -->
+          <input type="hidden" name="id" id="productId" value="">
+
+          <input name="name" placeholder="Nombre" required style="padding:10px;border-radius:10px;" />
+          <input name="description" placeholder="Descripción" required style="padding:10px;border-radius:10px;" />
+          <input name="sku" placeholder="SKU (único)" required style="padding:10px;border-radius:10px;" />
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <!-- el precio se ingresa en PESOS AR$ -->
+            <input name="priceARS" type="number" step="0.01" min="0" placeholder="Precio (AR$)" required style="padding:10px;border-radius:10px;" />
+            <input name="stock" type="number" min="0" placeholder="Stock" value="0" required style="padding:10px;border-radius:10px;" />
+          </div>
+
+          <!-- selector de categorías (slug) -->
+          <label style="display:grid;gap:6px;">
+            Categoría
+            <select name="category" id="categorySelect" required style="padding:10px;border-radius:10px;">
+              <option value="" disabled selected>Elegí una categoría</option>
+              <option value="flores-y-ramos">Flores y Ramos</option>
+              <option value="orquideas">Orquídeas</option>
+              <option value="plantas">Plantas</option>
+              <option value="regalos">Regalos</option>
+              <option value="peluches">Peluches</option>
+              <option value="boxes">Boxes</option>
+              <option value="eventos">Eventos / Ocasiones</option>
+              <option value="condolencias">Condolencias / En memoria</option>
+              <option value="varios">Varios</option>
+            </select>
+          </label>
+
+          <select name="status" style="padding:10px;border-radius:10px;">
+            <option value="active">Activo</option>
+            <option value="archived">Archivado</option>
+          </select>
+
+          <!-- backend espera imageUrl -->
+          <input name="imageUrl" placeholder="URL de imagen (opcional)" style="padding:10px;border-radius:10px;" />
+
+          <!-- Subir imagen desde tu compu -->
+          <label style="display:grid;gap:6px;">
+            Subir imagen (opcional)
+            <input id="imageFile" type="file" accept="image/*" />
+          </label>
+
+          <button class="btn btn-menu" id="btnUpload" type="button">
+            <i class="fas fa-upload"></i> Subir imagen y usarla
+          </button>
+
+          <p id="uploadMsg" style="margin:0;"></p>
+
+          <!-- Botón cancelar edición -->
+          <button class="btn btn-volver" id="btnCancelEdit" type="button" style="display:none;">
+            <i class="fas fa-xmark"></i> Cancelar edición
+          </button>
+
+          <!-- Botón submit con ID para que el JS cambie el texto (Crear/Guardar cambios) -->
+          <button class="btn btn-menu" id="btnSubmit" type="submit">
+            <i class="fas fa-plus"></i> Crear
+          </button>
+
+          <p id="createMsg" style="margin:0;"></p>
+        </form>
+      </div>
+
+      <div style="background: rgba(255,255,255,.92); border-radius: 16px; padding: 18px;">
+        <h2 style="margin-top:0;">Listado</h2>
+        <input id="q" placeholder="Buscar por nombre o SKU..." style="width:100%;max-width:420px;padding:10px;border-radius:10px;" />
+        <div id="table" style="margin-top:12px;"></div>
+        <p id="msg" style="color:#b00020;margin:0;"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="/js/admin/api.js"></script>
+  <script src="/js/admin/products.js"></script>
+</body>
+</html>

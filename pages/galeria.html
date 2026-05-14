@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - CATTLEYA</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="page-header">
+        <div class="page-header-content">
+            <a href="../index.html" class="btn btn-volver">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+            <h1>Galería</h1>
+            <div style="width: 100px;"></div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <section class="page-content">
+        <div class="gallery-container">
+            <h2>Nuestros Trabajos</h2>
+            <p class="gallery-subtitle">Explora nuestra galería de diseños florales únicos y personalizados</p>
+
+            <div class="gallery-full">
+                <div class="gallery-item-full">
+                    <img src="https://via.placeholder.com/400x400?text=Ramos+Especiales" alt="Ramos Especiales">
+                    <div class="gallery-overlay-full">
+                        <p>Ramos Especiales</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="https://via.placeholder.com/400x400?text=Arreglos+Modernos" alt="Arreglos Modernos">
+                    <div class="gallery-overlay-full">
+                        <p>Arreglos Modernos</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="https://via.placeholder.com/400x400?text=Flores+Exóticas" alt="Flores Exóticas">
+                    <div class="gallery-overlay-full">
+                        <p>Ramos Diferentes</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="/images/o2.jpeg" alt="Orquídeas Finas">
+                    <div class="gallery-overlay-full">
+                        <p>Orquídeas Cattleya</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="/images/cdm1.jpeg" alt="Centros de Mesa">
+                    <div class="gallery-overlay-full">
+                        <p>Centros de Mesa</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="https://via.placeholder.com/400x400?text=Decoraciones" alt="Decoraciones Florales">
+                    <div class="gallery-overlay-full">
+                        <p>Decoraciones Florales</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="https://via.placeholder.com/400x400?text=Ramos+Cumpleaños" alt="Ramos para Cumpleaños">
+                    <div class="gallery-overlay-full">
+                        <p>Ramos para Cumpleaños</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="/images/n1.jpeg" alt="Arreglos para Bodas">
+                    <div class="gallery-overlay-full">
+                        <p>Bodas</p>
+                    </div>
+                </div>
+                <div class="gallery-item-full">
+                    <img src="../images/corporativo.jpeg" alt="Corporativos">
+                    <div class="gallery-overlay-full">
+                        <p>Ramos Corporativos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
+            </div>
+
+            <div class="footer-section">
+                <h3>Ubicación</h3>
+                <p>Necochea 27, Ramos Mejía</p>
+                <p>Buenos Aires</p>
+                <p>CP: 1704</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5491162948671" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:info@cattleya.com" target="_blank" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Teléfono: +54 9 11 6294-8671</p>
+                <p>Email: info@cattleya.com</p>
+                <p>Horarios: Lun - Dom 9:00 - 20:00</p>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CATTLEYA - Tienda de Flores. Todos los derechos reservados.</p>
+            <p class="credits">Imágenes © <a href="#">CATTLEYA</a> | Diseño web © <a href="#">Isabelle Roselli</a></p>
+        </div>
+    </footer>
+    <!-- BOTÓN SCROLL TO TOP -->
+<button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    // Mostrar/ocultar botón según el scroll
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    // Scroll suave al top
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
+</body>
+</html>

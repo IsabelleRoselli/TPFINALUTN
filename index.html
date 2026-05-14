@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATTLEYA - Tienda de Flores</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+ <!-- SIDEBAR NAVIGATION -->
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" id="closeBtn">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <div class="sidebar-header">
+        <img src="./images/logomenubar.jpeg" alt="CATTLEYA Logo" class="sidebar-logo">
+    </div>
+
+    <nav class="sidebar-nav">
+        <!-- CATÁLOGO BUTTON -->
+        <button class="sidebar-link toggle-menu" id="toggleCatalogo" type="button">
+            <i class="fas fa-store"></i>
+            <span>Catálogo</span>
+            <i class="fas fa-chevron-right toggle-arrow"></i>
+        </button>
+
+        <!-- SUBCATEGORÍAS CATÁLOGO -->
+        <div class="sidebar-submenu" id="subCatalogo">
+            <!-- VER TODO EL CATÁLOGO -->
+            <a href="./pages/catalogo.html" class="sidebar-sublink">
+                <i class="fas fa-th"></i> Ver Todo
+            </a>
+
+            <!-- FLORES Y RAMOS -->
+            <button class="sidebar-link toggle-menu" id="toggleFloresMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Flores y Ramos</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subFloresMenu">
+                <a href="./pages/catalogo-flores-y-ramos.html" class="sidebar-sublink">Ver Todo</a>
+                <a href="./pages/catalogo-flores-y-ramos.html?filter=grandes" class="sidebar-sublink">Ramos Grandes</a>
+                <a href="./pages/catalogo-flores-y-ramos.html?filter=medianos" class="sidebar-sublink">Ramos Medianos</a>
+                <a href="./pages/catalogo-flores-y-ramos.html?filter=chicos" class="sidebar-sublink">Ramos Chicos</a>
+
+                <!-- ROSAS CON SUB-NIVEL 3 -->
+                <button class="sidebar-link toggle-menu" id="toggleRosas" type="button">
+                    <i class="fas fa-flower"></i>
+                    <span>Rosas</span>
+                    <i class="fas fa-chevron-right toggle-arrow"></i>
+                </button>
+                <div class="sidebar-submenu sub-level-3" id="subRosas">
+                    <a href="./pages/catalogo-flores-y-ramos.html?filter=importadas" class="sidebar-sublink">Rosas Importadas</a>
+                    <a href="./pages/catalogo-flores-y-ramos.html?filter=nacionales" class="sidebar-sublink">Rosas Nacionales</a>
+                </div>
+            </div>
+
+            <!-- ORQUÍDEAS -->
+            <button class="sidebar-link toggle-menu" id="toggleOrquideasMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Orquídeas</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subOrquideasMenu">
+                <a href="./pages/catalogo-orquideas.html" class="sidebar-sublink">Ver Todo</a>
+                <a href="./pages/catalogo-orquideas.html?filter=phalaenopsis" class="sidebar-sublink">Orquídeas Phalaenopsis</a>
+                <a href="./pages/catalogo-orquideas.html?filter=cybidium" class="sidebar-sublink">Orquídeas Cymbidium</a>
+            </div>
+
+            <!-- PLANTAS -->
+            <button class="sidebar-link toggle-menu" id="togglePlantasMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Plantas</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subPlantasMenu">
+                <a href="./pages/catalogo-plantas.html" class="sidebar-sublink">Ver Todo</a>
+                <a href="./pages/catalogo-plantas.html?filter=exterior" class="sidebar-sublink">Plantas Exterior</a>
+                <a href="./pages/catalogo-plantas.html?filter=interior" class="sidebar-sublink">Plantas Interior</a>
+            </div>
+
+            <!-- REGALOS -->
+            <button class="sidebar-link toggle-menu" id="toggleRegalosMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Regalos</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subRegalosMenu">
+                <a href="./pages/catalogo-regalos.html" class="sidebar-sublink">Ver Todo</a>
+            </div>
+
+            <!-- PELUCHES -->
+            <button class="sidebar-link toggle-menu" id="togglePeluchesMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Peluches</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subPeluchesMenu">
+                <a href="./pages/catalogo-peluches.html" class="sidebar-sublink">Ver Todo</a>
+                <a href="./pages/catalogo-peluches.html?filter=grandes" class="sidebar-sublink">Peluches Grandes</a>
+                <a href="./pages/catalogo-peluches.html?filter=medianos" class="sidebar-sublink">Peluches Medianos</a>
+                <a href="./pages/catalogo-peluches.html?filter=chicos" class="sidebar-sublink">Peluches Chicos</a>
+            </div>
+
+            <!-- BOXES -->
+            <button class="sidebar-link toggle-menu" id="toggleBoxesMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Boxes</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subBoxesMenu">
+                <a href="./pages/catalogo-boxes.html" class="sidebar-sublink">Ver Todo</a>
+            </div>
+
+            <!-- EVENTOS -->
+            <button class="sidebar-link toggle-menu" id="toggleEventosMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Eventos / Ocasiones</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subEventosMenu">
+                <a href="./pages/catalogo-eventos.html" class="sidebar-sublink">Ver Todo</a>
+                <a href="./pages/catalogo-eventos.html?filter=novias" class="sidebar-sublink">Novias</a>
+                <a href="./pages/catalogo-eventos.html?filter=casamientos" class="sidebar-sublink">Casamientos</a>
+                <a href="./pages/catalogo-eventos.html?filter=cumpleanos" class="sidebar-sublink">Cumpleaños</a>
+                <a href="./pages/catalogo-eventos.html?filter=graduacion" class="sidebar-sublink">Graduación</a>
+                <a href="./pages/catalogo-eventos.html?filter=nacimiento" class="sidebar-sublink">Nacimiento</a>
+            </div>
+
+            <!-- CONDOLENCIAS -->
+            <button class="sidebar-link toggle-menu" id="toggleCondolenciasMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Condolencias</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subCondolenciasMenu">
+                <a href="./pages/catalogo-condolencias.html" class="sidebar-sublink">Ver Todo</a>
+            </div>
+
+            <!-- VARIOS -->
+            <button class="sidebar-link toggle-menu" id="toggleVariosMenu" type="button">
+                <i class="fas fa-circle"></i>
+                <span>Varios</span>
+                <i class="fas fa-chevron-right toggle-arrow"></i>
+            </button>
+            <div class="sidebar-submenu sub-level-2" id="subVariosMenu">
+                <a href="./pages/catalogo-varios.html" class="sidebar-sublink">Ver Todo</a>
+            </div>
+        </div>
+
+        <!-- Separador fuera del catálogo -->
+        <div class="sidebar-divider"></div>
+
+        <!-- OTRAS PÁGINAS (FUERA DE CATÁLOGO) -->
+        <a href="./pages/sobre.html" class="sidebar-link">
+            <i class="fas fa-info-circle"></i>
+            <span>Sobre Nosotros</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="./pages/galeria.html" class="sidebar-link">
+            <i class="fas fa-images"></i>
+            <span>Galería</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="./pages/contacto.html" class="sidebar-link">
+            <i class="fas fa-envelope"></i>
+            <span>Contacto</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-cta">
+        <a href="https://wa.me/5491162948671" target="_blank" class="btn-sidebar-whatsapp">
+            <i class="fab fa-whatsapp"></i> Comprar por WhatsApp
+        </a>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="social-icons">
+            <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+        <p class="sidebar-credit">© 2026 CATTLEYA</p>
+    </div>
+</div>
+
+<!-- OVERLAY SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- LOGO -->
+            <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="hero-logo">
+
+            <p class="tagline">Ramos • Orquídeas • Plantas • Regalos </p>
+            <div class="hero-buttons">
+                <button class="btn btn-menu" id="menuBtn" type="button">
+                    <i class="fas fa-bars"></i> Menú
+                </button>
+                <a href="https://wa.me/5491162948671" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TODAS CATEGORÍAS CON CARROUSEL -->
+    <section class="categories" id="categorias">
+        <h2>Todas Categorías</h2>
+
+        <div class="carousel-container">
+            <button class="carousel-btn prev" id="prevBtn" type="button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="carousel-wrapper">
+                <div class="categories-grid" id="categoriesCarousel">
+                    <!-- Categoría 1 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/fyrcarousel.png" alt="Flores y Ramos">
+                        </div>
+                        <h3>Flores y Ramos</h3>
+                        <p class="price">Desde $4.000</p>
+                        <a href="./pages/catalogo-flores-y-ramos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 2 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ocarousel.png" alt="Orquídeas">
+                        </div>
+                        <h3>Orquídeas</h3>
+                        <p class="price">Desde $5.500</p>
+                        <a href="./pages/catalogo-orquideas.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 3 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/plcarousel.png" alt="Plantas">
+                        </div>
+                        <h3>Plantas</h3>
+                        <p class="price">Desde $5.500</p>
+                        <a href="./pages/catalogo-plantas.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 4 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/rcarousel.png" alt="Regalos">
+                        </div>
+                        <h3>Regalos</h3>
+                        <p class="price">Desde $3.500</p>
+                        <a href="./pages/catalogo-regalos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 5 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/pcarousel.png" alt="Peluches">
+                        </div>
+                        <h3>Peluches</h3>
+                        <p class="price">Desde $3.500</p>
+                        <a href="./pages/catalogo-peluches.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 6 -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/bcarousel.png" alt="Boxes">
+                        </div>
+                        <h3>Boxes</h3>
+                        <p class="price">Desde $4.000</p>
+                        <a href="./pages/catalogo-boxes.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 7 (NUEVA) -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ecarousel.png" alt="Eventos">
+                        </div>
+                        <h3>Eventos</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-eventos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 8 (NUEVA) -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ccarousel.png" alt="Condolencias">
+                        </div>
+                        <h3>Condolencias</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-condolencias.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Categoría 9 (NUEVA) -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/vcarousel.png" alt="Varios">
+                        </div>
+                        <h3>Varios</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-varios.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- DUPLICADAS PARA EFECTO INFINITO -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/fyrcarousel.png" alt="Flores y Ramos">
+                        </div>
+                        <h3>Flores y Ramos</h3>
+                        <p class="price">Desde $4.000</p>
+                        <a href="./pages/catalogo-flores-y-ramos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ocarousel.png" alt="Orquídeas">
+                        </div>
+                        <h3>Orquídeas</h3>
+                        <p class="price">Desde $5.500</p>
+                        <a href="./pages/catalogo-orquideas.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/plcarousel.png" alt="Plantas">
+                        </div>
+                        <h3>Plantas</h3>
+                        <p class="price">Desde $5.500</p>
+                        <a href="./pages/catalogo-plantas.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/rcarousel.png" alt="Regalos">
+                        </div>
+                        <h3>Regalos</h3>
+                        <p class="price">Desde $3.500</p>
+                        <a href="./pages/catalogo-regalos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/pcarousel.png" alt="Peluches">
+                        </div>
+                        <h3>Peluches</h3>
+                        <p class="price">Desde $3.500</p>
+                        <a href="./pages/catalogo-peluches.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/bcarousel.png" alt="Boxes">
+                        </div>
+                        <h3>Boxes</h3>
+                        <p class="price">Desde $4.000</p>
+                        <a href="./pages/catalogo-boxes.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <!-- Duplicamos también las nuevas para mantener “infinito” -->
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ecarousel.png" alt="Eventos">
+                        </div>
+                        <h3>Eventos</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-eventos.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/ccarousel.png" alt="Condolencias">
+                        </div>
+                        <h3>Condolencias</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-condolencias.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+
+                    <div class="category-card">
+                        <div class="category-image">
+                            <img src="./images/vcarousel.png" alt="Varios">
+                        </div>
+                        <h3>Varios</h3>
+                        <p class="price">Consultar</p>
+                        <a href="./pages/catalogo-varios.html" class="btn btn-see-more">Ver más</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-btn next" id="nextBtn" type="button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- NUESTROS FAVORITOS CON GALERÍA -->
+    <section class="favorites-with-gallery" id="favoritos">
+        <!-- NUESTROS FAVORITOS -->
+        <div class="favorites">
+            <h2>Nuestros favoritos</h2>
+            <div class="favorites-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="./images/box4.png" alt="Box Premium">
+                    </div>
+                    <h3>Box Premium</h3>
+                    <p class="price">Consultar</p>
+                    <a href="./pages/catalogo-boxes.html" class="btn btn-see-more">Ver más</a>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="./images/r1.jpeg" alt="Ramo Corazón">
+                    </div>
+                    <h3>Ramo Corazón</h3>
+                    <p class="price">Consultar</p>
+                    <a href="./pages/catalogo-flores-y-ramos.html" class="btn btn-see-more">Ver más</a>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="./images/box.jpeg" alt="Combo Girasol">
+                    </div>
+                    <h3>Combo Girasol</h3>
+                    <p class="price">Consultar</p>
+                    <a href="./pages/catalogo-regalos.html" class="btn btn-see-more">Ver más</a>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="./images/orq3.png" alt="Ramo Mixto">
+                    </div>
+                    <h3>Orquideas</h3>
+                    <p class="price">Consultar</p>
+                    <a href="./pages/catalogo-orquideas.html" class="btn btn-see-more">Ver más</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- POR QUÉ ELEGIR CATTLEYA (BARRA BLANCA) -->
+        <div class="why-choose" id="por-que">
+            <div class="why-choose-left">
+                <h2>¿Por qué elegir Cattleya?</h2>
+                <ul class="benefits">
+                    <li>
+                        <i class="fas fa-leaf"></i>
+                        <span>Flores frescas todos los días</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Diseños personalizados</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-calendar"></i>
+                        <span>Ideal para regalar</span>
+                    </li>
+                    <li>
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Atención por WhatsApp</span>
+                    </li>
+                </ul>
+                <a href="./pages/galeria.html" class="btn btn-gallery">Ver Galería Completa</a>
+            </div>
+            <div class="why-choose-right">
+                <div class="gallery-grid">
+                    <img src="./images/r20.jpeg" alt="Galería 1">
+                    <img src="./images/ing1.jpeg" alt="Galería 2">
+                    <img src="./images/p2.jpeg" alt="Galería 3">
+                    <img src="./images/af.jpeg" alt="Galería 4">
+                    <img src="./images/c1.jpeg" alt="Galería 5">
+                    <img src="./images/p1.png" alt="Galería 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contacto">
+        <div class="footer-container">
+            <!-- Sección Logo -->
+            <div class="footer-logo">
+                <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
+            </div>
+
+            <!-- Sección Contacto y Ubicación -->
+            <div class="footer-section">
+                <h3>Ubicación</h3>
+                <p>Necochea 27, Ramos Mejía</p>
+                <p>Buenos Aires</p>
+                <p>CP: 1704</p>
+            </div>
+
+            <!-- Sección Redes Sociales -->
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5491162948671" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:info@cattleya.com" target="_blank" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sección Contacto Directo -->
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Teléfono: +54 9 11 6294-8671</p>
+                <p>Email: info@cattleya.com</p>
+                <p>Horarios: Lun - Dom 9:00 - 20:00</p>
+            </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <div class="footer-divider"></div>
+
+        <!-- Derechos de autor -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 CATTLEYA - Tienda de Flores. Todos los derechos reservados.</p>
+            <p class="credits">Imágenes © <a href="#">CATTLEYA</a> | Diseño web © <a href="#">Isabelle Roselli</a></p>
+        </div>
+    </footer>
+
+<script>
+    var menuBtn = document.getElementById('menuBtn');
+    var sidebar = document.getElementById('sidebar');
+    var closeBtn = document.getElementById('closeBtn');
+    var sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    menuBtn.addEventListener('click', function() {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+    });
+
+    var closeSidebar = function() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+    };
+
+    closeBtn.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    // TOGGLE MENÚS DESPLEGABLES
+    const toggleMenus = document.querySelectorAll('.toggle-menu');
+
+    toggleMenus.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = btn.id;
+            const subId = id.replace('toggle', 'sub'); // ej: togglePlantasMenu -> subPlantasMenu
+            const submenu = document.getElementById(subId);
+            if (!submenu) return;
+
+            submenu.classList.toggle('open');
+
+            const arrow = btn.querySelector('.toggle-arrow');
+            if (arrow) {
+                arrow.style.transform = submenu.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+            }
+        });
+    });
+
+    // Cerrar sidebar al clickear en un sublink
+    const sublinks = document.querySelectorAll('.sidebar-sublink');
+    sublinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    // Cerrar sidebar al clickear en links normales
+    const normalLinks = document.querySelectorAll('.sidebar-link:not(.toggle-menu)');
+    normalLinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    var nextBtn = document.getElementById('nextBtn');
+    var prevBtn = document.getElementById('prevBtn');
+    var carousel = document.getElementById('categoriesCarousel');
+    var autoTimeout;
+
+    function startAuto() {
+        carousel.style.animation = 'carousel-scroll 30s linear infinite';
+    }
+
+    function stopAuto() {
+        carousel.style.animation = 'none';
+    }
+
+    if (nextBtn && prevBtn && carousel) {
+        nextBtn.addEventListener('click', function() {
+            stopAuto();
+            clearTimeout(autoTimeout);
+
+            var current = carousel.style.transform;
+            var match = current.match(/translateX\((-?\d+)px\)/);
+            var pos = match ? parseInt(match[1]) : 0;
+            pos = pos - 270;
+            carousel.style.transform = 'translateX(' + pos + 'px)';
+            carousel.style.transition = 'transform 0.8s ease-in-out';
+
+            autoTimeout = setTimeout(startAuto, 3000);
+        });
+
+        prevBtn.addEventListener('click', function() {
+            stopAuto();
+            clearTimeout(autoTimeout);
+
+            var current = carousel.style.transform;
+            var match = current.match(/translateX\((-?\d+)px\)/);
+            var pos = match ? parseInt(match[1]) : 0;
+            pos = pos + 270;
+            carousel.style.transform = 'translateX(' + pos + 'px)';
+            carousel.style.transition = 'transform 0.8s ease-in-out';
+
+            autoTimeout = setTimeout(startAuto, 3000);
+        });
+    }
+</script>
+
+<!-- BOTÓN SCROLL TO TOP -->
+<button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    // Mostrar/ocultar botón según el scroll
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    // Scroll suave al top
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+</body>
+</html>

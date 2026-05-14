@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto - CATTLEYA</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="producto-header">
+        <h1 id="productoNombre">Nombre del Producto</h1>
+        <a href="../catalogo.html" class="btn-volver-producto">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </header>
+
+    <!-- CONTENIDO PRODUCTO -->
+    <div class="producto-content">
+        <!-- IMAGEN -->
+        <div class="producto-imagen">
+            <img id="productoImagen" src="https://via.placeholder.com/400x400" alt="Producto">
+        </div>
+
+        <!-- INFO PRODUCTO -->
+        <div class="producto-info">
+            <h2 id="productoTitulo">Título del Producto</h2>
+            <p class="producto-precio">$<span id="productoPrecio">0</span></p>
+            <p class="producto-descripcion" id="productoDescripcion">
+                Descripción del producto
+            </p>
+
+            <h3 style="color: #8b2e2e; margin: 30px 0 15px 0; font-weight: 600;">Características:</h3>
+            <ul class="producto-detalles" id="productoDetalles">
+                <li>Cargando características...</li>
+            </ul>
+
+            <p class="producto-descripcion" style="font-size: 0.95rem; color: #6d6d6d; margin: 20px 0 0 0;">
+                <strong>Categoría:</strong> <span id="productoCategoria">-</span>
+            </p>
+
+            <div class="producto-cta">
+                <a href="#" id="btnComprarProducto" class="btn-comprar-producto">
+                    <i class="fab fa-whatsapp"></i> Comprar por WhatsApp
+                </a>
+            </div>
+
+            <p style="font-size: 0.85rem; color: #6d6d6d; margin-top: 15px; text-align: center;">
+                💬 Haz clic en el botón para consultar disponibilidad y realizar tu compra
+            </p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../../images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
+            </div>
+
+            <div class="footer-section">
+                <h3>Ubicación</h3>
+                <p>Necochea 27, Ramos Mejía</p>
+                <p>Buenos Aires</p>
+                <p>CP: 1704</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5491162948671" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:info@cattleya.com" target="_blank" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Teléfono: +54 9 11 6294-8671</p>
+                <p>Email: info@cattleya.com</p>
+                <p>Horarios: Lun - Dom 9:00 - 20:00</p>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 CATTLEYA - Tienda de Flores. Todos los derechos reservados.</p>
+            <p class="credits">Imágenes © <a href="#">CATTLEYA</a> | Diseño web © <a href="#">Isabelle Roselli</a></p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN SCROLL TO TOP -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- SCRIPT DEL PRODUCTO (AHORA VIENE DEL BACKEND) -->
+    <script src="../../producto.js"></script>
+
+    <script>
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
