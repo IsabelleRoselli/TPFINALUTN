@@ -73,7 +73,25 @@ async function api(path, options = {}) {
   return data;
 }
 
-// Subir imagen (multipart/form-data)
+// =============================
+// NUEVO: Cargar el select de categorías
+async function cargarCategoriasSelect() {
+  if (!els.category) return;
+  try {
+    // Usa api para autenticar con el token de admin
+    const cats = await api('/admin/categories');
+    els.category.innerHTML = '<option value="">Elegí una categoría</option>';
+    cats.forEach(cat => {
+      const id = cat._id || cat.id;
+      els.category.innerHTML += `<option value="${id}">${cat.name}</option>`;
+    });
+  } catch (e) {
+    els.category.innerHTML = '<option value="">(Error al cargar categorías)</option>';
+    setMsg(els.formMsg, 'No se pudieron cargar las categorías: ' + e.message);
+  }
+}
+// =============================
+
 async function uploadImage() {
   setMsg(els.uploadMsg, "Subiendo...");
   try {
@@ -155,6 +173,7 @@ async function login() {
     setToken(data.token);
     setMsg(els.loginMsg, "");
     setLoggedInUI(true);
+    await cargarCategoriasSelect(); // <- ¡Agregado aquí!
     await loadProducts();
   } catch (e) {
     setMsg(els.loginMsg, e.message);
@@ -326,6 +345,7 @@ function init() {
 
   if (getToken()) {
     setLoggedInUI(true);
+    cargarCategoriasSelect(); // <- también acá
     loadProducts().catch(() => setLoggedInUI(false));
   } else {
     setLoggedInUI(false);
