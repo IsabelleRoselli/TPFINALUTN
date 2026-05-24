@@ -41,16 +41,24 @@
           <input name="sku" placeholder="SKU (único)" required style="padding:10px;border-radius:10px;" />
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <!-- el precio se ingresa en PESOS AR$ -->
             <input name="priceARS" type="number" step="0.01" min="0" placeholder="Precio (AR$)" required style="padding:10px;border-radius:10px;" />
             <input name="stock" type="number" min="0" placeholder="Stock" value="0" required style="padding:10px;border-radius:10px;" />
           </div>
 
-          <!-- selector de categorías (ObjectId) -->
+          <!-- selector de categorías (string) -->
           <label style="display:grid;gap:6px;">
             Categoría
             <select name="category" id="categorySelect" required style="padding:10px;border-radius:10px;">
               <option value="" disabled selected>Elegí una categoría</option>
+              <option value="Flores y Ramos">Flores y Ramos</option>
+              <option value="Orquídeas">Orquídeas</option>
+              <option value="Plantas">Plantas</option>
+              <option value="Regalos">Regalos</option>
+              <option value="Peluches">Peluches</option>
+              <option value="Boxes">Boxes</option>
+              <option value="Eventos / Ocasiones">Eventos / Ocasiones</option>
+              <option value="Condolencias / En memoria">Condolencias / En memoria</option>
+              <option value="Varios">Varios</option>
             </select>
           </label>
 
@@ -59,10 +67,8 @@
             <option value="archived">Archivado</option>
           </select>
 
-          <!-- backend espera imageUrl -->
           <input name="imageUrl" placeholder="URL de imagen (opcional)" style="padding:10px;border-radius:10px;" />
 
-          <!-- Subir imagen desde tu compu -->
           <label style="display:grid;gap:6px;">
             Subir imagen (opcional)
             <input id="imageFile" type="file" accept="image/*" />
@@ -74,12 +80,10 @@
 
           <p id="uploadMsg" style="margin:0;"></p>
 
-          <!-- Botón cancelar edición -->
           <button class="btn btn-volver" id="btnCancelEdit" type="button" style="display:none;">
             <i class="fas fa-xmark"></i> Cancelar edición
           </button>
 
-          <!-- Botón submit con ID para que el JS cambie el texto (Crear/Guardar cambios) -->
           <button class="btn btn-menu" id="btnSubmit" type="submit">
             <i class="fas fa-plus"></i> Crear
           </button>
@@ -98,26 +102,6 @@
     </div>
   </section>
 
-  <!-- Agregado: Script para cargar categorías desde backend -->
-  <script>
-    // Ajusta esta URL si tu backend es distinto
-    async function cargarCategorias() {
-      const select = document.getElementById("categorySelect");
-      select.innerHTML = '<option value="" disabled selected>Elegí una categoría</option>';
-      try {
-        // Si tu backend requiere auth, agrega headers aquí
-        const res = await fetch("http://localhost:3001/admin/categories");
-        const data = await res.json();
-        // Ajusta según la estructura exacta de respuesta
-        (data.items || data).forEach(cat => {
-          select.innerHTML += `<option value="${cat._id}">${cat.name}</option>`;
-        });
-      } catch (e) {
-        select.innerHTML += '<option value="">Error cargando categorías</option>';
-      }
-    }
-    document.addEventListener("DOMContentLoaded", cargarCategorias);
-  </script>
   <script src="/js/admin/api.js"></script>
   <script src="/js/admin/products.js"></script>
 </body>

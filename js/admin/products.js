@@ -27,21 +27,6 @@
   const btnUpload = document.getElementById("btnUpload");
   const uploadMsg = document.getElementById("uploadMsg");
 
-  // 🚩 NUEVO: cargar categorías desde backend por ObjectId
-  async function cargarCategoriasSelect() {
-    categorySelect.innerHTML = '<option value="" disabled selected>Elegí una categoría</option>';
-    try {
-      // Ajusta endpoint si tu backend usa otro
-      const res = await window.apiFetch("/admin/categories");
-      const cats = res.items || res; // [] para { items:[...] } o array directo
-      cats.forEach(cat => {
-        categorySelect.innerHTML += `<option value="${cat._id}">${cat.name}</option>`;
-      });
-    } catch (err) {
-      categorySelect.innerHTML += '<option value="">Error cargando categorías</option>';
-    }
-  }
-
   function requireToken() {
     if (!window.getToken()) location.href = "/admin/login";
   }
@@ -88,25 +73,22 @@
 
     stockInput.value = String(product.stock ?? 0);
 
-    // 🚩 Usa el ObjectId real
-    if (categorySelect) categorySelect.value = (product.category && product.category._id) ? product.category._id : product.category || "";
+    // El category ahora será string igual al value del select
+    if (categorySelect) categorySelect.value = product.category ?? "";
 
     if (statusSelect) statusSelect.value = product.status ?? "active";
 
     imageUrlInput.value = product.image_url ?? product.imageUrl ?? "";
 
-    // scroll al form para que lo veas
     createForm.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Navegar al catálogo
   if (btnGoCatalogo) {
     btnGoCatalogo.addEventListener("click", () => {
       location.href = "/pages/catalogo.html";
     });
   }
 
-  // Logout
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
       window.clearToken();
@@ -114,14 +96,12 @@
     });
   }
 
-  // Cancel edit
   if (btnCancelEdit) {
     btnCancelEdit.addEventListener("click", () => {
       setModeCreate();
     });
   }
 
-  // Subir imagen y autocompletar imageUrl (sirve tanto en create como edit)
   if (btnUpload) {
     btnUpload.addEventListener("click", async () => {
       if (uploadMsg) uploadMsg.textContent = "";
@@ -170,7 +150,7 @@
             <td style="padding:8px;">${formatARSFromCents(priceCents)}</td>
             <td style="padding:8px;">${p.stock ?? ""}</td>
             <td style="padding:8px;">${p.status ?? ""}</td>
-            <td style="padding:8px;">${(p.category && p.category.name) ? p.category.name : p.category ?? ""}</td>
+            <td style="padding:8px;">${p.category ?? ""}</td>
             <td style="padding:8px; white-space:nowrap; display:flex; gap:8px; flex-wrap:wrap;">
               <button class="btn btn-menu" data-action="edit" data-id="${id}">Editar</button>
               ${
@@ -231,7 +211,6 @@
     );
   });
 
-  // Delegación de eventos para Editar / Archivar / Activar
   table.addEventListener("click", async (e) => {
     const btn = e.target.closest("button[data-action]");
     if (!btn) return;
@@ -256,7 +235,6 @@
           method: "DELETE",
         });
 
-        // Si estabas editando este mismo producto, salimos de edición
         if (productIdInput.value === id) setModeCreate();
 
         await load();
@@ -276,7 +254,6 @@
     }
   });
 
-  // Submit: crea o edita según productId
   createForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     createMsg.textContent = "";
@@ -285,8 +262,6 @@
     const raw = Object.fromEntries(fd.entries());
 
     const id = (raw.id || "").toString().trim();
-
-    // priceARS -> priceCents
     const priceCents = centsFromARSInput(raw.priceARS);
     if (priceCents == null) {
       createMsg.textContent = "El precio debe ser un número válido (AR$).";
@@ -305,7 +280,7 @@
       sku: String(raw.sku || "").trim(),
       priceCents,
       stock,
-      category: String(raw.category || "").trim(), // <-- Será el ObjectId correcto ahora
+      category: String(raw.category || "").trim(),
       status: String(raw.status || "active").trim(),
       imageUrl: String(raw.imageUrl || "").trim(),
     };
@@ -337,7 +312,6 @@
   });
 
   requireToken();
-  cargarCategoriasSelect(); // 🚩 Cargar el select con las categorías al inicio
   setModeCreate();
   load();
 })();
