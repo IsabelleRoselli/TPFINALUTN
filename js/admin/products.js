@@ -27,6 +27,21 @@
   const btnUpload = document.getElementById("btnUpload");
   const uploadMsg = document.getElementById("uploadMsg");
 
+  // 🚩 NUEVO: cargar categorías desde backend por ObjectId
+  async function cargarCategoriasSelect() {
+    categorySelect.innerHTML = '<option value="" disabled selected>Elegí una categoría</option>';
+    try {
+      // Ajusta endpoint si tu backend usa otro
+      const res = await window.apiFetch("/admin/categories");
+      const cats = res.items || res; // [] para { items:[...] } o array directo
+      cats.forEach(cat => {
+        categorySelect.innerHTML += `<option value="${cat._id}">${cat.name}</option>`;
+      });
+    } catch (err) {
+      categorySelect.innerHTML += '<option value="">Error cargando categorías</option>';
+    }
+  }
+
   function requireToken() {
     if (!window.getToken()) location.href = "/admin/login";
   }
@@ -55,6 +70,7 @@
     // defaults
     if (stockInput) stockInput.value = "0";
     if (statusSelect) statusSelect.value = "active";
+    if (categorySelect) categorySelect.value = "";
   }
 
   function setModeEdit(product) {
@@ -72,8 +88,8 @@
 
     stockInput.value = String(product.stock ?? 0);
 
-    // category is string (slug)
-    if (categorySelect) categorySelect.value = product.category ?? "";
+    // 🚩 Usa el ObjectId real
+    if (categorySelect) categorySelect.value = (product.category && product.category._id) ? product.category._id : product.category || "";
 
     if (statusSelect) statusSelect.value = product.status ?? "active";
 
@@ -154,7 +170,7 @@
             <td style="padding:8px;">${formatARSFromCents(priceCents)}</td>
             <td style="padding:8px;">${p.stock ?? ""}</td>
             <td style="padding:8px;">${p.status ?? ""}</td>
-            <td style="padding:8px;">${p.category ?? ""}</td>
+            <td style="padding:8px;">${(p.category && p.category.name) ? p.category.name : p.category ?? ""}</td>
             <td style="padding:8px; white-space:nowrap; display:flex; gap:8px; flex-wrap:wrap;">
               <button class="btn btn-menu" data-action="edit" data-id="${id}">Editar</button>
               ${
@@ -289,7 +305,7 @@
       sku: String(raw.sku || "").trim(),
       priceCents,
       stock,
-      category: String(raw.category || "").trim(),
+      category: String(raw.category || "").trim(), // <-- Será el ObjectId correcto ahora
       status: String(raw.status || "active").trim(),
       imageUrl: String(raw.imageUrl || "").trim(),
     };
@@ -321,6 +337,7 @@
   });
 
   requireToken();
+  cargarCategoriasSelect(); // 🚩 Cargar el select con las categorías al inicio
   setModeCreate();
   load();
 })();

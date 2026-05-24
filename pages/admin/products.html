@@ -46,20 +46,11 @@
             <input name="stock" type="number" min="0" placeholder="Stock" value="0" required style="padding:10px;border-radius:10px;" />
           </div>
 
-          <!-- selector de categorías (slug) -->
+          <!-- selector de categorías (ObjectId) -->
           <label style="display:grid;gap:6px;">
             Categoría
             <select name="category" id="categorySelect" required style="padding:10px;border-radius:10px;">
               <option value="" disabled selected>Elegí una categoría</option>
-              <option value="flores-y-ramos">Flores y Ramos</option>
-              <option value="orquideas">Orquídeas</option>
-              <option value="plantas">Plantas</option>
-              <option value="regalos">Regalos</option>
-              <option value="peluches">Peluches</option>
-              <option value="boxes">Boxes</option>
-              <option value="eventos">Eventos / Ocasiones</option>
-              <option value="condolencias">Condolencias / En memoria</option>
-              <option value="varios">Varios</option>
             </select>
           </label>
 
@@ -107,6 +98,26 @@
     </div>
   </section>
 
+  <!-- Agregado: Script para cargar categorías desde backend -->
+  <script>
+    // Ajusta esta URL si tu backend es distinto
+    async function cargarCategorias() {
+      const select = document.getElementById("categorySelect");
+      select.innerHTML = '<option value="" disabled selected>Elegí una categoría</option>';
+      try {
+        // Si tu backend requiere auth, agrega headers aquí
+        const res = await fetch("http://localhost:3001/admin/categories");
+        const data = await res.json();
+        // Ajusta según la estructura exacta de respuesta
+        (data.items || data).forEach(cat => {
+          select.innerHTML += `<option value="${cat._id}">${cat.name}</option>`;
+        });
+      } catch (e) {
+        select.innerHTML += '<option value="">Error cargando categorías</option>';
+      }
+    }
+    document.addEventListener("DOMContentLoaded", cargarCategorias);
+  </script>
   <script src="/js/admin/api.js"></script>
   <script src="/js/admin/products.js"></script>
 </body>
