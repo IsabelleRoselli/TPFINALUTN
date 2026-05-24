@@ -83,7 +83,7 @@ async function cargarCategoriasSelect() {
     els.category.innerHTML = '<option value="">Elegí una categoría</option>';
     cats.forEach(cat => {
       const id = cat._id || cat.id;
-      els.category.innerHTML += `<option value="${id}">${cat.name}</option>`;
+    els.category.innerHTML += `<option value="${cat.slug}">${cat.name}</option>`;
     });
   } catch (e) {
     els.category.innerHTML = '<option value="">(Error al cargar categorías)</option>';
