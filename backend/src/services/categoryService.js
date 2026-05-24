@@ -1,4 +1,4 @@
-const Category = require("../models/categoryModel");
+const Category = require("../models/Category");
 
 async function getOrCreateByName(name) {
   if (!name) throw new Error("El nombre de la categoría es obligatorio");
