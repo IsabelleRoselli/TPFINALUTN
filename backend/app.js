@@ -16,6 +16,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Middleware forzar dominio personalizado
+app.use((req, res, next) => {
+  const host = req.headers.host;
+  if (host && host.includes('railway.app')) {
+    // Cambia por tu dominio personalizado
+    return res.redirect(301, `https://www.cattleyatiendadeflores.com${req.url}`);
+  }
+  next();
+});
+
 // ===== FRONTEND ESTÁTICO =====
 const rootDir = path.join(__dirname, "..");
 app.use("/styles.css", express.static(path.join(rootDir, "styles.css")));
