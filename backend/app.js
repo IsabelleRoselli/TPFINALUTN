@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.use('/images', express.static(path.join(rootDir, 'images')));
 
 // ===== FRONTEND ESTÁTICO =====
 const rootDir = path.join(__dirname, "..");
