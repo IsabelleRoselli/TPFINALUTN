@@ -250,6 +250,8 @@ app.get("/admin/products", requireAdmin, async (req, res) => {
 app.post("/admin/products", requireAdmin, async (req, res) => {
   const { name, description, priceCents, stock, sku, status, category, imageUrl } = req.body || {};
 
+  console.log("POST /admin/products recibió:", { name, description, priceCents, stock, sku, status, category, imageUrl });
+
   if (!name || !sku || priceCents == null) {
     return res.status(400).json({ error: "name, sku, priceCents son obligatorios" });
   }
@@ -277,9 +279,13 @@ app.post("/admin/products", requireAdmin, async (req, res) => {
 
     res.status(201).json(mapProductResponse(created));
   } catch (e) {
+    console.error("ERROR creando producto:", e);
     if (e && e.code === 11000) return res.status(409).json({ error: "SKU ya existe" });
-    if (e && e.name === "ValidationError") return res.status(400).json({ error: "Datos inválidos" });
-    res.status(500).json({ error: "Error servidor" });
+    if (e && e.name === "ValidationError") {
+      const messages = Object.values(e.errors).map(err => err.message).join("; ");
+      return res.status(400).json({ error: `Validación: ${messages}` });
+    }
+    res.status(500).json({ error: e.message || "Error servidor" });
   }
 });
 
@@ -323,13 +329,17 @@ app.put("/admin/products/:id", requireAdmin, async (req, res) => {
     await product.save();
     return res.json(mapProductResponse(product));
   } catch (e) {
+    console.error("ERROR actualizando producto:", e);
     if (e && e.code === 11000) return res.status(409).json({ error: "SKU ya existe" });
-    if (e && e.name === "ValidationError") return res.status(400).json({ error: "Datos inválidos" });
-    return res.status(500).json({ error: "Error servidor" });
+    if (e && e.name === "ValidationError") {
+      const messages = Object.values(e.errors).map(err => err.message).join("; ");
+      return res.status(400).json({ error: `Validación: ${messages}` });
+    }
+    return res.status(500).json({ error: e.message || "Error servidor" });
   }
 });
 
-// “BORRAR” producto (suave): lo archiva
+// "BORRAR" producto (suave): lo archiva
 app.delete("/admin/products/:id", requireAdmin, async (req, res) => {
   try {
     const id = req.params.id;
