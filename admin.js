@@ -1,354 +1,361 @@
 const API_URL = "http://127.0.0.1:3001";
-document.getElementById("apiUrlText").textContent = API_URL;
 
-const els = {
-  loginCard: document.getElementById("loginCard"),
-  crudCard: document.getElementById("crudCard"),
-  listCard: document.getElementById("listCard"),
-  loginEmail: document.getElementById("loginEmail"),
-  loginPassword: document.getElementById("loginPassword"),
-  loginBtn: document.getElementById("loginBtn"),
-  loginMsg: document.getElementById("loginMsg"),
-  logoutBtn: document.getElementById("logoutBtn"),
+// ============================================
+// ELEMENTOS DEL DOM
+// ============================================
+const loginScreen = document.getElementById("loginScreen");
+const adminScreen = document.getElementById("adminScreen");
+const loginForm = document.getElementById("loginForm");
+const logoutBtn = document.getElementById("logoutBtn");
 
-  productId: document.getElementById("productId"),
-  name: document.getElementById("name"),
-  sku: document.getElementById("sku"),
-  price: document.getElementById("price"),
-  stock: document.getElementById("stock"),
-  status: document.getElementById("status"),
-  category: document.getElementById("category"),
-  imageUrl: document.getElementById("imageUrl"),
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const loginMsg = document.getElementById("loginMsg");
 
-  // upload de imagen
-  imageFile: document.getElementById("imageFile"),
-  uploadBtn: document.getElementById("uploadBtn"),
-  uploadMsg: document.getElementById("uploadMsg"),
+const productForm = document.getElementById("productForm");
+const productId = document.getElementById("productId");
+const productName = document.getElementById("productName");
+const productSKU = document.getElementById("productSKU");
+const productPrice = document.getElementById("productPrice");
+const productStock = document.getElementById("productStock");
+const productCategory = document.getElementById("productCategory");
+const productSubcategory = document.getElementById("productSubcategory");
+const productImage = document.getElementById("productImage");
+const productDescription = document.getElementById("productDescription");
 
-  description: document.getElementById("description"),
+const formMsg = document.getElementById("formMsg");
+const uploadMsg = document.getElementById("uploadMsg");
+const resetBtn = document.getElementById("resetBtn");
+const formTitle = document.getElementById("formTitle");
 
-  saveBtn: document.getElementById("saveBtn"),
-  resetBtn: document.getElementById("resetBtn"),
-  formMsg: document.getElementById("formMsg"),
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const productsList = document.getElementById("productsList");
+const listMsg = document.getElementById("listMsg");
 
-  search: document.getElementById("search"),
-  refreshBtn: document.getElementById("refreshBtn"),
-  tbody: document.getElementById("tbody"),
-  listMsg: document.getElementById("listMsg"),
-};
-
-function setMsg(el, msg) {
-  if (!el) return;
-  el.textContent = msg || "";
+// ============================================
+// FUNCIONES DE UTILIDAD
+// ============================================
+function showMessage(element, message, type = "info") {
+  element.textContent = message;
+  element.className = `message ${type}`;
+  element.classList.remove("hidden");
 }
 
-function setLoggedInUI(loggedIn) {
-  els.loginCard.classList.toggle("hidden", loggedIn);
-  els.crudCard.classList.toggle("hidden", !loggedIn);
-  els.listCard.classList.toggle("hidden", !loggedIn);
+function hideMessage(element) {
+  element.classList.add("hidden");
 }
 
 function getToken() {
-  return localStorage.getItem("admin_token");
+  return localStorage.getItem("cattleya_admin_token");
 }
+
 function setToken(token) {
-  localStorage.setItem("admin_token", token);
+  localStorage.setItem("cattleya_admin_token", token);
 }
+
 function clearToken() {
-  localStorage.removeItem("admin_token");
+  localStorage.removeItem("cattleya_admin_token");
 }
 
-async function api(path, options = {}) {
-  const headers = options.headers ? { ...options.headers } : {};
-  headers["Content-Type"] = "application/json";
+function showLoginScreen() {
+  loginScreen.classList.remove("hidden");
+  adminScreen.classList.add("hidden");
+}
+
+function showAdminScreen() {
+  loginScreen.classList.add("hidden");
+  adminScreen.classList.remove("hidden");
+}
+
+// ============================================
+// API CALLS
+// ============================================
+async function apiCall(path, options = {}) {
+  const headers = {
+    "Content-Type": "application/json",
+    ...options.headers
+  };
+
   const token = getToken();
-  if (token) headers["Authorization"] = `Bearer ${token}`;
-
-  const res = await fetch(`${API_URL}${path}`, { ...options, headers });
-  const data = await res.json().catch(() => ({}));
-
-  if (!res.ok) {
-    throw new Error(data?.error || "Error");
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
   }
+
+  const response = await fetch(`${API_URL}${path}`, {
+    ...options,
+    headers
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || `Error ${response.status}`);
+  }
+
   return data;
 }
 
-// =============================
-// NUEVO: Cargar el select de categorías
-async function cargarCategoriasSelect() {
-  if (!els.category) return;
+// ============================================
+// LOGIN
+// ============================================
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  hideMessage(loginMsg);
+  
   try {
-    // Usa api para autenticar con el token de admin
-    const cats = await api('/admin/categories');
-    els.category.innerHTML = '<option value="">Elegí una categoría</option>';
-    cats.forEach(cat => {
-      const id = cat._id || cat.id;
-    els.category.innerHTML += `<option value="${cat.slug}">${cat.name}</option>`;
-    });
-  } catch (e) {
-    els.category.innerHTML = '<option value="">(Error al cargar categorías)</option>';
-    setMsg(els.formMsg, 'No se pudieron cargar las categorías: ' + e.message);
-  }
-}
-// =============================
-
-async function uploadImage() {
-  setMsg(els.uploadMsg, "Subiendo...");
-  try {
-    const file = els.imageFile?.files?.[0];
-    if (!file) throw new Error("Elegí una imagen primero");
-
-    const token = getToken();
-    if (!token) throw new Error("No estás logueado");
-
-    const fd = new FormData();
-    fd.append("image", file);
-
-    const res = await fetch(`${API_URL}/admin/upload`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` }, // NO setear Content-Type
-      body: fd,
-    });
-
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data?.error || "Error subiendo imagen");
-
-    // Guardar y mostrar la URL (no se borra sola)
-    const url = data.url || "";
-    if (els.imageUrl) els.imageUrl.value = url;
-    localStorage.setItem("last_uploaded_image_url", url);
-
-    setMsg(els.uploadMsg, "Imagen subida OK.");
-  } catch (e) {
-    setMsg(els.uploadMsg, e.message);
-  }
-}
-
-function pesosToCents(pesos) {
-  // Permite que el input venga como "200000", "$200.000", "200.000", "200,000", etc.
-  const cleaned = String(pesos ?? "")
-    .replaceAll("$", "")
-    .replaceAll(".", "")
-    .replaceAll(",", "")
-    .trim();
-
-  const n = Number(cleaned);
-  return Math.round(n * 100);
-}
-
-function centsToPesos(cents) {
-  // Muestra pesos con separadores AR (ej: 200.000)
-  return Math.round(Number(cents) / 100).toLocaleString("es-AR");
-}
-
-function resetForm() {
-  els.productId.value = "";
-  els.name.value = "";
-  els.sku.value = "";
-  els.price.value = "";
-  els.stock.value = 0;
-  els.status.value = "active";
-  els.category.value = "";
-
-  // IMPORTANTE: NO borrar imageUrl ni uploadMsg automáticamente
-  // para que no "desaparezca" la URL después de subir.
-  // els.imageUrl.value = "";
-  // setMsg(els.uploadMsg, "");
-
-  if (els.imageFile) els.imageFile.value = "";
-  els.description.value = "";
-  setMsg(els.formMsg, "");
-}
-
-async function login() {
-  setMsg(els.loginMsg, "Entrando...");
-  try {
-    const data = await api("/auth/login", {
+    showMessage(loginMsg, "Ingresando...", "info");
+    
+    const data = await apiCall("/auth/login", {
       method: "POST",
       body: JSON.stringify({
-        email: els.loginEmail.value.trim(),
-        password: els.loginPassword.value,
-      }),
+        email: loginEmail.value.trim(),
+        password: loginPassword.value
+      })
     });
+
     setToken(data.token);
-    setMsg(els.loginMsg, "");
-    setLoggedInUI(true);
-    await cargarCategoriasSelect(); // <- ¡Agregado aquí!
-    await loadProducts();
+    loginEmail.value = "";
+    loginPassword.value = "";
+    hideMessage(loginMsg);
+    showAdminScreen();
+    cargarProductos();
   } catch (e) {
-    setMsg(els.loginMsg, e.message);
+    showMessage(loginMsg, e.message, "error");
   }
-}
+});
 
-async function loadProducts() {
-  setMsg(els.listMsg, "Cargando...");
-  els.tbody.innerHTML = "";
+// ============================================
+// LOGOUT
+// ============================================
+logoutBtn.addEventListener("click", () => {
+  clearToken();
+  resetForm();
+  hideMessage(loginMsg);
+  hideMessage(formMsg);
+  showLoginScreen();
+});
+
+// ============================================
+// CRUD DE PRODUCTOS
+// ============================================
+productForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  hideMessage(formMsg);
+
   try {
-    const search = els.search.value.trim();
-    const qs = new URLSearchParams({
-      page: "1",
-      pageSize: "50",
-      ...(search ? { search } : {}),
-    });
-    const data = await api(`/admin/products?${qs.toString()}`);
-    renderProducts(data.items || []);
-    setMsg(els.listMsg, `Total: ${data.pagination?.total ?? 0}`);
-  } catch (e) {
-    setMsg(els.listMsg, e.message);
-  }
-}
+    showMessage(formMsg, "Guardando...", "info");
 
-function escapeHtml(str) {
-  return String(str ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-function renderProducts(items) {
-  els.tbody.innerHTML = items
-    .map(
-      (p) => `
-      <tr>
-        <td>${p.id}</td>
-        <td>${escapeHtml(p.name)}</td>
-        <td>${escapeHtml(p.sku)}</td>
-        <td>$${centsToPesos(p.price_cents)}</td>
-        <td>${p.stock}</td>
-        <td>${p.status}</td>
-        <td>
-          <button class="btn-admin btn-ghost" data-action="edit" data-id="${p.id}">Editar</button>
-          <button class="btn-admin btn-danger" data-action="archive" data-id="${p.id}">Archivar</button>
-        </td>
-      </tr>
-    `
-    )
-    .join("");
-}
-
-async function saveProduct() {
-  setMsg(els.formMsg, "Guardando...");
-  try {
+    const isEditing = productId.value;
     const body = {
-      name: els.name.value.trim(),
-      sku: els.sku.value.trim(),
-
-      // El input del admin es en PESOS → el backend guarda CENTAVOS
-      priceCents: pesosToCents(els.price.value),
-
-      stock: Number(els.stock.value || 0),
-      status: els.status.value,
-      category: els.category.value.trim() || null,
-      imageUrl: els.imageUrl.value.trim() || null,
-      description: els.description.value.trim() || null,
+      name: productName.value.trim(),
+      sku: productSKU.value.trim(),
+      priceCents: parseInt(productPrice.value) * 100,
+      stock: parseInt(productStock.value) || 0,
+      category: productCategory.value,
+      subcategory: productSubcategory.value,
+      description: productDescription.value.trim(),
+      imageUrl: productImage.dataset.url || ""
     };
 
-    if (!body.name || !body.sku || Number.isNaN(body.priceCents)) {
-      throw new Error("Faltan datos (name, sku, price)");
+    if (!body.name || !body.sku || !body.priceCents) {
+      throw new Error("Faltan datos requeridos (Nombre, SKU, Precio)");
     }
 
-    const id = els.productId.value;
-    if (id) {
-      await api(`/admin/products/${id}`, { method: "PUT", body: JSON.stringify(body) });
+    let result;
+    if (isEditing) {
+      result = await apiCall(`/admin/products/${productId.value}`, {
+        method: "PUT",
+        body: JSON.stringify(body)
+      });
     } else {
-      await api(`/admin/products`, { method: "POST", body: JSON.stringify(body) });
+      result = await apiCall("/admin/products", {
+        method: "POST",
+        body: JSON.stringify(body)
+      });
     }
 
-    setMsg(els.formMsg, "Listo.");
+    showMessage(formMsg, isEditing ? "Producto actualizado ✓" : "Producto creado ✓", "success");
     resetForm();
-    await loadProducts();
+    cargarProductos();
   } catch (e) {
-    setMsg(els.formMsg, e.message);
+    showMessage(formMsg, e.message, "error");
   }
+});
+
+function resetForm() {
+  productForm.reset();
+  productId.value = "";
+  formTitle.textContent = "Crear Producto";
+  hideMessage(formMsg);
+  hideMessage(uploadMsg);
+  productImage.dataset.url = "";
 }
 
-function parsePriceCellToPesoNumber(text) {
-  // Convierte "$200.000" → "200000" → 200000
-  return String(text ?? "")
-    .replaceAll("$", "")
-    .replaceAll(".", "")
-    .replaceAll(",", "")
-    .trim();
-}
+resetBtn.addEventListener("click", resetForm);
 
-function fillFormFromRow(row) {
-  const tds = row.querySelectorAll("td");
-  els.productId.value = tds[0].textContent;
-  els.name.value = tds[1].textContent;
-  els.sku.value = tds[2].textContent;
-
-  // Antes: els.price.value = "...".replace("$","")
-  // Ahora: soporta separadores de miles (200.000) sin romper el número
-  els.price.value = parsePriceCellToPesoNumber(tds[3].textContent || "");
-
-  els.stock.value = tds[4].textContent;
-  els.status.value = tds[5].textContent;
-
-  // No podemos reconstruir el archivo del input type=file (por seguridad del navegador)
-  if (els.imageFile) els.imageFile.value = "";
-
-  // IMPORTANTE: NO borrar el uploadMsg automáticamente, así no desaparece “Imagen subida OK.”
-  // setMsg(els.uploadMsg, "");
-
-  setMsg(els.formMsg, "Editando: tocá Guardar para actualizar.");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-async function archiveProduct(id) {
-  if (!confirm("¿Seguro que querés archivar este producto?")) return;
-  setMsg(els.listMsg, "Archivando...");
+// ============================================
+// CARGAR PRODUCTOS
+// ============================================
+async function cargarProductos() {
   try {
-    await api(`/admin/products/${id}`, { method: "DELETE" });
-    await loadProducts();
+    hideMessage(listMsg);
+    productsList.innerHTML = "<p style='text-align:center; color:#999;'>Cargando...</p>";
+
+    const search = searchInput.value.trim();
+    const qs = new URLSearchParams({
+      page: "1",
+      pageSize: "100",
+      ...(search ? { search } : {})
+    });
+
+    const data = await apiCall(`/admin/products?${qs.toString()}`);
+    renderProductos(data.items || []);
+    
+    if (data.pagination) {
+      showMessage(listMsg, `Total: ${data.pagination.total} producto(s)`, "info");
+    }
   } catch (e) {
-    setMsg(els.listMsg, e.message);
+    productsList.innerHTML = `<p class='no-products'>Error: ${e.message}</p>`;
   }
 }
 
+function renderProductos(productos) {
+  if (productos.length === 0) {
+    productsList.innerHTML = "<p class='no-products'>No hay productos. Crea uno para empezar.</p>";
+    return;
+  }
+
+  productsList.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>SKU</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${productos.map(p => `
+          <tr>
+            <td>${p.name}</td>
+            <td><small>${p.sku}</small></td>
+            <td class="price">$${formatearPrecio(p.price_cents)}</td>
+            <td>${p.stock}</td>
+            <td><small>${p.category}</small></td>
+            <td><span class="status ${p.status}">${p.status === "active" ? "Activo" : "Archivado"}</span></td>
+            <td>
+              <div class="actions">
+                <button class="btn btn-secondary btn-small" onclick="editarProducto('${p.id}')">Editar</button>
+                <button class="btn btn-danger btn-small" onclick="archivarProducto('${p.id}')">Archivar</button>
+              </div>
+            </td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function formatearPrecio(cents) {
+  return Math.round(cents / 100).toLocaleString("es-AR");
+}
+
+async function editarProducto(id) {
+  try {
+    const data = await apiCall(`/admin/products/${id}`);
+    
+    productId.value = data.id;
+    productName.value = data.name;
+    productSKU.value = data.sku;
+    productPrice.value = Math.round(data.price_cents / 100);
+    productStock.value = data.stock;
+    productCategory.value = data.category || "";
+    productSubcategory.value = data.subcategory || "";
+    productDescription.value = data.description || "";
+    
+    if (data.image_url) {
+      productImage.dataset.url = data.image_url;
+    }
+    
+    formTitle.textContent = "Editar Producto";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (e) {
+    showMessage(formMsg, `Error: ${e.message}`, "error");
+  }
+}
+
+async function archivarProducto(id) {
+  if (!confirm("¿Estás seguro de que querés archivar este producto?")) return;
+
+  try {
+    await apiCall(`/admin/products/${id}`, { method: "DELETE" });
+    showMessage(listMsg, "Producto archivado ✓", "success");
+    cargarProductos();
+  } catch (e) {
+    showMessage(listMsg, `Error: ${e.message}`, "error");
+  }
+}
+
+// ============================================
+// SUBIDA DE IMAGEN
+// ============================================
+productImage.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showMessage(uploadMsg, "La imagen es muy grande (máximo 5MB)", "error");
+    productImage.value = "";
+    return;
+  }
+
+  try {
+    showMessage(uploadMsg, "Subiendo imagen...", "info");
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const token = getToken();
+    const response = await fetch(`${API_URL}/admin/upload`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Error subiendo imagen");
+
+    productImage.dataset.url = data.url;
+    showMessage(uploadMsg, "Imagen subida ✓", "success");
+  } catch (e) {
+    showMessage(uploadMsg, `Error: ${e.message}`, "error");
+    productImage.value = "";
+  }
+}); 
+
+// ============================================
+// BÚSQUEDA
+// ============================================
+searchBtn.addEventListener("click", cargarProductos);
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") cargarProductos();
+});
+
+// ============================================
+// INICIALIZACIÓN
+// ============================================
 function init() {
-  els.loginBtn.addEventListener("click", login);
-  els.logoutBtn.addEventListener("click", () => {
-    clearToken();
-    setLoggedInUI(false);
-    resetForm();
-    setMsg(els.loginMsg, "Sesión cerrada.");
-  });
-
-  els.refreshBtn.addEventListener("click", loadProducts);
-  els.search.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") loadProducts();
-  });
-
-  els.saveBtn.addEventListener("click", saveProduct);
-  els.resetBtn.addEventListener("click", resetForm);
-
-  if (els.uploadBtn) {
-    els.uploadBtn.addEventListener("click", uploadImage);
-  }
-
-  els.tbody.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
-    const action = btn.dataset.action;
-    const row = btn.closest("tr");
-    if (action === "edit") fillFormFromRow(row);
-    if (action === "archive") archiveProduct(btn.dataset.id);
-  });
-
-  // Restaurar última URL subida (por si el navegador recarga o algo limpia el input)
-  const last = localStorage.getItem("last_uploaded_image_url");
-  if (last && els.imageUrl && !els.imageUrl.value) {
-    els.imageUrl.value = last;
-  }
-
-  if (getToken()) {
-    setLoggedInUI(true);
-    cargarCategoriasSelect(); // <- también acá
-    loadProducts().catch(() => setLoggedInUI(false));
+  const token = getToken();
+  if (token) {
+    showAdminScreen();
+    cargarProductos();
   } else {
-    setLoggedInUI(false);
+    showLoginScreen();
   }
 }
 

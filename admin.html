@@ -1,164 +1,1030 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - CATTLEYA</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .admin-wrap { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-    .admin-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.12); margin-bottom: 18px; }
-    .admin-title { color: #8b2e2e; margin-bottom: 10px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    label { display:block; font-weight:600; margin-bottom:6px; }
-    input, textarea, select { width:100%; padding:12px 14px; border:1px solid #e0e0e0; border-radius:8px; font-family: inherit; }
-    textarea { min-height: 90px; resize: vertical; }
-    .admin-actions { display:flex; gap:10px; flex-wrap: wrap; align-items:center; margin-top: 12px; }
-    .btn-admin { padding: 10px 14px; border: none; border-radius: 8px; cursor:pointer; font-weight: 700; }
-    .btn-save { background: #5a070b; color: white; }
-    .btn-save:hover { background: #3d050a; }
-    .btn-ghost { background: #f5f1f0; color: #5a070b; border: 1px solid #e3d8d6; }
-    .btn-danger { background: #8b2e2e; color: white; }
-    .btn-danger:hover { background: #6b1e1e; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 12px; border-bottom: 1px solid #eee; text-align:left; }
-    th { color: #5a070b; }
-    .muted { color: #6d6d6d; font-size: .9rem; }
-    .topbar { display:flex; justify-content: space-between; align-items:center; gap: 10px; }
-    .hidden { display:none !important; }
-    @media (max-width: 800px) { .row, .row-3 { grid-template-columns: 1fr; } }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-green: #5a070b;
+      --dark-red: #8b2e2e;
+      --light-bg: #f5f1f0;
+      --text-dark: #2d2d2d;
+      --text-light: #6d6d6d;
+    }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background-color: #faf7f6;
+      min-height: 100vh;
+      color: var(--text-dark);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      right: -200px;
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(196, 69, 105, 0.4) 0%, transparent 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatRight 15s ease-in-out infinite;
+      filter: blur(100px);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -200px;
+      left: -200px;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(139, 46, 46, 0.3) 0%, transparent 60%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatLeft 18s ease-in-out infinite;
+      filter: blur(100px);
+    }
+
+    @keyframes floatRight {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(60px); }
+    }
+
+    @keyframes floatLeft {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-60px); }
+    }
+
+    /* ========== LOGIN SECTION ========== */
+    .login-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/banner2.jpeg') center/cover;
+      z-index: 1000;
+    }
+
+    .login-section.hidden {
+      display: none;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 12px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-card .logo {
+      max-width: 220px;
+      margin: 0 auto 30px;
+      display: block;
+      filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .login-card h2 {
+      color: var(--primary-green);
+      margin-bottom: 30px;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(90, 7, 11, 0.1);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-red) 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(90, 7, 11, 0.3);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(90, 7, 11, 0.4);
+    }
+
+    .login-error {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 15px;
+      text-align: center;
+      padding: 12px;
+      background: #ffebee;
+      border-radius: 6px;
+    }
+
+    /* ========== ADMIN SECTION ========== */
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.show {
+      display: block;
+    }
+
+    /* ========== HERO BANNER ========== */
+    .admin-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./images/banner2.jpeg') center/cover;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    .admin-hero-content {
+      max-width: 600px;
+      animation: fadeInDown 1s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .admin-hero-logo {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, 0.6));
+    }
+
+    .admin-hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .admin-hero-subtitle {
+      font-size: 16px;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .admin-header h2 {
+      color: var(--primary-green);
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .btn-logout {
+      padding: 11px 22px;
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-logout:hover {
+      background: #3d050a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(90, 7, 11, 0.3);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+      color: var(--primary-green);
+      margin-bottom: 25px;
+      font-size: 22px;
+      font-weight: 700;
+      border-bottom: 3px solid var(--primary-green);
+      padding-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 11px 13px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(90, 7, 11, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .image-preview {
+      margin: 12px 0;
+      max-width: 180px;
+      border-radius: 8px;
+      display: none;
+      border: 3px solid var(--primary-green);
+      padding: 5px;
+      box-shadow: 0 4px 12px rgba(90, 7, 11, 0.2);
+    }
+
+    .image-preview.show {
+      display: block;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 11px 18px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 13px;
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-red) 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(90, 7, 11, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(90, 7, 11, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f5f1f0;
+      color: var(--primary-green);
+      border: 2px solid var(--primary-green);
+    }
+
+    .btn-secondary:hover {
+      background: #e8ddd8;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: #d32f2f;
+      color: white;
+      box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+    }
+
+    .btn-danger:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+    }
+
+    .message {
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-top: 18px;
+      font-size: 13px;
+      display: none;
+      border-left: 4px solid;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: #c8e6c9;
+      color: #2e7d32;
+      border-left-color: #2e7d32;
+    }
+
+    .message.error {
+      background: #ffcdd2;
+      color: #c62828;
+      border-left-color: #c62828;
+    }
+
+    /* ========== TABLA ========== */
+    .search-box {
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 11px 13px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead {
+      background: #f5f1f0;
+    }
+
+    th {
+      padding: 14px 12px;
+      text-align: left;
+      color: var(--primary-green);
+      font-weight: 700;
+      border-bottom: 2px solid var(--primary-green);
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #555;
+    }
+
+    tr:hover {
+      background: #f9f7f6;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .action-buttons .btn {
+      padding: 6px 11px;
+      font-size: 11px;
+    }
+
+    .price-cell {
+      font-weight: 700;
+      color: var(--primary-green);
+    }
+
+    .status-active {
+      color: #2e7d32;
+      font-weight: 700;
+    }
+
+    .status-archived {
+      color: #f57c00;
+      font-weight: 700;
+    }
+
+    .no-products {
+      text-align: center;
+      padding: 50px;
+      color: #999;
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px 20px;
+      }
+
+      .admin-hero-logo {
+        max-width: 200px;
+      }
+
+      .admin-hero h1 {
+        font-size: 22px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .action-buttons .btn {
+        width: 100%;
+      }
+
+      .container {
+        padding: 20px 15px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="admin-wrap">
-    <div class="admin-card topbar">
-      <div>
-        <h2 class="admin-title">Panel de Administración</h2>
-        <div class="muted">Backend: <span id="apiUrlText"></span></div>
-      </div>
-      <div class="admin-actions">
-        <a class="btn btn-secondary" href="index.html">Volver al sitio</a>
-        <button class="btn-admin btn-ghost" id="logoutBtn">Cerrar sesión</button>
-      </div>
-    </div>
 
-    <div class="admin-card" id="loginCard">
-      <h3 class="admin-title">Login</h3>
-      <div class="row">
-        <div>
+  <!-- LOGIN -->
+  <div class="login-section" id="loginSection">
+    <div class="login-card">
+      <img src="./images/logocattleya.png" alt="CATTLEYA" class="logo">
+      <h2>Panel de Administración</h2>
+      <form id="loginForm">
+        <div class="form-group">
           <label>Email</label>
-          <input id="loginEmail" type="email" placeholder="admin@admin.com">
+          <input type="email" id="loginEmail" placeholder="admin@admin.com" required>
         </div>
-        <div>
+        <div class="form-group">
           <label>Contraseña</label>
-          <input id="loginPassword" type="password" placeholder="admin123">
+          <input type="password" id="loginPassword" placeholder="Contraseña" required>
         </div>
-      </div>
-      <div class="admin-actions">
-        <button class="btn-admin btn-save" id="loginBtn">Entrar</button>
-        <span class="muted" id="loginMsg"></span>
-      </div>
-    </div>
-
-    <div class="admin-card hidden" id="crudCard">
-      <h3 class="admin-title">Crear / Editar producto</h3>
-      <input type="hidden" id="productId">
-
-      <div class="row">
-        <div>
-          <label>Nombre</label>
-          <input id="name" placeholder="Ramo Clásico">
-        </div>
-        <div>
-          <label>SKU (único)</label>
-          <input id="sku" placeholder="RAM-CLA-001">
-        </div>
-      </div>
-
-      <div class="row-3" style="margin-top:12px">
-        <div>
-          <label>Precio (pesos)</label>
-          <input id="price" type="number" min="0" step="1" placeholder="4500">
-        </div>
-        <div>
-          <label>Stock</label>
-          <input id="stock" type="number" min="0" step="1" value="0">
-        </div>
-        <div>
-          <label>Estado</label>
-          <select id="status">
-            <option value="active">Activo</option>
-            <option value="inactive">Inactivo</option>
-            <option value="archived">Archivado</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row" style="margin-top:12px">
-        <div>
-          <label>Categoría</label>
-<select id="category" required>
-  <option value="">Elegí una categoría</option>
-  <!-- Las opciones las pone el JS -->
-</select>
-        </div>
-        <div>
-          <label>URL Imagen</label>
-          <input id="imageUrl" placeholder="https://...">
-          <label for="imageFile">Subir imagen</label>
-<input id="imageFile" type="file" accept="image/*" />
-
-<button type="button" class="btn-admin btn-ghost" id="uploadBtn">
-  Subir
-</button>
-
-<small id="uploadMsg"></small>
-        </div>
-      </div>
-
-      <div style="margin-top:12px">
-        <label>Descripción</label>
-        <textarea id="description" placeholder="Descripción..."></textarea>
-      </div>
-
-      <div class="admin-actions">
-        <button class="btn-admin btn-save" id="saveBtn">Guardar</button>
-        <button class="btn-admin btn-ghost" id="resetBtn">Limpiar</button>
-        <span class="muted" id="formMsg"></span>
-      </div>
-    </div>
-
-    <div class="admin-card hidden" id="listCard">
-      <div class="topbar" style="margin-bottom:12px">
-        <h3 class="admin-title">Productos</h3>
-        <div class="admin-actions">
-          <input id="search" placeholder="Buscar por nombre o SKU">
-          <button class="btn-admin btn-ghost" id="refreshBtn">Refrescar</button>
-        </div>
-      </div>
-
-      <div style="overflow:auto">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>SKU</th>
-              <th>Precio</th>
-              <th>Stock</th>
-              <th>Estado</th>
-              <th class="muted">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
-
-      <div class="muted" id="listMsg" style="margin-top:10px"></div>
+        <button type="submit" class="btn-login">Entrar</button>
+        <div class="login-error" id="loginError"></div>
+      </form>
     </div>
   </div>
 
-  <script src="admin.js"></script>
+  <!-- ADMIN PANEL -->
+  <div class="admin-section" id="adminSection">
+    <!-- BANNER CON LOGO -->
+    <div class="admin-hero">
+      <div class="admin-hero-content">
+        <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="admin-hero-logo">
+        <h1>Panel de Administración</h1>
+        <p class="admin-hero-subtitle">Gestión de Productos</p>
+      </div>
+    </div>
+
+    <!-- HEADER CON LOGOUT -->
+    <div class="admin-header">
+      <h2>Productos</h2>
+      <button class="btn-logout" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+      </button>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="container">
+      <div class="content">
+        <!-- FORMULARIO -->
+        <div class="card">
+          <h3><i class="fas fa-plus-circle"></i> Crear / Editar Producto</h3>
+          <form id="productForm">
+            <input type="hidden" id="productId">
+
+            <div class="form-group">
+              <label>Nombre *</label>
+              <input type="text" id="productName" placeholder="Ej: Ramo de Rosas Importadas" required>
+            </div>
+
+            <div class="form-group">
+              <label>SKU (único) *</label>
+              <input type="text" id="productSku" placeholder="Ej: RAM-ROSAS-001" required>
+            </div>
+
+            <div class="form-group">
+              <label>Precio (pesos argentinos) *</label>
+              <input type="number" id="productPrice" min="0" placeholder="Ej: 4500" required>
+            </div>
+
+            <div class="form-group">
+              <label>Stock</label>
+              <input type="number" id="productStock" min="0" value="0">
+            </div>
+
+            <div class="form-group">
+              <label>Categoría *</label>
+              <select id="productCategory" required>
+                <option value="">Seleccionar categoría</option>
+                <option value="Flores y Ramos">Flores y Ramos</option>
+                <option value="Orquídeas">Orquídeas</option>
+                <option value="Plantas">Plantas</option>
+                <option value="Regalos">Regalos</option>
+                <option value="Peluches">Peluches</option>
+                <option value="Boxes">Boxes</option>
+                <option value="Eventos / Ocasiones">Eventos / Ocasiones</option>
+                <option value="Condolencias">Condolencias</option>
+                <option value="Varios">Varios</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Subcategoría</label>
+              <select id="productSubcategory">
+                <option value="">Seleccionar subcategoría</option>
+                <option value="Ramos Grandes">Ramos Grandes</option>
+                <option value="Ramos Medianos">Ramos Medianos</option>
+                <option value="Ramos Chicos">Ramos Chicos</option>
+                <option value="Rosas Importadas">Rosas Importadas</option>
+                <option value="Rosas Nacionales">Rosas Nacionales</option>
+                <option value="Phalaenopsis">Orquídeas Phalaenopsis</option>
+                <option value="Cymbidium">Orquídeas Cymbidium</option>
+                <option value="Plantas Exterior">Plantas Exterior</option>
+                <option value="Plantas Interior">Plantas Interior</option>
+                <option value="Peluches Grandes">Peluches Grandes</option>
+                <option value="Peluches Medianos">Peluches Medianos</option>
+                <option value="Peluches Chicos">Peluches Chicos</option>
+                <option value="Novias">Novias</option>
+                <option value="Casamientos">Casamientos</option>
+                <option value="Cumpleaños">Cumpleaños</option>
+                <option value="Graduación">Graduación</option>
+                <option value="Nacimiento">Nacimiento</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea id="productDescription" placeholder="Descripción del producto..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Imagen</label>
+              <input type="file" id="productImage" accept="image/*">
+              <img id="imagePreview" class="image-preview" alt="Vista previa">
+              <button type="button" class="btn btn-secondary" id="uploadBtn">
+                <i class="fas fa-cloud-upload-alt"></i> Subir Imagen
+              </button>
+            </div>
+
+            <div id="uploadMessage" class="message"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Guardar Producto
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Limpiar
+              </button>
+            </div>
+
+            <div id="formMessage" class="message"></div>
+          </form>
+        </div>
+
+        <!-- LISTADO -->
+        <div class="card">
+          <h3><i class="fas fa-list"></i> Productos</h3>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o SKU...">
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table id="productsTable">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>SKU</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Categoría</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="productsBody">
+              </tbody>
+            </table>
+          </div>
+
+          <div id="noProducts" class="no-products">Cargando productos...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:3001";
+    
+    const loginSection = document.getElementById("loginSection");
+    const adminSection = document.getElementById("adminSection");
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+    const logoutBtn = document.getElementById("logoutBtn");
+    
+    const productForm = document.getElementById("productForm");
+    const productId = document.getElementById("productId");
+    const productName = document.getElementById("productName");
+    const productSku = document.getElementById("productSku");
+    const productPrice = document.getElementById("productPrice");
+    const productStock = document.getElementById("productStock");
+    const productCategory = document.getElementById("productCategory");
+    const productSubcategory = document.getElementById("productSubcategory");
+    const productDescription = document.getElementById("productDescription");
+    const productImage = document.getElementById("productImage");
+    const imagePreview = document.getElementById("imagePreview");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadMessage = document.getElementById("uploadMessage");
+    const formMessage = document.getElementById("formMessage");
+    
+    const searchInput = document.getElementById("searchInput");
+    const productsTable = document.getElementById("productsTable");
+    const productsBody = document.getElementById("productsBody");
+    const noProducts = document.getElementById("noProducts");
+
+    let imageUrl = "";
+    let allProducts = [];
+
+    function getToken() {
+      return localStorage.getItem("admin_token");
+    }
+
+    function setToken(token) {
+      localStorage.setItem("admin_token", token);
+    }
+
+    function clearToken() {
+      localStorage.removeItem("admin_token");
+    }
+
+    async function api(path, options = {}) {
+      const headers = {
+        ...options.headers,
+        "Content-Type": "application/json",
+      };
+
+      const token = getToken();
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const res = await fetch(`${API_URL}${path}`, { ...options, headers });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data?.error || "Error en la solicitud");
+      }
+
+      return data;
+    }
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      loginError.textContent = "";
+
+      try {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+
+        const data = await api("/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
+
+        setToken(data.token);
+        showAdminPanel();
+        loadProducts();
+        loginForm.reset();
+      } catch (e) {
+        loginError.textContent = e.message;
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      clearToken();
+      imageUrl = "";
+      productForm.reset();
+      loginForm.reset();
+      loginSection.classList.remove("hidden");
+      adminSection.classList.remove("show");
+    });
+
+    function showAdminPanel() {
+      loginSection.classList.add("hidden");
+      adminSection.classList.add("show");
+    }
+
+    function showLoginPanel() {
+      loginSection.classList.remove("hidden");
+      adminSection.classList.remove("show");
+    }
+
+    uploadBtn.addEventListener("click", async () => {
+      const file = productImage.files[0];
+      if (!file) {
+        showMessage(uploadMessage, "Selecciona una imagen primero", "error");
+        return;
+      }
+
+      const fd = new FormData();
+      fd.append("image", file);
+
+      try {
+        showMessage(uploadMessage, "Subiendo...", "");
+        const res = await fetch(`${API_URL}/admin/upload`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${getToken()}` },
+          body: fd,
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+
+        imageUrl = data.url;
+        imagePreview.src = imageUrl;
+        imagePreview.classList.add("show");
+        showMessage(uploadMessage, "✓ Imagen subida correctamente", "success");
+      } catch (e) {
+        showMessage(uploadMessage, e.message, "error");
+      }
+    });
+
+    productForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      formMessage.classList.remove("show");
+
+      try {
+        const body = {
+          name: productName.value.trim(),
+          sku: productSku.value.trim(),
+          priceCents: parseInt(productPrice.value) * 100,
+          stock: parseInt(productStock.value) || 0,
+          category: productCategory.value,
+          subcategory: productSubcategory.value,
+          description: productDescription.value.trim(),
+          imageUrl: imageUrl,
+        };
+
+        if (!body.name || !body.sku || !body.priceCents) {
+          throw new Error("Faltan datos requeridos (nombre, SKU, precio)");
+        }
+
+        const id = productId.value;
+        const method = id ? "PUT" : "POST";
+        const path = id ? `/admin/products/${id}` : "/admin/products";
+
+        await api(path, { method, body: JSON.stringify(body) });
+
+        showMessage(formMessage, "✓ Producto guardado correctamente", "success");
+        productForm.reset();
+        imageUrl = "";
+        imagePreview.classList.remove("show");
+        productId.value = "";
+        await loadProducts();
+      } catch (e) {
+        showMessage(formMessage, e.message, "error");
+      }
+    });
+
+    async function loadProducts() {
+      try {
+        const data = await api("/admin/products?pageSize=100");
+        allProducts = data.items || [];
+        renderProducts(allProducts);
+      } catch (e) {
+        noProducts.textContent = "Error cargando productos";
+      }
+    }
+
+    function renderProducts(products) {
+      if (products.length === 0) {
+        productsBody.innerHTML = "";
+        noProducts.textContent = "No hay productos registrados aún";
+        noProducts.style.display = "block";
+        return;
+      }
+
+      noProducts.style.display = "none";
+      productsBody.innerHTML = products
+        .map((p) => `
+          <tr>
+            <td><strong>${p.name}</strong></td>
+            <td>${p.sku}</td>
+            <td class="price-cell">$${(p.price_cents / 100).toLocaleString("es-AR")}</td>
+            <td>${p.stock}</td>
+            <td>${p.category || "-"}</td>
+            <td class="status-${p.status}">
+              ${p.status === "active" ? "✓ Activo" : "⊘ Archivado - Sin stock"}
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="editProduct('${p.id}')">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-danger" onclick="deleteProduct('${p.id}')">
+                  <i class="fas fa-archive"></i> Archivar
+                </button>
+              </div>
+            </td>
+          </tr>
+        `)
+        .join("");
+    }
+
+    async function editProduct(id) {
+      try {
+        const data = await api(`/admin/products/${id}`);
+        
+        productId.value = data.id;
+        productName.value = data.name;
+        productSku.value = data.sku;
+        productPrice.value = data.price_cents / 100;
+        productStock.value = data.stock;
+        productCategory.value = data.category;
+        productSubcategory.value = data.subcategory;
+        productDescription.value = data.description;
+        imageUrl = data.image_url || "";
+
+        if (imageUrl) {
+          imagePreview.src = imageUrl;
+          imagePreview.classList.add("show");
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (e) {
+        showMessage(formMessage, e.message, "error");
+      }
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm("¿Estás seguro que quieres archivar este producto?")) return;
+
+      try {
+        await api(`/admin/products/${id}`, { method: "DELETE" });
+        await loadProducts();
+        showMessage(formMessage, "✓ Producto archivado correctamente", "success");
+      } catch (e) {
+        showMessage(formMessage, e.message, "error");
+      }
+    }
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = allProducts.filter(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.sku.toLowerCase().includes(query)
+      );
+      renderProducts(filtered);
+    });
+
+    function showMessage(el, text, type) {
+      el.textContent = text;
+      el.className = `message show ${type}`;
+      setTimeout(() => el.classList.remove("show"), 4000);
+    }
+
+    if (getToken()) {
+      showAdminPanel();
+      loadProducts();
+    } else {
+      showLoginPanel();
+    }
+  </script>
+
 </body>
 </html>

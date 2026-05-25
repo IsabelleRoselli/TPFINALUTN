@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
@@ -9,11 +8,8 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, default: 0, min: 0 },
     sku: { type: String, required: true, unique: true, trim: true },
     status: { type: String, enum: ["active", "archived"], default: "active" },
-
-
-    // CAMBIO CLAVE: string para que puedas usar categorías/subcategorías por texto
-    category: { type: String, default: "", required: true }, // Cambio: String en lugar de ObjectId
-
+    category: { type: String, default: "" }, // String, no ObjectId
+    subcategory: { type: String, default: "" }, // Nueva subcategoría
     imageUrl: { type: String, default: "" },
   },
   { timestamps: true }
