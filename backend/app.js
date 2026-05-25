@@ -10,7 +10,7 @@ const connectDB = require("./src/config/db");
 const User = require("./src/models/User");
 const Product = require("./src/models/Product");
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 console.log("ENV CHECK:", {
   cwd: process.cwd(),
   __dirname,
