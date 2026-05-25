@@ -748,7 +748,10 @@
   </div>
 
   <script>
-    const API_URL = "http://localhost:3001";
+    // Detecta automáticamente si estás en local o en producción
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3001'
+  : window.location.origin;
     
     const loginSection = document.getElementById("loginSection");
     const adminSection = document.getElementById("adminSection");
@@ -811,7 +814,11 @@
 
       return data;
     }
-
+function showMessage(element, message, type = "success") {
+  element.textContent = message;
+  element.classList.add("show");
+  element.className = `message show ${type}`;
+}
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       loginError.textContent = "";
@@ -1025,6 +1032,6 @@
       showLoginPanel();
     }
   </script>
-
+  <script src="admin.js"></script>
 </body>
 </html>

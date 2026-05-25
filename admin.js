@@ -1,4 +1,7 @@
-const API_URL = "http://127.0.0.1:3001";
+// Detecta automáticamente si estás en local o en producción
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3001'
+  : window.location.origin;
 
 // ============================================
 // ELEMENTOS DEL DOM
@@ -15,7 +18,7 @@ const loginMsg = document.getElementById("loginMsg");
 const productForm = document.getElementById("productForm");
 const productId = document.getElementById("productId");
 const productName = document.getElementById("productName");
-const productSKU = document.getElementById("productSKU");
+const productSku = document.getElementById("productSku");  // ✓ Minúscula al final
 const productPrice = document.getElementById("productPrice");
 const productStock = document.getElementById("productStock");
 const productCategory = document.getElementById("productCategory");
@@ -149,7 +152,7 @@ productForm.addEventListener("submit", async (e) => {
     const isEditing = productId.value;
     const body = {
       name: productName.value.trim(),
-      sku: productSKU.value.trim(),
+      sku: productSku.value.trim(),
       priceCents: parseInt(productPrice.value) * 100,
       stock: parseInt(productStock.value) || 0,
       category: productCategory.value,
@@ -271,7 +274,7 @@ async function editarProducto(id) {
     
     productId.value = data.id;
     productName.value = data.name;
-    productSKU.value = data.sku;
+   productSku.value = data.sku;
     productPrice.value = Math.round(data.price_cents / 100);
     productStock.value = data.stock;
     productCategory.value = data.category || "";

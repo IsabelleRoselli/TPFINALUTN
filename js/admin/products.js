@@ -85,7 +85,7 @@
 
   if (btnGoCatalogo) {
     btnGoCatalogo.addEventListener("click", () => {
-      location.href = "/pages/catalogo.html";
+      location.href = "./pages/catalogo.html";
     });
   }
 

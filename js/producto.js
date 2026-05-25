@@ -1,4 +1,7 @@
-const API_URL = "http://127.0.0.1:3001";
+// Detecta automáticamente si estás en local o en producción
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3001'
+  : window.location.origin;
 const WHATSAPP_PHONE = "5491162948671";
 
 function centsToPesos(cents) {
