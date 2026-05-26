@@ -220,6 +220,13 @@
             </div>
         </div>
     </section>
+    <!-- Banner dinámico de eventos -->
+<div id="carousel-eventos" class="carousel-eventos">
+  <img id="img-evento" src="./images/af3.jpeg" alt="Evento destacado" class="img-evento">
+  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
+  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
+  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
+</div>
 
     <!-- TODAS CATEGORÍAS CON CARROUSEL -->
     <section class="categories" id="categorias">
@@ -670,6 +677,34 @@
             behavior: 'smooth'
         });
     });
+</script>
+<!-- ...Tu contenido HTML... -->
+
+<div id="banner-principal">
+  <!-- Banner principal aquí -->
+</div>
+
+<div id="carousel-eventos" class="carousel-eventos">
+  <img id="img-evento" src="images/evento1.jpg" alt="Evento destacado" class="img-evento">
+</div>
+
+<!-- ...más contenido si tienes... -->
+
+<!-- === AGREGA AQUÍ el JavaScript antes de </body> === -->
+<script>
+const imagenes = [
+  "images/evento1.jpg",
+  "images/evento2.jpg",
+  "images/evento3.jpg"
+];
+let idx = 0;
+const imgTag = document.getElementById("img-evento");
+
+function mostrarSiguiente() {
+  idx = (idx + 1) % imagenes.length;
+  imgTag.src = imagenes[idx];
+}
+setInterval(mostrarSiguiente, 4000);
 </script>
 </body>
 </html>

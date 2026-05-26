@@ -244,6 +244,28 @@ body::after {
 .favorites h2::after {
     background-color: white;
 }
+.carousel-eventos {
+  width: 100vw;                /* Toma todo el ancho de la ventana */
+  max-width: 100%;             /* No desborda el cuerpo */
+  height: 90px;                /* Ajusta la ALTURA aquí según prefieras */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+  background: #f9f6f0;         /* color claro, opcional */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07); /* sutil sombreado opcional */
+  position: relative;
+}
+
+.img-evento {
+  width: 100vw;      /* Imagen abarca de punta a punta */
+  max-width: 1200px; /* Para que no explote en monitores extra grandes (ajustable) */
+  height: 100%;      /* Siempre se adapta a la altura del contenedor */
+  object-fit: cover; /* La imagen nunca se deforma */
+  border-radius: 6px;
+  margin: auto;
+}
 /* ===== CAROUSEL CATEGORÍAS ===== */
 .carousel-container {
     position: relative;

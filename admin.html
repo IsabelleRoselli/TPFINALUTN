@@ -958,15 +958,21 @@ function showMessage(element, message, type = "success") {
               ${p.status === "active" ? "✓ Activo" : "⊘ Archivado - Sin stock"}
             </td>
             <td>
-              <div class="action-buttons">
-                <button class="btn btn-secondary" onclick="editProduct('${p.id}')">
-                  <i class="fas fa-edit"></i> Editar
-                </button>
-                <button class="btn btn-danger" onclick="deleteProduct('${p.id}')">
-                  <i class="fas fa-archive"></i> Archivar
-                </button>
-              </div>
-            </td>
+  <div class="action-buttons">
+    <button class="btn btn-secondary" onclick="editProduct('${p.id}')">
+      <i class="fas fa-edit"></i> Editar
+    </button>
+    ${
+      p.status === "archived"
+        ? `<button class="btn btn-success" onclick="activateProduct('${p.id}')">
+            <i class="fas fa-check"></i> Desarchivar
+          </button>`
+        : `<button class="btn btn-danger" onclick="deleteProduct('${p.id}')">
+            <i class="fas fa-archive"></i> Archivar
+          </button>`
+    }
+  </div>
+</td>
           </tr>
         `)
         .join("");
@@ -1008,6 +1014,19 @@ function showMessage(element, message, type = "success") {
         showMessage(formMessage, e.message, "error");
       }
     }
+    async function activateProduct(id) {
+  if (!confirm("¿Seguro que quieres desarchivar este producto?")) return;
+  try {
+    await api(`/admin/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ status: "active" }),
+    });
+    await loadProducts();
+    showMessage(formMessage, "✓ Producto desarchivado correctamente", "success");
+  } catch (e) {
+    showMessage(formMessage, e.message, "error");
+  }
+}
 
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
