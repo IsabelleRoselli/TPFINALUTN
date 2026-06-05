@@ -274,7 +274,7 @@ app.put("/admin/products/:id", requireAdmin, async (req, res) => {
       return res.status(400).json({ error: "ID inválido" });
     }
 
-    const { name, description, priceCents, stock, sku, category, subcategory, imageUrl } = req.body;
+    const { name, description, priceCents, stock, sku, category, subcategory, imageUrl, status } = req.body;
 
     const product = await Product.findById(req.params.id);
     if (!product) {
@@ -289,6 +289,9 @@ app.put("/admin/products/:id", requireAdmin, async (req, res) => {
     if (category !== undefined) product.category = String(category || "").trim();
     if (subcategory !== undefined) product.subcategory = String(subcategory || "").trim();
     if (imageUrl !== undefined) product.imageUrl = String(imageUrl || "").trim();
+    if (status !== undefined && ["active", "archived"].includes(String(status))) {
+      product.status = String(status);
+    }
 
     await product.save();
 

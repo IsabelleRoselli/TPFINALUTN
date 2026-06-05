@@ -719,8 +719,25 @@
         <!-- LISTADO -->
         <div class="card">
           <h3><i class="fas fa-list"></i> Productos</h3>
-          <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o SKU...">
+          <div class="search-box" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o SKU..." style="flex:1;min-width:180px;">
+            <select id="filterCategory" style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:14px;background:#fff;cursor:pointer;">
+              <option value="">Todas las categorías</option>
+              <option value="Flores y Ramos">Flores y Ramos</option>
+              <option value="Orquídeas">Orquídeas</option>
+              <option value="Plantas">Plantas</option>
+              <option value="Regalos">Regalos</option>
+              <option value="Peluches">Peluches</option>
+              <option value="Boxes">Boxes</option>
+              <option value="Eventos / Ocasiones">Eventos / Ocasiones</option>
+              <option value="Condolencias">Condolencias</option>
+              <option value="Varios">Varios</option>
+            </select>
+            <select id="filterStatus" style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:14px;background:#fff;cursor:pointer;">
+              <option value="">Todos los estados</option>
+              <option value="active">Activos</option>
+              <option value="archived">Archivados</option>
+            </select>
           </div>
 
           <div style="overflow-x: auto;">
@@ -1028,15 +1045,25 @@ function showMessage(element, message, type = "success") {
   }
 }
 
-    searchInput.addEventListener("input", () => {
+    searchInput.addEventListener("input", applyFilters);
+
+    const filterCategory = document.getElementById("filterCategory");
+    const filterStatus = document.getElementById("filterStatus");
+    filterCategory.addEventListener("change", applyFilters);
+    filterStatus.addEventListener("change", applyFilters);
+
+    function applyFilters() {
       const query = searchInput.value.toLowerCase();
-      const filtered = allProducts.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.sku.toLowerCase().includes(query)
-      );
+      const cat = filterCategory.value;
+      const status = filterStatus.value;
+      const filtered = allProducts.filter((p) => {
+        const matchText = !query || p.name.toLowerCase().includes(query) || p.sku.toLowerCase().includes(query);
+        const matchCat = !cat || p.category === cat;
+        const matchStatus = !status || p.status === status;
+        return matchText && matchCat && matchStatus;
+      });
       renderProducts(filtered);
-    });
+    }
 
     function showMessage(el, text, type) {
       el.textContent = text;
