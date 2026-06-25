@@ -489,7 +489,7 @@
         </div>
 
         <!-- POR QUÉ ELEGIR CATTLEYA (BARRA BLANCA) -->
-        <div class="why-choose" id="por-que">
+        <div class="why-choose reveal-card" id="por-que">
             <div class="why-choose-left">
                 <h2>¿Por qué elegir Cattleya?</h2>
                 <ul class="benefits">
@@ -847,6 +847,21 @@
         });
     }, { threshold: 0.12 });
     revealItems.forEach(function (el) { observer.observe(el); });
+})();
+</script>
+<script>
+(function () {
+    var revealCards = document.querySelectorAll('.reveal-card');
+    if (!revealCards.length) return;
+    var cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                cardObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.10 });
+    revealCards.forEach(function (el) { cardObserver.observe(el); });
 })();
 </script>
 </body>
