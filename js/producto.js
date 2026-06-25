@@ -58,6 +58,7 @@ async function loadProduct() {
   const img = document.getElementById("productoImagen");
   const detailsUl = document.getElementById("productoDetalles");
   const categorySpan = document.getElementById("productoCategoria");
+  const categoriaBadge = document.getElementById("productoCategoriaBadge");
   const buyBtn = document.getElementById("btnComprarProducto");
 
   const id = new URLSearchParams(window.location.search).get("id");
@@ -90,6 +91,7 @@ async function loadProduct() {
     safeText(priceSpan, centsToPesos(p.price_cents ?? 0));
     safeText(descP, p.description || "Sin descripción.");
     safeText(categorySpan, p.category || "-");
+    safeText(categoriaBadge, p.category || "");
 
     if (img) {
       img.src = getImageUrl(p);
