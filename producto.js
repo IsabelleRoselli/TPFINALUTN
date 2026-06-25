@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     categorySpan.textContent  = p.category || "-";
     img.src                   = p.image_url || p.imageUrl || "https://via.placeholder.com/400x400?text=Sin+Imagen";
     img.alt                   = p.name || "Producto";
-    buyBtn.href               = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Hola! Quiero consultar sobre: " + (p.name ?? "") + ". Precio: $" + (p.price_cents ? Math.round(p.price_cents/100).toLocaleString("es-AR") : (p.priceARS || "Consultar")))}`;
+    buyBtn.href               = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`Hola, me interesa *${p.name ?? ""}*`)}`;
 
     // Detalles/características
     if (Array.isArray(p.details) && p.details.length) {

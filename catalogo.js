@@ -162,13 +162,13 @@ function matchesSubcategory(product, sub, subsub) {
 }
 
 function renderCard(p) {
- const id = encodeURIComponent(p._id || p.id);
+  const id = encodeURIComponent(p._id || p.id);
   const name = escapeHtml(p.name);
   const price = centsToPesos(p.price_cents ?? 0);
   const img = getImageUrl(p);
 
   const waText = encodeURIComponent(
-    `Hola! Quiero consultar sobre: ${p.name} (ID ${p.id}). Precio: $${centsToPesos(p.price_cents ?? 0)}`
+    `Hola, me interesa *${p.name}*`
   );
   const waHref = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
 
@@ -177,15 +177,14 @@ function renderCard(p) {
 
   return `
     <div class="catalogo-card" data-categoria="${escapeHtml(dataCategoria)}">
-      <div class="catalogo-image">
-        <img src="${img}" alt="${name}">
-      </div>
-      <h3>${name}</h3>
+      <a class="catalogo-card-link" href="./productos/producto.html?id=${id}">
+        <div class="catalogo-image">
+          <img src="${img}" alt="${name}">
+        </div>
+        <h3>${name}</h3>
+      </a>
       <p class="price">$${price}</p>
       <div class="catalogo-buttons">
-        <a class="btn btn-info" href="./productos/producto.html?id=${id}">
-  Info
-</a>
         <a class="btn btn-comprar" target="_blank" rel="noopener noreferrer" href="${waHref}">
           <i class="fab fa-whatsapp"></i> Comprar
         </a>
