@@ -99,9 +99,7 @@ async function loadProduct() {
     setListItems(detailsUl, buildFeatures(p));
 
     // Botón WhatsApp
-    const waText = encodeURIComponent(
-      `Hola! Quiero consultar sobre: ${p.name} (ID ${p.id}). Precio: $${centsToPesos(p.price_cents ?? 0)}`
-    );
+    const waText = encodeURIComponent(`Hola, me interesa *${p.name}*`);
     if (buyBtn) buyBtn.href = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
   } catch (e) {
     safeText(nameH1, "Producto no encontrado");

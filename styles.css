@@ -247,26 +247,24 @@ body::after {
     background-color: white;
 }
 .carousel-eventos {
-  width: 100vw;                /* Toma todo el ancho de la ventana */
-  max-width: 100%;             /* No desborda el cuerpo */
-  height: 90px;                /* Ajusta la ALTURA aquí según prefieras */
+  width: 100%;
+  max-width: 100%;
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin: 0 auto;
-  background: #f9f6f0;         /* color claro, opcional */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07); /* sutil sombreado opcional */
+  margin: 0;
+  background: #f9f6f0;
   position: relative;
 }
 
 .img-evento {
-  width: 100vw;      /* Imagen abarca de punta a punta */
-  max-width: 1200px; /* Para que no explote en monitores extra grandes (ajustable) */
-  height: 100%;      /* Siempre se adapta a la altura del contenedor */
-  object-fit: cover; /* La imagen nunca se deforma */
-  border-radius: 6px;
-  margin: auto;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 /* ===== CAROUSEL CATEGORÍAS ===== */
 .carousel-container {
@@ -1662,6 +1660,13 @@ body::after {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.4s ease;
     border: 1px solid #f0f0f0;
+}
+
+.catalogo-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .catalogo-card:hover {
