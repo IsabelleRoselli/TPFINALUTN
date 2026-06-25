@@ -303,9 +303,10 @@ body::after {
 
 .img-evento {
   width: 100%;
-  height: auto;
+  height: 280px;
   display: block;
-  object-fit: unset;
+  object-fit: cover;
+  object-position: center;
 }
 /* ===== CAROUSEL CATEGORÍAS ===== */
 .carousel-container {
@@ -2564,6 +2565,7 @@ body::after {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .hero { min-height: 220px; padding: 20px 40px; }
+    .img-evento { height: 220px; }
     .hero-logo { max-width: 200px; }
     .categories h2::before, .categories h2::after { display: none; }
     .carousel-btn { width: 40px; height: 40px; }
