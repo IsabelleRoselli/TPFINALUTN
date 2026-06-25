@@ -525,31 +525,71 @@
         </div>
     </section>
 
-    <!-- MAPA DE UBICACIÓN -->
+    <!-- MAPA Y MEDIOS DE PAGO -->
     <section class="map-section" id="ubicacion">
-        <div class="map-container">
-            <div class="map-header">
-                <i class="fas fa-map-marker-alt"></i>
-                <h2>Encontranos</h2>
-                <p>Necochea 27, Ramos Mejía, Buenos Aires</p>
+        <div class="map-payments-wrapper">
+
+            <!-- Mitad izquierda: Mapa -->
+            <div class="map-container map-half">
+                <div class="map-header">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h2>Encontranos</h2>
+                    <p>Necochea 27, Ramos Mejía, Buenos Aires</p>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Necochea+27+Ramos+Mejia+Buenos+Aires" target="_blank" rel="noopener noreferrer" class="map-link" aria-label="Ver dirección en Google Maps">
+                    <div class="map-frame-wrapper">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Necochea+27,+Ramos+Mejia,+Buenos+Aires,+Argentina&z=16&output=embed"
+                            width="100%"
+                            height="340"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de Cattleya - Necochea 27, Ramos Mejía"
+                        ></iframe>
+                        <div class="map-overlay">
+                            <span><i class="fas fa-external-link-alt"></i> Ver en Google Maps</span>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=Necochea+27+Ramos+Mejia+Buenos+Aires" target="_blank" rel="noopener noreferrer" class="map-link" aria-label="Ver dirección en Google Maps">
-                <div class="map-frame-wrapper">
-                    <iframe
-                        src="https://maps.google.com/maps?q=Necochea+27,+Ramos+Mejia,+Buenos+Aires,+Argentina&z=16&output=embed"
-                        width="100%"
-                        height="340"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Ubicación de Cattleya - Necochea 27, Ramos Mejía"
-                    ></iframe>
-                    <div class="map-overlay">
-                        <span><i class="fas fa-external-link-alt"></i> Ver en Google Maps</span>
+
+            <!-- Mitad derecha: Medios de Pago -->
+            <div class="payments-half">
+                <div class="payments-header">
+                    <i class="fas fa-credit-card"></i>
+                    <h2>Medios de Pago</h2>
+                    <p>Aceptamos múltiples formas de pago para tu comodidad</p>
+                </div>
+                <div class="payments-grid">
+                    <div class="payment-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="VISA" class="payment-logo">
+                        <span>VISA</span>
+                    </div>
+                    <div class="payment-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" class="payment-logo">
+                        <span>Mastercard</span>
+                    </div>
+                    <div class="payment-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Mercado_Pago_%28MercadoLibre%29_logotipo.svg/200px-Mercado_Pago_%28MercadoLibre%29_logotipo.svg.png" alt="Mercado Pago" class="payment-logo">
+                        <span>Mercado Pago</span>
+                    </div>
+                    <div class="payment-item">
+                        <i class="fas fa-money-bill-wave payment-icon-cash"></i>
+                        <span>Efectivo</span>
+                    </div>
+                    <div class="payment-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Visa_Debit_card_logo.svg/200px-Visa_Debit_card_logo.svg.png" alt="VISA Débito" class="payment-logo">
+                        <span>VISA Débito</span>
+                    </div>
+                    <div class="payment-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png" alt="American Express" class="payment-logo">
+                        <span>Amex</span>
                     </div>
                 </div>
-            </a>
+            </div>
+
         </div>
     </section>
 

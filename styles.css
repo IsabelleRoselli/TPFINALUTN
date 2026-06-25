@@ -620,11 +620,109 @@ body::after {
     padding: 0 40px 40px;
 }
 
+/* Two-column wrapper: map left, payments right */
+.map-payments-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: stretch;
+}
+
 .map-container {
     background: white;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+}
+
+/* map-half keeps the same card look, no extra sizing needed */
+.map-half {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== MEDIOS DE PAGO ===== */
+.payments-half {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.payments-header {
+    padding: 28px 36px 20px;
+    text-align: center;
+    background: white;
+}
+
+.payments-header i {
+    font-size: 1.6rem;
+    color: var(--dark-red);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.payments-header h2 {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--dark-red);
+    margin-bottom: 6px;
+}
+
+.payments-header p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+}
+
+.payments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 24px 28px 32px;
+    flex: 1;
+    align-content: center;
+}
+
+.payment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #faf8f8;
+    border: 1px solid #f0e8e8;
+    border-radius: 10px;
+    padding: 18px 10px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.payment-item:hover {
+    box-shadow: 0 6px 20px rgba(90, 7, 11, 0.13);
+    transform: translateY(-3px);
+}
+
+.payment-logo {
+    height: 36px;
+    width: auto;
+    max-width: 90px;
+    object-fit: contain;
+}
+
+.payment-icon-cash {
+    font-size: 2.2rem;
+    color: #2d7a3a;
+}
+
+.payment-item span {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--dark-red);
+    letter-spacing: 0.5px;
+    text-align: center;
 }
 
 .map-header {
@@ -2821,6 +2919,7 @@ body::after {
     .why-choose { grid-template-columns: 1fr; gap: 30px; padding: 30px 20px; margin: 30px 20px; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .map-section { padding: 0 20px 30px; }
+    .map-payments-wrapper { grid-template-columns: 1fr; }
     .hero-buttons { flex-direction: column; }
     .btn { width: 100%; }
     .sidebar { width: 280px; left: -280px; }
