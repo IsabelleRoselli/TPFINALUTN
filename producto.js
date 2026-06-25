@@ -14,8 +14,59 @@ function setListHtml(el, html) {
   el.innerHTML = html;
 }
 
+function getProductIdentifierFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const identifier = String(
+    params.get("id") ||
+    params.get("_id") ||
+    params.get("sku") ||
+    ""
+  ).trim();
+
+  return identifier;
+}
+
+function isMongoObjectId(value) {
+  return /^[0-9a-fA-F]{24}$/.test(String(value || ""));
+}
+
+async function fetchProductBySearch(identifier) {
+  const qs = new URLSearchParams({
+    page: "1",
+    pageSize: "200",
+    search: identifier,
+  });
+
+  const res = await fetch(`${API_URL}/products?${qs.toString()}`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error || "No se pudo cargar el producto.");
+
+  const items = Array.isArray(data?.items) ? data.items : [];
+  if (!items.length) throw new Error("No se pudo cargar el producto.");
+
+  const needle = String(identifier).trim().toLowerCase();
+
+  return (
+    items.find((item) => String(item?.id || "").trim().toLowerCase() === needle) ||
+    items.find((item) => String(item?.sku || "").trim().toLowerCase() === needle) ||
+    items[0]
+  );
+}
+
+async function fetchProduct(identifier) {
+  const encodedIdentifier = encodeURIComponent(identifier);
+
+  if (isMongoObjectId(identifier)) {
+    const res = await fetch(`${API_URL}/products/${encodedIdentifier}`);
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data) return data;
+  }
+
+  return fetchProductBySearch(identifier);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
-  const id = new URLSearchParams(window.location.search).get("id");
+  const id = getProductIdentifierFromUrl();
 
   // Elementos DOM
   const nameH1      = document.getElementById("productoNombre");
@@ -43,16 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setListHtml(detailsUl, "<li>Cargando...</li>");
 
   try {
-    const url = `${API_URL}/products/${encodeURIComponent(id)}`;
-
-    const res = await fetch(url);
-
-    const p = await res.json().catch(err => {
-      console.error("[Producto] Error parseando JSON:", err);
-      return null;
-    });
-
-    if (!res.ok || !p) throw new Error(p?.error || "No se pudo cargar el producto.");
+    const p = await fetchProduct(id);
+    if (!p) throw new Error("No se pudo cargar el producto.");
 
     // MOSTRAR DATOS EN PANTALLA
     setText(nameH1, p.name || "Producto");

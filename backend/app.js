@@ -382,6 +382,7 @@ app.get("/products", async (req, res) => {
         id: p._id.toString(),
         name: p.name,
         description: p.description,
+        sku: p.sku,
         price_cents: p.priceCents,
         stock: p.stock,
         category: p.category,
