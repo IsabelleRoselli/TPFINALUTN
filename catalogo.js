@@ -161,6 +161,21 @@ function matchesSubcategory(product, sub, subsub) {
   return filterKey === expectedKey;
 }
 
+function matchesSearch(product, searchTerm) {
+  const needle = normalizeText(searchTerm);
+  if (!needle) return true;
+
+  const haystacks = [
+    product?.name,
+    product?.sku,
+    product?.category,
+    product?.subcategory,
+    product?.description
+  ].map(normalizeText);
+
+  return haystacks.some((value) => value.includes(needle));
+}
+
 function renderCard(p) {
   const productIdentifier = String(p.id ?? p._id ?? p.sku ?? "").trim();
   const id = encodeURIComponent(productIdentifier);
@@ -219,6 +234,7 @@ async function loadCatalog() {
   const category = window.CATALOGO_CATEGORY || params.get("category") || "";
   const subcategory = window.CATALOGO_SUBCATEGORY || params.get("subcategory") || "";
   const subsubcategory = window.CATALOGO_SUBSUBCATEGORY || params.get("subsubcategory") || "";
+  const search = params.get("search") || "";
 
   if (titleEl) {
     const parts = [category, subcategory, subsubcategory].filter(Boolean);
@@ -233,6 +249,7 @@ async function loadCatalog() {
       page: "1",
       pageSize: "200",
       ...(category ? { category } : {}),
+      ...(search ? { search } : {}),
     });
 
     const res = await fetch(`${API_URL}/products?${qs.toString()}`);
@@ -246,8 +263,15 @@ async function loadCatalog() {
       items = items.filter((p) => matchesSubcategory(p, subcategory, subsubcategory));
     }
 
+    if (search) {
+      items = items.filter((p) => matchesSearch(p, search));
+    }
+
     if (!items.length) {
-      grid.innerHTML = `<div style="grid-column:1/-1;color:#6d6d6d;">No hay productos para esta sección.</div>`;
+      const message = search
+        ? `No se encontraron productos para "${escapeHtml(search)}".`
+        : "No hay productos para esta sección.";
+      grid.innerHTML = `<div style="grid-column:1/-1;color:#6d6d6d;">${message}</div>`;
       return;
     }
 
@@ -260,4 +284,28 @@ async function loadCatalog() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadCatalog);
+function setupCatalogSearch() {
+  const form = document.getElementById("catalogoSearchForm");
+  const input = document.getElementById("catalogoSearchInput");
+  if (!form || !input) return;
+
+  const params = new URLSearchParams(window.location.search);
+  input.value = params.get("search") || "";
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const value = input.value.trim();
+    const url = new URL(window.location.href);
+    if (value) {
+      url.searchParams.set("search", value);
+    } else {
+      url.searchParams.delete("search");
+    }
+    window.location.assign(url.toString());
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupCatalogSearch();
+  loadCatalog();
+});
