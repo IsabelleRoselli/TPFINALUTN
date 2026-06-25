@@ -23,35 +23,42 @@
     <!-- CONTENIDO PRODUCTO -->
     <div class="producto-content">
         <!-- IMAGEN -->
-        <div class="producto-imagen">
-            <img loading="lazy" id="productoImagen" src="https://via.placeholder.com/400x400" alt="Producto">
+        <div class="producto-imagen fade-in">
+            <div class="producto-imagen-zoom-wrapper">
+                <img loading="lazy" id="productoImagen" src="https://via.placeholder.com/400x400" alt="Producto">
+                <span class="producto-imagen-zoom-hint"><i class="fas fa-search-plus"></i> Zoom</span>
+            </div>
         </div>
 
         <!-- INFO PRODUCTO -->
-        <div class="producto-info">
+        <div class="producto-info slide-up">
+            <span class="producto-categoria-badge" id="productoCategoriaBadge">Categoría</span>
             <h2 id="productoTitulo">Título del Producto</h2>
-            <p class="producto-precio">$<span id="productoPrecio">0</span></p>
-            <p class="producto-descripcion" id="productoDescripcion">
-                Descripción del producto
-            </p>
+            <p class="producto-precio"><span class="producto-precio-currency">$</span><span id="productoPrecio">0</span></p>
 
-            <h3 style="color: #8b2e2e; margin: 30px 0 15px 0; font-weight: 600;">Características:</h3>
+            <div class="producto-descripcion-card">
+                <i class="fas fa-leaf producto-descripcion-icon"></i>
+                <p class="producto-descripcion" id="productoDescripcion">
+                    Descripción del producto
+                </p>
+            </div>
+
+            <h3 class="producto-caracteristicas-titulo"><i class="fas fa-check-circle"></i> Características</h3>
             <ul class="producto-detalles" id="productoDetalles">
                 <li>Cargando características...</li>
             </ul>
 
-            <p class="producto-descripcion" style="font-size: 0.95rem; color: #6d6d6d; margin: 20px 0 0 0;">
-                <strong>Categoría:</strong> <span id="productoCategoria">-</span>
-            </p>
-
             <div class="producto-cta">
-                <a href="#" id="btnComprarProducto" class="btn-comprar-producto">
+                <a href="#" id="btnComprarProducto" class="btn-comprar-producto btn-pulse">
                     <i class="fab fa-whatsapp"></i> Comprar por WhatsApp
                 </a>
+                <button class="btn-compartir-producto" id="btnCompartir" title="Compartir producto">
+                    <i class="fas fa-share-alt"></i>
+                </button>
             </div>
 
-            <p style="font-size: 0.85rem; color: #6d6d6d; margin-top: 15px; text-align: center;">
-                💬 Haz clic en el botón para consultar disponibilidad y realizar tu compra
+            <p class="producto-cta-hint">
+                <i class="fas fa-lock"></i> Compra segura · Consulta sin compromiso
             </p>
         </div>
     </div>
@@ -139,11 +146,28 @@
         });
 
         scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // Botón compartir
+        const btnCompartir = document.getElementById('btnCompartir');
+        if (btnCompartir) {
+            btnCompartir.addEventListener('click', async () => {
+                const titulo = document.getElementById('productoTitulo')?.textContent || 'Producto';
+                const url = window.location.href;
+                if (navigator.share) {
+                    try {
+                        await navigator.share({ title: titulo, url });
+                    } catch (_) {}
+                } else {
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        btnCompartir.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => { btnCompartir.innerHTML = '<i class="fas fa-share-alt"></i>'; }, 2000);
+                    } catch (_) {}
+                }
+            });
+        }
     </script>
 </body>
 </html>

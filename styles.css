@@ -2286,6 +2286,199 @@ body::after {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(90, 7, 11, 0.4);
     text-decoration: none;
+}
+
+/* ===== PRODUCTO – MEJORAS ESTÉTICAS ===== */
+
+/* Animaciones de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in  { animation: fadeIn  0.7s ease both; }
+.slide-up { animation: slideUp 0.7s ease 0.15s both; }
+
+/* Zoom en imagen */
+.producto-imagen-zoom-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 12px 45px rgba(0,0,0,0.18);
+    cursor: zoom-in;
+    display: inline-block;
+    width: 100%;
+    max-width: 480px;
+}
+.producto-imagen-zoom-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.producto-imagen-zoom-wrapper:hover img {
+    transform: scale(1.08);
+}
+.producto-imagen-zoom-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.producto-imagen-zoom-wrapper:hover .producto-imagen-zoom-hint {
+    opacity: 0;
+}
+
+/* Badge de categoría */
+.producto-categoria-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f7e8e8, #ffe0e0);
+    color: #8b2e2e;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid #e8b4b4;
+    margin-bottom: 14px;
+}
+
+/* Título con subrayado decorativo */
+.producto-info h2 {
+    font-size: 2rem;
+    color: #2d2d2d;
+    margin-bottom: 6px;
+    font-weight: 700;
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 14px;
+}
+.producto-info h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #8b2e2e, #d4717133);
+    border-radius: 2px;
+}
+
+/* Precio con símbolo más pequeño */
+.producto-precio {
+    font-size: 2rem;
+    color: #8b2e2e;
+    font-weight: 700;
+    margin: 16px 0 28px;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+.producto-precio-currency {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-right: 1px;
+}
+
+/* Tarjeta de descripción */
+.producto-descripcion-card {
+    background: linear-gradient(135deg, #fdf8f8, #fff5f5);
+    border-left: 4px solid #8b2e2e;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+.producto-descripcion-icon {
+    color: #8b2e2e;
+    font-size: 1rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+.producto-descripcion {
+    color: #2d2d2d;
+    line-height: 1.9;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Título de características */
+.producto-caracteristicas-titulo {
+    color: #8b2e2e;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botón compartir */
+.btn-compartir-producto {
+    background: transparent;
+    border: 2px solid #8b2e2e;
+    color: #8b2e2e;
+    border-radius: 8px;
+    padding: 0 18px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.btn-compartir-producto:hover {
+    background: #8b2e2e;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(139, 46, 46, 0.3);
+}
+
+/* Pulso en botón de compra */
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(90, 7, 11, 0.35); }
+    50%       { box-shadow: 0 0 0 10px rgba(90, 7, 11, 0); }
+}
+.btn-pulse {
+    animation: btnPulse 2.4s ease-in-out infinite;
+}
+.btn-pulse:hover {
+    animation: none;
+}
+
+/* Hint de CTA */
+.producto-cta-hint {
+    font-size: 0.82rem;
+    color: #6d6d6d;
+    margin-top: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.producto-cta-hint i {
+    color: #8b2e2e;
+    font-size: 0.8rem;
 }/* ===== BOTONES TARJETAS CATÁLOGO ===== */
 .catalogo-buttons {
     display: flex;
