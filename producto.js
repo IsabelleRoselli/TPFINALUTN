@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const priceSpan   = document.getElementById("productoPrecio");
   const descP       = document.getElementById("productoDescripcion");
   const img         = document.getElementById("productoImagen");
-  const categorySpan= document.getElementById("productoCategoria");
+  const categorySpan= document.getElementById("productoCategoriaBadge");
   const detailsUl   = document.getElementById("productoDetalles");
   const buyBtn      = document.getElementById("btnComprarProducto");
 
