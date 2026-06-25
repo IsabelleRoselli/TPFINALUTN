@@ -185,6 +185,9 @@ function renderCard(p) {
       </a>
       <p class="price">$${price}</p>
       <div class="catalogo-buttons">
+        <a class="btn btn-info" href="./productos/producto.html?id=${id}">
+          <i class="fas fa-info-circle"></i> Info
+        </a>
         <a class="btn btn-comprar" target="_blank" rel="noopener noreferrer" href="${waHref}">
           <i class="fab fa-whatsapp"></i> Comprar
         </a>

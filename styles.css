@@ -246,6 +246,51 @@ body::after {
 .favorites h2::after {
     background-color: white;
 }
+/* ===== TICKER ENVÍOS ===== */
+.ticker-envios {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #5a070b, #8b1a1f, #5a070b);
+    padding: 10px 0;
+    white-space: nowrap;
+    border-top: 2px solid rgba(255,255,255,0.15);
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+}
+
+.ticker-track {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker-scroll 28s linear infinite;
+    will-change: transform;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #fff8f0;
+    text-transform: uppercase;
+    padding: 0 50px;
+}
+
+.ticker-item i {
+    font-size: 1rem;
+    color: #ffd6d6;
+}
+
+@keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.ticker-envios:hover .ticker-track {
+    animation-play-state: paused;
+}
+
 .carousel-eventos {
   width: 100%;
   max-width: 100%;
@@ -1508,8 +1553,12 @@ body::after {
 .footer-bottom {
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
     padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .footer-bottom p {
@@ -1527,6 +1576,93 @@ body::after {
 .footer-bottom .credits a:hover {
     color: #fff;
     text-decoration: none;
+}
+
+.footer-bottom-credits {
+    text-align: right;
+}
+
+.footer-pagos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-pagos-label {
+    font-size: 0.8rem;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.footer-pagos-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.footer-pagos-icons i {
+    font-size: 1.8rem;
+    color: #d4d4d4;
+    transition: color 0.3s ease;
+}
+
+.footer-pagos-icons i:hover {
+    color: #fff;
+}
+
+.footer-pagos-icons .fa-cc-visa:hover   { color: #1a1f71; }
+.footer-pagos-icons .fa-cc-mastercard:hover { color: #eb001b; }
+.footer-pagos-icons .fa-cc-amex:hover   { color: #2e77bc; }
+
+.footer-pago-mp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #009ee3;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    padding: 3px 7px;
+    height: 28px;
+    transition: opacity 0.3s ease;
+    cursor: default;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.footer-pago-mp:hover { opacity: 0.85; }
+
+.footer-pago-cash {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: #b0b0b0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    cursor: default;
+}
+
+.footer-pago-cash i {
+    font-size: 1.1rem !important;
+}
+
+.footer-pago-cash:hover { color: #fff; }
+
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-bottom-credits {
+        text-align: center;
+    }
 }
 
 /* ===== CATALOGO PAGE ===== */
