@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 const rootDir = path.join(__dirname, "..");
 app.use("/styles.css", express.static(path.join(rootDir, "styles.css")));
 app.use("/catalogo.js", express.static(path.join(rootDir, "catalogo.js")));
+app.use("/producto.js", express.static(path.join(rootDir, "producto.js")));
 app.use("/admin.js", express.static(path.join(rootDir, "admin.js")));
 app.use("/images", express.static(path.join(rootDir, "images")));
 app.use("/js", express.static(path.join(rootDir, "js")));
