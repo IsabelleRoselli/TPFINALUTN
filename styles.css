@@ -913,40 +913,32 @@ body::after {
     color: #8a0606;
 }
 
+/* El contenedor ocupa todo el ancho de la sidebar, sin padding lateral */
 .sidebar-header {
     background: linear-gradient(135deg, #5a070b 0%, #5a070b 100%);
     color: white;
-    padding: 30px 25px;
+    padding: 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
 }
 .sidebar-logo {
     display: block;
     width: 100%;
-    max-width: 140px;       /* Ajusta este valor al máximo de espacio horizontal permitido */
-    height: 130px;
-    aspect-ratio: 1.8 / 1;  /* Ajusta el aspecto según tu logo, por ejemplo 1.8 ancho x 1 alto */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
-    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.3s ease;
-}
-
-/* El contenedor ayuda a centrar y limitar el espacio */
-.sidebar-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 160px;         /* Ajusta según el espacio deseado de la sidebar */
-    padding-top: 14px;
-    padding-bottom: 12px;
-    box-sizing: border-box;
 }
 
 /* Efecto hover */
 .sidebar-header:hover .sidebar-logo {
-    transform: scale(1.07);
+    transform: scale(1.04);
 }
 
 
@@ -2718,22 +2710,54 @@ body::after {
 .producto-imagen-zoom-wrapper {
     position: relative;
     overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 12px 45px rgba(0,0,0,0.18);
+    border-radius: 14px;
     cursor: zoom-in;
     display: inline-block;
     width: 100%;
     max-width: 480px;
+    /* Marco estético con borde doble y sombra elegante */
+    border: 3px solid #8b2e2e;
+    outline: 6px solid #f3e8e8;
+    outline-offset: -9px;
+    box-shadow:
+        0 0 0 9px #f3e8e8,
+        0 0 0 12px #8b2e2e,
+        0 18px 55px rgba(90, 7, 11, 0.22),
+        0 4px 18px rgba(0,0,0,0.12);
+}
+/* Esquinas decorativas */
+.producto-imagen-zoom-wrapper::before,
+.producto-imagen-zoom-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: #fff;
+    border-style: solid;
+    z-index: 2;
+    pointer-events: none;
+}
+.producto-imagen-zoom-wrapper::before {
+    top: 10px;
+    left: 10px;
+    border-width: 3px 0 0 3px;
+}
+.producto-imagen-zoom-wrapper::after {
+    bottom: 10px;
+    right: 10px;
+    border-width: 0 3px 3px 0;
 }
 .producto-imagen-zoom-wrapper img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 16px;
-    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 11px;
+    transition: transform 0.12s ease-out;
+    transform-origin: 50% 50%;
+    will-change: transform;
 }
-.producto-imagen-zoom-wrapper:hover img {
-    transform: scale(1.08);
+.producto-imagen-zoom-wrapper.zoomed img {
+    transition: none;
 }
 .producto-imagen-zoom-hint {
     position: absolute;
@@ -2750,6 +2774,7 @@ body::after {
     display: flex;
     align-items: center;
     gap: 5px;
+    z-index: 3;
 }
 .producto-imagen-zoom-wrapper:hover .producto-imagen-zoom-hint {
     opacity: 0;

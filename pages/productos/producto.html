@@ -168,6 +168,32 @@
                 }
             });
         }
+
+        // Zoom real con seguimiento del mouse
+        const zoomWrapper = document.querySelector('.producto-imagen-zoom-wrapper');
+        const zoomImg = zoomWrapper ? zoomWrapper.querySelector('img') : null;
+        const ZOOM_SCALE = 2.6;
+
+        if (zoomWrapper && zoomImg) {
+            zoomWrapper.addEventListener('mouseenter', () => {
+                zoomWrapper.classList.add('zoomed');
+                zoomImg.style.transform = `scale(${ZOOM_SCALE})`;
+            });
+
+            zoomWrapper.addEventListener('mousemove', (e) => {
+                const rect = zoomWrapper.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width)  * 100;
+                const y = ((e.clientY - rect.top)  / rect.height) * 100;
+                zoomImg.style.transformOrigin = `${x}% ${y}%`;
+                zoomImg.style.transform = `scale(${ZOOM_SCALE})`;
+            });
+
+            zoomWrapper.addEventListener('mouseleave', () => {
+                zoomWrapper.classList.remove('zoomed');
+                zoomImg.style.transformOrigin = '50% 50%';
+                zoomImg.style.transform = 'scale(1)';
+            });
+        }
     </script>
 </body>
 </html>
