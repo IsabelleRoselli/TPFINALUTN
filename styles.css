@@ -246,6 +246,51 @@ body::after {
 .favorites h2::after {
     background-color: white;
 }
+/* ===== TICKER ENVÍOS ===== */
+.ticker-envios {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, #5a070b, #8b1a1f, #5a070b);
+    padding: 10px 0;
+    white-space: nowrap;
+    border-top: 2px solid rgba(255,255,255,0.15);
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+}
+
+.ticker-track {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker-scroll 28s linear infinite;
+    will-change: transform;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #fff8f0;
+    text-transform: uppercase;
+    padding: 0 50px;
+}
+
+.ticker-item i {
+    font-size: 1rem;
+    color: #ffd6d6;
+}
+
+@keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.ticker-envios:hover .ticker-track {
+    animation-play-state: paused;
+}
+
 .carousel-eventos {
   width: 100%;
   max-width: 100%;
