@@ -240,8 +240,19 @@
     </div>
 
     <!-- Banner dinámico de eventos -->
-<div class="carousel-eventos" aria-label="Destacados para eventos">
-  <img loading="lazy" id="img-evento" src="https://github.com/user-attachments/assets/78551b95-9216-4e5f-a5b1-ab5dfcbd2bba" alt="Arreglo floral destacado para eventos" class="img-evento">
+<div class="banner-dinamico" id="bannerDinamico" aria-label="Destacados para eventos">
+  <div class="banner-slides">
+    <div class="banner-slide active" style="background-image: url('https://github.com/user-attachments/assets/78551b95-9216-4e5f-a5b1-ab5dfcbd2bba')"></div>
+    <div class="banner-slide" style="background-image: url('https://github.com/user-attachments/assets/7f5b5dad-ee25-4706-a0e0-0a7e1432119d')"></div>
+    <div class="banner-slide" style="background-image: url('https://github.com/user-attachments/assets/3cf3ffda-9078-4fec-946f-7b6841f85296')"></div>
+    <div class="banner-slide" style="background-image: url('https://github.com/user-attachments/assets/91457021-6b82-47f3-8c64-fe8b7d5dda22')"></div>
+  </div>
+  <div class="banner-dots">
+    <button class="banner-dot active" data-index="0" aria-label="Banner 1" type="button"></button>
+    <button class="banner-dot" data-index="1" aria-label="Banner 2" type="button"></button>
+    <button class="banner-dot" data-index="2" aria-label="Banner 3" type="button"></button>
+    <button class="banner-dot" data-index="3" aria-label="Banner 4" type="button"></button>
+  </div>
 </div>
 
     <!-- TODAS CATEGORÍAS CON CARROUSEL -->
@@ -741,23 +752,38 @@
     });
 </script>
 <script>
-const imagenes = [
-  "https://github.com/user-attachments/assets/78551b95-9216-4e5f-a5b1-ab5dfcbd2bba",
-  "https://github.com/user-attachments/assets/7f5b5dad-ee25-4706-a0e0-0a7e1432119d",
-  "https://github.com/user-attachments/assets/3cf3ffda-9078-4fec-946f-7b6841f85296",
-  "https://github.com/user-attachments/assets/91457021-6b82-47f3-8c64-fe8b7d5dda22"
-];
-let idx = 0;
-const imgTag = document.getElementById("img-evento");
+(function () {
+  var slides = document.querySelectorAll('.banner-slide');
+  var dots = document.querySelectorAll('.banner-dot');
+  var current = 0;
+  var timer;
 
-function mostrarSiguiente() {
-  if (!imgTag) return;
-  idx = (idx + 1) % imagenes.length;
-  imgTag.src = imagenes[idx];
-}
-if (imgTag) {
-  setInterval(mostrarSiguiente, 4000);
-}
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function next() {
+    goTo(current + 1);
+  }
+
+  function startAuto() {
+    timer = setInterval(next, 4000);
+  }
+
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      clearInterval(timer);
+      goTo(parseInt(this.getAttribute('data-index'), 10));
+      startAuto();
+    });
+  });
+
+  startAuto();
+})();
 </script>
 </body>
 </html>
