@@ -294,22 +294,18 @@ body::after {
 .carousel-eventos {
   width: 100%;
   max-width: 100%;
-  height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  display: block;
   margin: 0;
   background: #f9f6f0;
   position: relative;
+  line-height: 0;
 }
 
 .img-evento {
   width: 100%;
-  max-width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  object-fit: unset;
 }
 /* ===== CAROUSEL CATEGORÍAS ===== */
 .carousel-container {
