@@ -21,6 +21,55 @@ function getImageUrl(p) {
   return p.image_url || p.imageUrl || "https://via.placeholder.com/400x400?text=Sin+Imagen";
 }
 
+function normalizeText(value) {
+  return String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function inferDataCategoriaFromSubcategory(product) {
+  const category = normalizeText(product?.category);
+  const subcategory = normalizeText(product?.subcategory);
+
+  if (!subcategory) return "";
+
+  if (category === "flores y ramos") {
+    if (subcategory === "ramos grandes") return "grandes";
+    if (subcategory === "ramos medianos") return "medianos";
+    if (subcategory === "ramos chicos") return "chicos";
+    if (subcategory === "rosas importadas") return "importadas";
+    if (subcategory === "rosas nacionales") return "nacionales";
+  }
+
+  if (category === "orquideas") {
+    if (subcategory === "phalaenopsis" || subcategory === "orquideas phalaenopsis") return "phalaenopsis";
+    if (subcategory === "cymbidium" || subcategory === "orquideas cymbidium") return "cybidium";
+  }
+
+  if (category === "plantas") {
+    if (subcategory === "plantas interior" || subcategory === "interior") return "interior";
+    if (subcategory === "plantas exterior" || subcategory === "exterior") return "exterior";
+  }
+
+  if (category === "peluches") {
+    if (subcategory === "peluches grandes") return "grandes";
+    if (subcategory === "peluches medianos") return "medianos";
+    if (subcategory === "peluches chicos") return "chicos";
+  }
+
+  if (category === "eventos / ocasiones") {
+    if (subcategory === "nacimiento") return "nacimiento";
+    if (subcategory === "graduacion") return "graduacion";
+    if (subcategory === "casamientos") return "casamientos";
+    if (subcategory === "cumpleanos") return "cumpleanos";
+    if (subcategory === "novias") return "novias";
+  }
+
+  return "";
+}
+
 
 function inferDataCategoriaFromSku(product) {
   const sku = String(product?.sku ?? "").toUpperCase();
@@ -57,46 +106,59 @@ function inferDataCategoriaFromSku(product) {
   return "todas"; // fallback
 }
 
+function getProductFilterKey(product) {
+  return inferDataCategoriaFromSubcategory(product) || inferDataCategoriaFromSku(product);
+}
 
 function matchesSubcategory(product, sub, subsub) {
-  const sku = String(product?.sku ?? "").toUpperCase();
+  const normalizedSub = normalizeText(sub);
+  const normalizedSubsub = normalizeText(subsub);
+  const filterKey = getProductFilterKey(product);
 
   // Si no pidieron subcategoría, no filtramos
-  if (!sub && !subsub) return true;
+  if (!normalizedSub && !normalizedSubsub) return true;
 
-  // Rosas (nivel 2 + nivel 3)
-  if (sub === "Rosas") {
-    if (subsub === "IMPORTADAS") return sku.startsWith("ROS-IMP-");
-    if (subsub === "NACIONALES") return sku.startsWith("ROS-NAC-");
-    return sku.startsWith("ROS-IMP-") || sku.startsWith("ROS-NAC-");
+  if (normalizedSub === "rosas") {
+    if (normalizedSubsub === "importadas") return filterKey === "importadas";
+    if (normalizedSubsub === "nacionales") return filterKey === "nacionales";
+    return filterKey === "importadas" || filterKey === "nacionales";
   }
 
-  // Ramos
-  if (sub === "Ramos Grandes") return sku.startsWith("RAM-GRA-");
-  if (sub === "Ramos Medianos") return sku.startsWith("RAM-MED-");
-  if (sub === "Ramos Chicos") return sku.startsWith("RAM-CHI-");
+  const normalizedFilterMap = {
+    "ramos grandes": "grandes",
+    "ramos medianos": "medianos",
+    "ramos chicos": "chicos",
+    "orquideas phalaenopsis": "phalaenopsis",
+    "orquideas cymbidium": "cybidium",
+    "plantas interior": "interior",
+    "plantas exterior": "exterior",
+    "peluches grandes": "grandes",
+    "peluches medianos": "medianos",
+    "peluches chicos": "chicos",
+    "importadas": "importadas",
+    "nacionales": "nacionales",
+    "interior": "interior",
+    "exterior": "exterior",
+    "grandes": "grandes",
+    "medianos": "medianos",
+    "chicos": "chicos",
+    "phalaenopsis": "phalaenopsis",
+    "cybidium": "cybidium",
+    "nacimiento": "nacimiento",
+    "graduacion": "graduacion",
+    "casamientos": "casamientos",
+    "cumpleanos": "cumpleanos",
+    "novias": "novias",
+  };
 
-  // Orquídeas
-  if (sub === "Orquideas Phalaenopsis" || sub === "Orquideas Phalaenopsis") return sku.startsWith("ORQ-PHA-");
-  if (sub === "Orquideas Cybidium" || sub === "Orquideas Cybidium") return sku.startsWith("ORQ-CYB-");
+  const expectedKey =
+    normalizedFilterMap[normalizedSubsub] ||
+    normalizedFilterMap[normalizedSub] ||
+    "";
 
-  // Plantas
-  if (sub === "interior" || sub === "Interior") return sku.startsWith("PLA-INT-");
-  if (sub === "exterior" || sub === "Exterior") return sku.startsWith("PLA-EXT-");
+  if (!expectedKey || expectedKey === "todas") return true;
 
-  // Peluches
-  if (sub === "grandes" || sub === "Grandes") return sku.startsWith("PEL-GRA-");
-  if (sub === "medianos" || sub === "Medianos") return sku.startsWith("PEL-MED-");
-  if (sub === "chicos" || sub === "Chicos") return sku.startsWith("PEL-CHI-");
-
-  // Eventos
-  if (sub === "nacimiento" || sub === "Nacimiento") return sku.startsWith("EVE-NAC-");
-  if (sub === "graduación" || sub === "Graduación" || sub === "graduacion" || sub === "Graduacion") return sku.startsWith("EVE-GRA-");
-  if (sub === "casamientos" || sub === "Casamientos") return sku.startsWith("EVE-CAS-");
-  if (sub === "cumpleaños" || sub === "Cumpleaños" || sub === "cumpleanos" || sub === "Cumpleanos") return sku.startsWith("EVE-CUM-");
-
-  // Si llega una subcategoría que no conocemos, no filtramos (para no vaciar por error)
-  return true;
+  return filterKey === expectedKey;
 }
 
 function renderCard(p) {
@@ -111,7 +173,7 @@ function renderCard(p) {
   const waHref = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
 
   // CLAVE: data-categoria para que funcionen tus botones (grandes/medianos/etc.)
-  const dataCategoria = inferDataCategoriaFromSku(p);
+  const dataCategoria = getProductFilterKey(p);
 
   return `
     <div class="catalogo-card" data-categoria="${escapeHtml(dataCategoria)}">
