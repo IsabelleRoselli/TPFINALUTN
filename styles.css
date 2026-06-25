@@ -1550,19 +1550,39 @@ body::after {
 }
 
 /* Mapa + Medios de Pago side by side */
+/* ===== SCROLL REVEAL ===== */
+.reveal-card {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-card.reveal-delay {
+    transition-delay: 0.18s;
+}
+
 .local-mapa-pagos {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 32px;
     margin-bottom: 60px;
     align-items: stretch;
 }
 
 .local-mapa {
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
     min-height: 380px;
+    border: 1px solid rgba(139, 46, 46, 0.08);
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.local-mapa:hover {
+    box-shadow: 0 16px 48px rgba(139, 46, 46, 0.14), 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
 }
 
 .local-mapa iframe {
@@ -1574,14 +1594,19 @@ body::after {
 
 /* Medios de Pago panel */
 .local-pagos {
-    background: linear-gradient(135deg, #f8f5f3, #f5f1f0);
-    border-radius: 12px;
-    padding: 40px 35px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(139, 46, 46, 0.1);
+    background: linear-gradient(150deg, #fdf8f6 0%, #f8f2ef 60%, #f3ede9 100%);
+    border-radius: 16px;
+    padding: 42px 38px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(139, 46, 46, 0.05);
+    border: 1px solid rgba(139, 46, 46, 0.12);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.local-pagos:hover {
+    box-shadow: 0 16px 48px rgba(139, 46, 46, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
 }
 
 .local-pagos h2 {
@@ -1600,7 +1625,7 @@ body::after {
 .local-pagos-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 18px;
 }
 
 .local-pago-item {
@@ -1610,29 +1635,43 @@ body::after {
     justify-content: center;
     gap: 10px;
     background: #fff;
-    border-radius: 12px;
-    padding: 28px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-    border: 1px solid rgba(139, 46, 46, 0.08);
+    border-radius: 14px;
+    padding: 28px 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(139, 46, 46, 0.07);
     transition: all 0.3s ease;
 }
 
 .local-pago-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(139, 46, 46, 0.15);
-    border-color: #8b2e2e;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(139, 46, 46, 0.14);
+    border-color: rgba(139, 46, 46, 0.3);
 }
 
 .local-pago-item i {
-    font-size: 2.8rem;
-    color: #8b2e2e;
+    font-size: 3rem;
     line-height: 1;
 }
 
-.local-pago-item .fa-cc-visa   { color: #1a1f71; }
-.local-pago-item .fa-cc-mastercard { color: #eb001b; }
+.local-pago-item .fa-cc-visa        { color: #1a1f71; }
+.local-pago-item .fa-cc-mastercard  { color: #eb001b; }
 .local-pago-item .fa-money-bill-wave { color: #2e7d32; }
-.local-pago-item .fa-wallet    { color: #009ee3; }
+
+/* Mercado Pago badge inside payment card */
+.local-pago-mp-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #009ee3;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    padding: 5px 10px;
+    height: 36px;
+    white-space: nowrap;
+}
 
 .local-pago-item span {
     font-size: 0.9rem;
@@ -1891,7 +1930,7 @@ body::after {
     padding: 20px 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
 }
@@ -1914,7 +1953,7 @@ body::after {
 }
 
 .footer-bottom-credits {
-    text-align: right;
+    text-align: center;
 }
 
 .footer-pagos {
