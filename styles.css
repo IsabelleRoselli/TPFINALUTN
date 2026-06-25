@@ -1321,6 +1321,20 @@ body::after {
     gap: 60px;
 }
 
+/* Map section inside contact page */
+.contact-mapa h2 {
+    font-size: 2rem;
+    color: #8b2e2e;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.contact-mapa-iframe {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
 .contact-form h2,
 .contact-info h2 {
     font-size: 2rem;
@@ -1437,11 +1451,105 @@ body::after {
     margin: 0 auto;
 }
 
-.local-mapa {
+/* Mapa + Medios de Pago side by side */
+.local-mapa-pagos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
     margin-bottom: 60px;
+    align-items: stretch;
+}
+
+.local-mapa {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-height: 380px;
+}
+
+.local-mapa iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+}
+
+/* Medios de Pago panel */
+.local-pagos {
+    background: linear-gradient(135deg, #f8f5f3, #f5f1f0);
+    border-radius: 12px;
+    padding: 40px 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(139, 46, 46, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.local-pagos h2 {
+    font-size: 1.8rem;
+    color: #8b2e2e;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.local-pagos-subtitulo {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 35px;
+}
+
+.local-pagos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.local-pago-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(139, 46, 46, 0.08);
+    transition: all 0.3s ease;
+}
+
+.local-pago-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(139, 46, 46, 0.15);
+    border-color: #8b2e2e;
+}
+
+.local-pago-item i {
+    font-size: 2.8rem;
+    color: #8b2e2e;
+    line-height: 1;
+}
+
+.local-pago-item .fa-cc-visa   { color: #1a1f71; }
+.local-pago-item .fa-cc-mastercard { color: #eb001b; }
+.local-pago-item .fa-money-bill-wave { color: #2e7d32; }
+.local-pago-item .fa-wallet    { color: #009ee3; }
+
+.local-pago-item span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+    .local-mapa-pagos {
+        grid-template-columns: 1fr;
+    }
+    .local-pagos-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .local-info h2 {
