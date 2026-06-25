@@ -292,22 +292,60 @@ body::after {
     animation-play-state: paused;
 }
 
-.carousel-eventos {
+.banner-dinamico {
   width: 100%;
-  max-width: 100%;
-  display: block;
-  margin: 0;
-  background: #f9f6f0;
   position: relative;
+  overflow: hidden;
   line-height: 0;
+  background: #111;
 }
 
-.img-evento {
+.banner-slides {
   width: 100%;
-  height: 280px;
-  display: block;
-  object-fit: cover;
-  object-position: center;
+  height: 440px;
+  position: relative;
+}
+
+.banner-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.banner-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.banner-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.banner-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.banner-dot.active {
+  background: #fff;
 }
 /* ===== CAROUSEL CATEGORÍAS ===== */
 .carousel-container {
@@ -2573,7 +2611,7 @@ body::after {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .hero { min-height: 220px; padding: 20px 40px; }
-    .img-evento { height: 220px; }
+    .banner-slides { height: 220px; }
     .hero-logo { max-width: 200px; }
     .categories h2::before, .categories h2::after { display: none; }
     .carousel-btn { width: 40px; height: 40px; }
