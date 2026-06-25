@@ -6,6 +6,8 @@ const path = require("path");
 const multer = require("multer");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const { v2: cloudinary } = require("cloudinary");
+const rateLimit = require("express-rate-limit");
 
 const connectDB = require("./src/config/db");
 const User = require("./src/models/User");
@@ -14,6 +16,12 @@ const Product = require("./src/models/Product");
 const backendEnvPath = path.join(__dirname, ".env");
 const rootEnvPath = path.join(__dirname, "..", ".env");
 dotenv.config({ path: fs.existsSync(backendEnvPath) ? backendEnvPath : rootEnvPath });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 app.use(cors());
@@ -38,7 +46,6 @@ app.use("/admin.js", express.static(path.join(rootDir, "admin.js")));
 app.use("/images", express.static(path.join(rootDir, "images")));
 app.use("/js", express.static(path.join(rootDir, "js")));
 app.use("/pages", express.static(path.join(rootDir, "pages")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (_req, res) => res.redirect("/index.html"));
 app.get("/index.html", (_req, res) => res.sendFile(path.join(rootDir, "index.html")));
@@ -46,15 +53,11 @@ app.get("/admin.html", (_req, res) => res.sendFile(path.join(rootDir, "admin.htm
 app.get("/admin", (_req, res) => res.redirect("/admin.html"));
 
 // ===== MULTER PARA IMÁGENES =====
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, path.join(__dirname, "uploads")),
-  filename: (_req, file, cb) => {
-    const safe = file.originalname.replace(/[^a-zA-Z0-9._-]/g, "_");
-    cb(null, `${Date.now()}_${safe}`);
-  },
-});
+// Usa memoryStorage: el archivo queda en memoria y se sube directo a Cloudinary.
+// Nunca se escribe al disco local (que es efímero en Railway y similares).
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
-const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
+const uploadRateLimit = rateLimit({ windowMs: 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false });
 
 // ===== HELPERS =====
 function signToken(payload) {
@@ -134,14 +137,24 @@ app.post("/auth/login", async (req, res) => {
 });
 
 // SUBIR IMAGEN
-app.post("/admin/upload", requireAdmin, upload.single("image"), (req, res) => {
+app.post("/admin/upload", uploadRateLimit, requireAdmin, upload.single("image"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Falta archivo" });
     }
-    
-    const url = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-    res.json({ url });
+
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "cattleya/products" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      stream.end(req.file.buffer);
+    });
+
+    res.json({ url: result.secure_url });
   } catch (e) {
     console.error("Error upload:", e.message);
     res.status(500).json({ error: "Error subiendo imagen" });
