@@ -55,7 +55,7 @@ Crear el archivo `.env` en la carpeta `backend` y completar con las variables ne
 ```
 PORT=3001
 MONGODB_URI=mongodb://localhost:27017/cattleya
-JWT_SECRET=Artefloral26
+JWT_SECRET=reemplazar_por_un_secreto_seguro
 ```
 4. Iniciar el backend
 ```sh
@@ -119,10 +119,10 @@ Ejemplo para crear un producto (_/admin/products_):
 }
 .env.example
 PORT=3001
-MONGO_URI=mongodb+srv://cattleyaAdmin:Artefloral26@cattleya.ug3lryr.mongodb.net/cattleya?retryWrites=true&w=majority&appName=cattleya
-JWT_SECRET=cattleyatiendadefloresartefloral26
+MONGO_URI=******cluster.mongodb.net/cattleya?retryWrites=true&w=majority&appName=cattleya
+JWT_SECRET=reemplazar_por_un_secreto_seguro
 ADMIN_EMAIL=cattleya@admin.com
-ADMIN_PASSWORD=Artefloral26
+ADMIN_PASSWORD=reemplazar_por_password_seguro
 
 POST /api/products (sospecha de error)
 Actualmente, el endpoint POST /api/products devuelve error 400 (Bad Request).

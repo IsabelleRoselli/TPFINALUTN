@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - CATTLEYA</title>
+  <meta name="description" content="Panel administrativo de CATTLEYA para gestionar productos, imágenes y catálogo.">
+  <meta name="robots" content="noindex,nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -582,7 +584,7 @@
   <!-- LOGIN -->
   <div class="login-section" id="loginSection">
     <div class="login-card">
-      <img src="./images/logocattleya.png" alt="CATTLEYA" class="logo">
+      <img loading="lazy" src="./images/logocattleya.png" alt="CATTLEYA" class="logo">
       <h2>Panel de Administración</h2>
       <form id="loginForm">
         <div class="form-group">
@@ -604,7 +606,7 @@
     <!-- BANNER CON LOGO -->
     <div class="admin-hero">
       <div class="admin-hero-content">
-        <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="admin-hero-logo">
+        <img loading="lazy" src="./images/logocattleya.png" alt="CATTLEYA Logo" class="admin-hero-logo">
         <h1>Panel de Administración</h1>
         <p class="admin-hero-subtitle">Gestión de Productos</p>
       </div>
@@ -695,7 +697,7 @@
             <div class="form-group">
               <label>Imagen</label>
               <input type="file" id="productImage" accept="image/*">
-              <img id="imagePreview" class="image-preview" alt="Vista previa">
+              <img loading="lazy" id="imagePreview" class="image-preview" alt="Vista previa">
               <button type="button" class="btn btn-secondary" id="uploadBtn">
                 <i class="fas fa-cloud-upload-alt"></i> Subir Imagen
               </button>
@@ -719,8 +721,25 @@
         <!-- LISTADO -->
         <div class="card">
           <h3><i class="fas fa-list"></i> Productos</h3>
-          <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o SKU...">
+          <div class="search-box" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o SKU..." style="flex:1;min-width:180px;">
+            <select id="filterCategory" style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:14px;background:#fff;cursor:pointer;">
+              <option value="">Todas las categorías</option>
+              <option value="Flores y Ramos">Flores y Ramos</option>
+              <option value="Orquídeas">Orquídeas</option>
+              <option value="Plantas">Plantas</option>
+              <option value="Regalos">Regalos</option>
+              <option value="Peluches">Peluches</option>
+              <option value="Boxes">Boxes</option>
+              <option value="Eventos / Ocasiones">Eventos / Ocasiones</option>
+              <option value="Condolencias">Condolencias</option>
+              <option value="Varios">Varios</option>
+            </select>
+            <select id="filterStatus" style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:14px;background:#fff;cursor:pointer;">
+              <option value="">Todos los estados</option>
+              <option value="active">Activos</option>
+              <option value="archived">Archivados</option>
+            </select>
           </div>
 
           <div style="overflow-x: auto;">
@@ -1028,15 +1047,25 @@ function showMessage(element, message, type = "success") {
   }
 }
 
-    searchInput.addEventListener("input", () => {
+    searchInput.addEventListener("input", applyFilters);
+
+    const filterCategory = document.getElementById("filterCategory");
+    const filterStatus = document.getElementById("filterStatus");
+    filterCategory.addEventListener("change", applyFilters);
+    filterStatus.addEventListener("change", applyFilters);
+
+    function applyFilters() {
       const query = searchInput.value.toLowerCase();
-      const filtered = allProducts.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.sku.toLowerCase().includes(query)
-      );
+      const cat = filterCategory.value;
+      const status = filterStatus.value;
+      const filtered = allProducts.filter((p) => {
+        const matchText = !query || p.name.toLowerCase().includes(query) || p.sku.toLowerCase().includes(query);
+        const matchCat = !cat || p.category === cat;
+        const matchStatus = !status || p.status === status;
+        return matchText && matchCat && matchStatus;
+      });
       renderProducts(filtered);
-    });
+    }
 
     function showMessage(el, text, type) {
       el.textContent = text;
@@ -1051,8 +1080,5 @@ function showMessage(element, message, type = "success") {
       showLoginPanel();
     }
   </script>
-  <script src="/js/admin/api.js"></script>
-  <script src="/js/admin/auth.js"></script>
-  <script src="admin.js"></script>
 </body>
 </html>

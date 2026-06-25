@@ -5,12 +5,15 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 const connectDB = require("./src/config/db");
 const User = require("./src/models/User");
 const Product = require("./src/models/Product");
 
-dotenv.config({ path: path.join(__dirname, "..", ".env") });
+const backendEnvPath = path.join(__dirname, ".env");
+const rootEnvPath = path.join(__dirname, "..", ".env");
+dotenv.config({ path: fs.existsSync(backendEnvPath) ? backendEnvPath : rootEnvPath });
 
 const app = express();
 app.use(cors());
@@ -274,7 +277,7 @@ app.put("/admin/products/:id", requireAdmin, async (req, res) => {
       return res.status(400).json({ error: "ID inválido" });
     }
 
-    const { name, description, priceCents, stock, sku, category, subcategory, imageUrl } = req.body;
+    const { name, description, priceCents, stock, sku, category, subcategory, imageUrl, status } = req.body;
 
     const product = await Product.findById(req.params.id);
     if (!product) {
@@ -289,6 +292,9 @@ app.put("/admin/products/:id", requireAdmin, async (req, res) => {
     if (category !== undefined) product.category = String(category || "").trim();
     if (subcategory !== undefined) product.subcategory = String(subcategory || "").trim();
     if (imageUrl !== undefined) product.imageUrl = String(imageUrl || "").trim();
+    if (status !== undefined && ["active", "archived"].includes(String(status))) {
+      product.status = String(status);
+    }
 
     await product.save();
 

@@ -1,4 +1,7 @@
-window.API_BASE = "http://localhost:3001";
+const _host = window.location.hostname;
+const _isLocal = _host === "localhost" || _host === "127.0.0.1";
+
+window.API_BASE = _isLocal ? "http://localhost:3001" : window.location.origin;
 
 window.getToken = () => localStorage.getItem("admin_token");
 window.setToken = (t) => localStorage.setItem("admin_token", t);

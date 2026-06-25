@@ -6,7 +6,6 @@ const WHATSAPP_PHONE = "5491162948671";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const id = new URLSearchParams(window.location.search).get("id");
-  console.log("[Producto] ID detectado:", id);
 
   // Elementos DOM
   const nameH1      = document.getElementById("productoNombre");
@@ -35,19 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const url = `${API_URL}/products/${encodeURIComponent(id)}`;
-    console.log("[Producto] Haciendo fetch:", url);
 
     const res = await fetch(url);
-
-    // DEBUG: Mostrar status y tipo de respuesta
-    console.log("[Producto] Response OK:", res.ok, "Status:", res.status);
 
     const p = await res.json().catch(err => {
       console.error("[Producto] Error parseando JSON:", err);
       return null;
     });
-
-    console.log("[Producto] Datos recibidos:", p);
 
     if (!res.ok || !p) throw new Error(p?.error || "No se pudo cargar el producto.");
 

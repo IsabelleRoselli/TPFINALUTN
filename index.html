@@ -7,10 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CATTLEYA - Tienda de Flores</title>
+    <meta name="description" content="CATTLEYA es una florería de Ramos Mejía con ramos, orquídeas, plantas, regalos y arreglos florales para regalos, eventos y ocasiones especiales.">
+    <meta property="og:title" content="CATTLEYA - Tienda de Flores">
+    <meta property="og:description" content="Descubrí ramos, orquídeas, plantas y regalos florales de CATTLEYA para cada ocasión.">
+    <meta property="og:image" content="./images/logocattleya.png">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="./images/favicon.ico.png" type="image/x-icon">
-    <link rel="icon" type="image/png" href="./images/favicon.ico.png" sizes="32x32" />
+    <link rel="icon" href="./images/favicon-64.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="./images/favicon-32.png" type="image/png" sizes="32x32">
 </head>
 <body>
  <!-- SIDEBAR NAVIGATION -->
@@ -20,7 +25,7 @@
     </button>
 
     <div class="sidebar-header">
-        <img src="./images/logomenubar.jpeg" alt="CATTLEYA Logo" class="sidebar-logo">
+        <img loading="lazy" src="./images/logomenubar.jpeg" alt="CATTLEYA Logo" class="sidebar-logo">
     </div>
 
     <nav class="sidebar-nav">
@@ -179,20 +184,20 @@
     <div class="sidebar-divider"></div>
 
     <div class="sidebar-cta">
-        <a href="https://wa.me/5491162948671" target="_blank" class="btn-sidebar-whatsapp">
+        <a href="https://wa.me/5491162948671" target="_blank" rel="noopener noreferrer" class="btn-sidebar-whatsapp">
             <i class="fab fa-whatsapp"></i> Comprar por WhatsApp
         </a>
     </div>
 
     <div class="sidebar-footer">
         <div class="social-icons">
-            <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+            <a href="https://instagram.com/florescattleya2013" target="_blank" rel="noopener noreferrer" title="Instagram">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+            <a href="https://facebook.com/cattleya" target="_blank" rel="noopener noreferrer" title="Facebook">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+            <a href="https://twitter.com/cattleya" target="_blank" rel="noopener noreferrer" title="Twitter">
                 <i class="fab fa-twitter"></i>
             </a>
         </div>
@@ -207,25 +212,22 @@
     <section class="hero">
         <div class="hero-content">
             <!-- LOGO -->
-            <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="hero-logo">
+            <img loading="lazy" src="./images/logocattleya.png" alt="CATTLEYA Logo" class="hero-logo">
 
             <p class="tagline">Ramos • Orquídeas • Plantas • Regalos </p>
             <div class="hero-buttons">
                 <button class="btn btn-menu" id="menuBtn" type="button">
                     <i class="fas fa-bars"></i> Menú
                 </button>
-                <a href="https://wa.me/5491162948671" target="_blank" class="btn btn-secondary">
+                <a href="https://wa.me/5491162948671" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                     <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
             </div>
         </div>
     </section>
     <!-- Banner dinámico de eventos -->
-<div id="carousel-eventos" class="carousel-eventos">
-  <img id="img-evento" src="./images/af3.jpeg" alt="Evento destacado" class="img-evento">
-  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
-  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
-  <img id="img-evento" src="./images/evento1.jpg" alt="Evento destacado" class="img-evento">
+<div class="carousel-eventos" aria-label="Destacados para eventos">
+  <img loading="lazy" id="img-evento" src="./images/af3.jpeg" alt="Arreglo floral destacado para eventos" class="img-evento">
 </div>
 
     <!-- TODAS CATEGORÍAS CON CARROUSEL -->
@@ -242,7 +244,7 @@
                     <!-- Categoría 1 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/fyrcarousel.png" alt="Flores y Ramos">
+                            <img loading="lazy" src="./images/fyrcarousel.webp" alt="Flores y Ramos">
                         </div>
                         <h3>Flores y Ramos</h3>
                         <p class="price">Desde $4.000</p>
@@ -252,7 +254,7 @@
                     <!-- Categoría 2 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ocarousel.png" alt="Orquídeas">
+                            <img loading="lazy" src="./images/ocarousel.webp" alt="Orquídeas">
                         </div>
                         <h3>Orquídeas</h3>
                         <p class="price">Desde $5.500</p>
@@ -262,7 +264,7 @@
                     <!-- Categoría 3 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/plcarousel.png" alt="Plantas">
+                            <img loading="lazy" src="./images/plcarousel.webp" alt="Plantas">
                         </div>
                         <h3>Plantas</h3>
                         <p class="price">Desde $5.500</p>
@@ -272,7 +274,7 @@
                     <!-- Categoría 4 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/rcarousel.png" alt="Regalos">
+                            <img loading="lazy" src="./images/rcarousel.webp" alt="Regalos">
                         </div>
                         <h3>Regalos</h3>
                         <p class="price">Desde $3.500</p>
@@ -282,7 +284,7 @@
                     <!-- Categoría 5 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/pcarousel.png" alt="Peluches">
+                            <img loading="lazy" src="./images/pcarousel.webp" alt="Peluches">
                         </div>
                         <h3>Peluches</h3>
                         <p class="price">Desde $3.500</p>
@@ -292,7 +294,7 @@
                     <!-- Categoría 6 -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/bcarousel.png" alt="Boxes">
+                            <img loading="lazy" src="./images/bcarousel.webp" alt="Boxes">
                         </div>
                         <h3>Boxes</h3>
                         <p class="price">Desde $4.000</p>
@@ -302,7 +304,7 @@
                     <!-- Categoría 7 (NUEVA) -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ecarousel.png" alt="Eventos">
+                            <img loading="lazy" src="./images/ecarousel.webp" alt="Eventos">
                         </div>
                         <h3>Eventos</h3>
                         <p class="price">Consultar</p>
@@ -312,7 +314,7 @@
                     <!-- Categoría 8 (NUEVA) -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ccarousel.png" alt="Condolencias">
+                            <img loading="lazy" src="./images/ccarousel.webp" alt="Condolencias">
                         </div>
                         <h3>Condolencias</h3>
                         <p class="price">Consultar</p>
@@ -322,7 +324,7 @@
                     <!-- Categoría 9 (NUEVA) -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/vcarousel.png" alt="Varios">
+                            <img loading="lazy" src="./images/vcarousel.webp" alt="Varios">
                         </div>
                         <h3>Varios</h3>
                         <p class="price">Consultar</p>
@@ -332,7 +334,7 @@
                     <!-- DUPLICADAS PARA EFECTO INFINITO -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/fyrcarousel.png" alt="Flores y Ramos">
+                            <img loading="lazy" src="./images/fyrcarousel.webp" alt="Flores y Ramos">
                         </div>
                         <h3>Flores y Ramos</h3>
                         <p class="price">Desde $4.000</p>
@@ -341,7 +343,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ocarousel.png" alt="Orquídeas">
+                            <img loading="lazy" src="./images/ocarousel.webp" alt="Orquídeas">
                         </div>
                         <h3>Orquídeas</h3>
                         <p class="price">Desde $5.500</p>
@@ -350,7 +352,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/plcarousel.png" alt="Plantas">
+                            <img loading="lazy" src="./images/plcarousel.webp" alt="Plantas">
                         </div>
                         <h3>Plantas</h3>
                         <p class="price">Desde $5.500</p>
@@ -359,7 +361,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/rcarousel.png" alt="Regalos">
+                            <img loading="lazy" src="./images/rcarousel.webp" alt="Regalos">
                         </div>
                         <h3>Regalos</h3>
                         <p class="price">Desde $3.500</p>
@@ -368,7 +370,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/pcarousel.png" alt="Peluches">
+                            <img loading="lazy" src="./images/pcarousel.webp" alt="Peluches">
                         </div>
                         <h3>Peluches</h3>
                         <p class="price">Desde $3.500</p>
@@ -377,7 +379,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/bcarousel.png" alt="Boxes">
+                            <img loading="lazy" src="./images/bcarousel.webp" alt="Boxes">
                         </div>
                         <h3>Boxes</h3>
                         <p class="price">Desde $4.000</p>
@@ -387,7 +389,7 @@
                     <!-- Duplicamos también las nuevas para mantener “infinito” -->
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ecarousel.png" alt="Eventos">
+                            <img loading="lazy" src="./images/ecarousel.webp" alt="Eventos">
                         </div>
                         <h3>Eventos</h3>
                         <p class="price">Consultar</p>
@@ -396,7 +398,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/ccarousel.png" alt="Condolencias">
+                            <img loading="lazy" src="./images/ccarousel.webp" alt="Condolencias">
                         </div>
                         <h3>Condolencias</h3>
                         <p class="price">Consultar</p>
@@ -405,7 +407,7 @@
 
                     <div class="category-card">
                         <div class="category-image">
-                            <img src="./images/vcarousel.png" alt="Varios">
+                            <img loading="lazy" src="./images/vcarousel.webp" alt="Varios">
                         </div>
                         <h3>Varios</h3>
                         <p class="price">Consultar</p>
@@ -428,7 +430,7 @@
             <div class="favorites-grid">
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="./images/box4.png" alt="Box Premium">
+                        <img loading="lazy" src="./images/box4.png" alt="Box Premium">
                     </div>
                     <h3>Box Premium</h3>
                     <p class="price">Consultar</p>
@@ -437,7 +439,7 @@
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="./images/r1.jpeg" alt="Ramo Corazón">
+                        <img loading="lazy" src="./images/r1.jpeg" alt="Ramo Corazón">
                     </div>
                     <h3>Ramo Corazón</h3>
                     <p class="price">Consultar</p>
@@ -446,7 +448,7 @@
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="./images/box.jpeg" alt="Combo Girasol">
+                        <img loading="lazy" src="./images/box.jpeg" alt="Combo Girasol">
                     </div>
                     <h3>Combo Girasol</h3>
                     <p class="price">Consultar</p>
@@ -455,7 +457,7 @@
 
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="./images/orq3.png" alt="Ramo Mixto">
+                        <img loading="lazy" src="./images/orq3.png" alt="Ramo Mixto">
                     </div>
                     <h3>Orquideas</h3>
                     <p class="price">Consultar</p>
@@ -490,12 +492,12 @@
             </div>
             <div class="why-choose-right">
                 <div class="gallery-grid">
-                    <img src="./images/r20.jpeg" alt="Galería 1">
-                    <img src="./images/ing1.jpeg" alt="Galería 2">
-                    <img src="./images/p2.jpeg" alt="Galería 3">
-                    <img src="./images/af.jpeg" alt="Galería 4">
-                    <img src="./images/c1.jpeg" alt="Galería 5">
-                    <img src="./images/p1.png" alt="Galería 6">
+                    <img loading="lazy" src="./images/r20.jpeg" alt="Galería 1">
+                    <img loading="lazy" src="./images/ing1.jpeg" alt="Galería 2">
+                    <img loading="lazy" src="./images/p2.jpeg" alt="Galería 3">
+                    <img loading="lazy" src="./images/af.jpeg" alt="Galería 4">
+                    <img loading="lazy" src="./images/c1.jpeg" alt="Galería 5">
+                    <img loading="lazy" src="./images/p1.webp" alt="Galería 6">
                 </div>
             </div>
         </div>
@@ -506,7 +508,7 @@
         <div class="footer-container">
             <!-- Sección Logo -->
             <div class="footer-logo">
-                <img src="./images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
+                <img loading="lazy" src="./images/logocattleya.png" alt="CATTLEYA Logo" class="footer-logo-img">
             </div>
 
             <!-- Sección Contacto y Ubicación -->
@@ -521,19 +523,19 @@
             <div class="footer-section">
                 <h3>Redes Sociales</h3>
                 <div class="social-links">
-                    <a href="https://facebook.com/cattleya" target="_blank" title="Facebook">
+                    <a href="https://facebook.com/cattleya" target="_blank" rel="noopener noreferrer" title="Facebook">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="https://instagram.com/florescattleya2013" target="_blank" title="Instagram">
+                    <a href="https://instagram.com/florescattleya2013" target="_blank" rel="noopener noreferrer" title="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://wa.me/5491162948671" target="_blank" title="WhatsApp">
+                    <a href="https://wa.me/5491162948671" target="_blank" rel="noopener noreferrer" title="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a href="https://twitter.com/cattleya" target="_blank" title="Twitter">
+                    <a href="https://twitter.com/cattleya" target="_blank" rel="noopener noreferrer" title="Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="mailto:info@cattleya.com" target="_blank" title="Email">
+                    <a href="mailto:info@cattleya.com" target="_blank" rel="noopener noreferrer" title="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
@@ -613,13 +615,43 @@
     var prevBtn = document.getElementById('prevBtn');
     var carousel = document.getElementById('categoriesCarousel');
     var autoTimeout;
+    var carouselStep = 0;
+    var carouselLoopDistance = 0;
+
+    function getTranslateX(element) {
+        var transform = window.getComputedStyle(element).transform;
+        if (!transform || transform === 'none') return 0;
+
+        var match = transform.match(/matrix\((.+)\)/);
+        if (match) {
+            var values = match[1].split(',');
+            return parseFloat(values[4]) || 0;
+        }
+
+        return 0;
+    }
+
+    function updateCarouselMetrics() {
+        var firstCard = carousel ? carousel.querySelector('.category-card') : null;
+        if (!carousel || !firstCard) return;
+
+        var firstHalfCount = carousel.children.length / 2;
+        var gap = parseFloat(window.getComputedStyle(carousel).gap || 0);
+        carouselStep = firstCard.getBoundingClientRect().width + gap;
+        carouselLoopDistance = carouselStep * firstHalfCount;
+        carousel.style.setProperty('--carousel-loop-distance', carouselLoopDistance + 'px');
+    }
 
     function startAuto() {
+        updateCarouselMetrics();
         carousel.style.animation = 'carousel-scroll 30s linear infinite';
+        carousel.style.transition = 'none';
+        carousel.style.transform = 'translateX(0)';
     }
 
     function stopAuto() {
         carousel.style.animation = 'none';
+        carousel.style.transform = 'translateX(' + getTranslateX(carousel) + 'px)';
     }
 
     if (nextBtn && prevBtn && carousel) {
@@ -627,10 +659,10 @@
             stopAuto();
             clearTimeout(autoTimeout);
 
-            var current = carousel.style.transform;
-            var match = current.match(/translateX\((-?\d+)px\)/);
-            var pos = match ? parseInt(match[1]) : 0;
-            pos = pos - 270;
+            var pos = getTranslateX(carousel) - carouselStep;
+            if (Math.abs(pos) >= carouselLoopDistance) {
+                pos = 0;
+            }
             carousel.style.transform = 'translateX(' + pos + 'px)';
             carousel.style.transition = 'transform 0.8s ease-in-out';
 
@@ -641,16 +673,20 @@
             stopAuto();
             clearTimeout(autoTimeout);
 
-            var current = carousel.style.transform;
-            var match = current.match(/translateX\((-?\d+)px\)/);
-            var pos = match ? parseInt(match[1]) : 0;
-            pos = pos + 270;
+            var pos = getTranslateX(carousel) + carouselStep;
+            if (pos > 0) {
+                pos = -(carouselLoopDistance - carouselStep);
+            }
             carousel.style.transform = 'translateX(' + pos + 'px)';
             carousel.style.transition = 'transform 0.8s ease-in-out';
 
             autoTimeout = setTimeout(startAuto, 3000);
         });
     }
+
+    updateCarouselMetrics();
+    startAuto();
+    window.addEventListener('resize', updateCarouselMetrics);
 </script>
 
 <!-- BOTÓN SCROLL TO TOP -->
@@ -678,33 +714,23 @@
         });
     });
 </script>
-<!-- ...Tu contenido HTML... -->
-
-<div id="banner-principal">
-  <!-- Banner principal aquí -->
-</div>
-
-<div id="carousel-eventos" class="carousel-eventos">
-  <img id="img-evento" src="images/evento1.jpg" alt="Evento destacado" class="img-evento">
-</div>
-
-<!-- ...más contenido si tienes... -->
-
-<!-- === AGREGA AQUÍ el JavaScript antes de </body> === -->
 <script>
 const imagenes = [
-  "images/evento1.jpg",
-  "images/evento2.jpg",
-  "images/evento3.jpg"
+  "./images/af3.jpeg",
+  "./images/corporativo.jpeg",
+  "./images/ing1.jpeg"
 ];
 let idx = 0;
 const imgTag = document.getElementById("img-evento");
 
 function mostrarSiguiente() {
+  if (!imgTag) return;
   idx = (idx + 1) % imagenes.length;
   imgTag.src = imagenes[idx];
 }
-setInterval(mostrarSiguiente, 4000);
+if (imgTag) {
+  setInterval(mostrarSiguiente, 4000);
+}
 </script>
 </body>
 </html>

@@ -16,7 +16,7 @@
       });
 
       window.setToken(data.token);
-      location.href = "/admin/panel";
+      location.href = "/admin.html";
     } catch (err) {
       msg.textContent = err.message;
     }

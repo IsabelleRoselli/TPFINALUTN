@@ -1,8 +1,10 @@
+const path = require('path');
 const mongoose = require('mongoose');
-const Category = require('./src/models/Category'); // cambia el path según dónde esté tu modelo Category
+const Category = require('./src/models/Category');
 
-// 🚨 PONÉ TU URI DE MONGO REAL ACÁ:
-const MONGO_URI = 'mongodb+srv://cattleyaAdmin:Artefloral26@cattleya.ug3lryr.mongodb.net/cattleya?retryWrites=true&w=majority&appName=cattleya';
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+const MONGO_URI = process.env.MONGODB_URI || process.env.MONGO_URI;
 
 const categories = [
   { name: "Flores y Ramos" },
@@ -18,6 +20,10 @@ const categories = [
 
 async function seed() {
   try {
+    if (!MONGO_URI) {
+      throw new Error("Falta MONGODB_URI o MONGO_URI en backend/.env");
+    }
+
     await mongoose.connect(MONGO_URI);
     await Category.deleteMany({});
     await Category.insertMany(categories);
