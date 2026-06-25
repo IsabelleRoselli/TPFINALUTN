@@ -563,28 +563,28 @@
                     <p>Aceptamos múltiples formas de pago para tu comodidad</p>
                 </div>
                 <div class="payments-grid">
-                    <div class="payment-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="VISA" class="payment-logo">
+                    <div class="payment-item reveal-item">
+                        <i class="fab fa-cc-visa"></i>
                         <span>VISA</span>
                     </div>
-                    <div class="payment-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" class="payment-logo">
+                    <div class="payment-item reveal-item" style="transition-delay:0.08s">
+                        <i class="fab fa-cc-mastercard"></i>
                         <span>Mastercard</span>
                     </div>
-                    <div class="payment-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Mercado_Pago_%28MercadoLibre%29_logotipo.svg/200px-Mercado_Pago_%28MercadoLibre%29_logotipo.svg.png" alt="Mercado Pago" class="payment-logo">
+                    <div class="payment-item reveal-item" style="transition-delay:0.16s">
+                        <span class="payment-mp-badge">MP</span>
                         <span>Mercado Pago</span>
                     </div>
-                    <div class="payment-item">
+                    <div class="payment-item reveal-item" style="transition-delay:0.24s">
                         <i class="fas fa-money-bill-wave payment-icon-cash"></i>
                         <span>Efectivo</span>
                     </div>
-                    <div class="payment-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Visa_Debit_card_logo.svg/200px-Visa_Debit_card_logo.svg.png" alt="VISA Débito" class="payment-logo">
+                    <div class="payment-item reveal-item" style="transition-delay:0.32s">
+                        <i class="fab fa-cc-visa payment-icon-debit"></i>
                         <span>VISA Débito</span>
                     </div>
-                    <div class="payment-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png" alt="American Express" class="payment-logo">
+                    <div class="payment-item reveal-item" style="transition-delay:0.40s">
+                        <i class="fab fa-cc-amex"></i>
                         <span>Amex</span>
                     </div>
                 </div>
@@ -832,6 +832,21 @@
   });
 
   startAuto();
+})();
+</script>
+<script>
+(function () {
+    var revealItems = document.querySelectorAll('.reveal-item');
+    if (!revealItems.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    revealItems.forEach(function (el) { observer.observe(el); });
 })();
 </script>
 </body>
