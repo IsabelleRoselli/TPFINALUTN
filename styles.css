@@ -86,7 +86,7 @@ body::after {
 
 /* ===== HERO SECTION ===== */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./images/banner2.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./images/banner2.jpeg?v=20260625') center/cover;
     min-height: 280px;
     display: flex;
     align-items: center;
@@ -434,7 +434,7 @@ body::after {
 
 /* ===== FAVORITES WITH GALLERY WRAPPER ===== */
 .favorites-with-gallery {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./images/banner2.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./images/banner2.jpeg?v=20260625') center/cover;
     background-attachment: fixed;
     padding: 30px 0;
 }
@@ -921,7 +921,7 @@ body::after {
 
 /* ===== PAGE HEADERS ===== */
 .page-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg?v=20260625') center/cover;
     padding: 40px;
     color: white;
     text-align: center;
@@ -1667,7 +1667,7 @@ body::after {
 
 /* ===== CATALOGO PAGE ===== */
 .catalogo-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg?v=20260625') center/cover;
     padding: 40px;
     color: white;
     text-align: center;
@@ -2157,7 +2157,7 @@ body::after {
 
 /* ===== PÁGINA PRODUCTO ===== */
 .producto-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner2.jpeg?v=20260625') center/cover;
     padding: 40px;
     color: white;
     text-align: center;
