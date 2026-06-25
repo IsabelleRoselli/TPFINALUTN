@@ -892,48 +892,53 @@ body::after {
 
 .close-btn {
     position: absolute;
-    top: 25px;
-    right: 25px;
+    top: 14px;
+    right: 14px;
     background: none;
     border: none;
-    font-size: 1.8rem;
-    color: #5a070b;
+    font-size: 1.5rem;
+    color: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 1000;
-    width: 45px;
-    height: 45px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .close-btn:hover {
     transform: rotate(90deg) scale(1.1);
-    color: #8a0606;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.28);
 }
 
-/* El contenedor ocupa todo el ancho de la sidebar, sin padding lateral */
+/* El contenedor ocupa todo el ancho de la sidebar */
 .sidebar-header {
-    background: linear-gradient(135deg, #5a070b 0%, #5a070b 100%);
+    background: linear-gradient(135deg, #5a070b 0%, #7a0d12 100%);
     color: white;
-    padding: 0;
+    padding: 18px 16px 16px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    min-height: 110px;
     overflow: hidden;
 }
 .sidebar-logo {
     display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    margin: 0;
-    object-fit: cover;
+    max-height: 78px;
+    width: auto;
+    max-width: calc(100% - 50px);
+    margin: 0 auto;
+    object-fit: contain;
     object-position: center;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25));
 }
 
 /* Efecto hover */
@@ -1576,12 +1581,12 @@ body::after {
 /* ===== SCROLL REVEAL ===== */
 .reveal-card {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(50px) scale(0.97);
+    transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal-card.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 .reveal-card.reveal-delay {
     transition-delay: 0.18s;
