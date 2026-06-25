@@ -1553,8 +1553,12 @@ body::after {
 .footer-bottom {
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
     padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .footer-bottom p {
@@ -1572,6 +1576,93 @@ body::after {
 .footer-bottom .credits a:hover {
     color: #fff;
     text-decoration: none;
+}
+
+.footer-bottom-credits {
+    text-align: right;
+}
+
+.footer-pagos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-pagos-label {
+    font-size: 0.8rem;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.footer-pagos-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.footer-pagos-icons i {
+    font-size: 1.8rem;
+    color: #d4d4d4;
+    transition: color 0.3s ease;
+}
+
+.footer-pagos-icons i:hover {
+    color: #fff;
+}
+
+.footer-pagos-icons .fa-cc-visa:hover   { color: #1a1f71; }
+.footer-pagos-icons .fa-cc-mastercard:hover { color: #eb001b; }
+.footer-pagos-icons .fa-cc-amex:hover   { color: #2e77bc; }
+
+.footer-pago-mp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #009ee3;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    padding: 3px 7px;
+    height: 28px;
+    transition: opacity 0.3s ease;
+    cursor: default;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.footer-pago-mp:hover { opacity: 0.85; }
+
+.footer-pago-cash {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: #b0b0b0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    cursor: default;
+}
+
+.footer-pago-cash i {
+    font-size: 1.1rem !important;
+}
+
+.footer-pago-cash:hover { color: #fff; }
+
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-bottom-credits {
+        text-align: center;
+    }
 }
 
 /* ===== CATALOGO PAGE ===== */
