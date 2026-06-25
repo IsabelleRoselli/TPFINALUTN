@@ -29,11 +29,13 @@ html {
 }
 
 :root {
-    --primary-green: #5a070b;
+    --primary-wine: #5a070b;
+    --primary-green: var(--primary-wine);
     --dark-red: #8b2e2e;
     --light-bg: #f5f1f0;
     --text-dark: #2d2d2d;
     --text-light: #6d6d6d;
+    --carousel-loop-distance: 2430px;
 }
 
 body {
@@ -288,6 +290,7 @@ body::after {
     display: flex;
     gap: 12px;
     animation: carousel-scroll 30s linear infinite;
+    will-change: transform;
 }
 
 .carousel-btn {
@@ -382,12 +385,8 @@ body::after {
 }
 
 @keyframes carousel-scroll {
-    0% { transform: translateX(0px); }
-    20% { transform: translateX(-270px); }
-    40% { transform: translateX(-540px); }
-    60% { transform: translateX(-810px); }
-    80% { transform: translateX(-1080px); }
-    100% { transform: translateX(0px); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(var(--carousel-loop-distance) * -1)); }
 }
 
 /* ===== FAVORITES WITH GALLERY WRAPPER ===== */

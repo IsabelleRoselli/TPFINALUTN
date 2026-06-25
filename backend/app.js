@@ -5,12 +5,15 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const multer = require("multer");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 const connectDB = require("./src/config/db");
 const User = require("./src/models/User");
 const Product = require("./src/models/Product");
 
-dotenv.config({ path: path.join(__dirname, "..", ".env") });
+const backendEnvPath = path.join(__dirname, ".env");
+const rootEnvPath = path.join(__dirname, "..", ".env");
+dotenv.config({ path: fs.existsSync(backendEnvPath) ? backendEnvPath : rootEnvPath });
 
 const app = express();
 app.use(cors());

@@ -28,3 +28,4 @@ frontend/coverage/
 Otros posibles de build o cache
 dist/
 build/
+backend/dev.db

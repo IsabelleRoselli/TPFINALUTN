@@ -52,7 +52,7 @@ function renderCard(p) {
         <a href="./productos/producto.html?id=${id}" class="btn btn-info">
           <i class="fas fa-info-circle"></i> Info
         </a>
-        <a href="${waHref}" target="_blank" class="btn btn-comprar">
+        <a href="${waHref}" target="_blank" rel="noopener noreferrer" class="btn btn-comprar">
           <i class="fab fa-whatsapp"></i> Comprar
         </a>
       </div>
