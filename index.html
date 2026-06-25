@@ -530,9 +530,11 @@
     var nextBtn = document.getElementById('nextBtn');
     var prevBtn = document.getElementById('prevBtn');
     var carousel = document.getElementById('categoriesCarousel');
+    var carouselWrapper = document.querySelector('.carousel-wrapper');
     var autoTimeout;
     var carouselStep = 0;
     var carouselLoopDistance = 0;
+    var isMobileMode = window.matchMedia('(max-width: 768px)').matches;
     var categoryCards = [
         {
             title: 'Flores y Ramos',
@@ -594,7 +596,7 @@
         return `
             <div class="category-card">
                 <div class="category-image">
-                    <img loading="lazy" src="${card.image}" alt="${card.title}">
+                    <img loading="eager" src="${card.image}" alt="${card.title}">
                 </div>
                 <h3>${card.title}</h3>
                 <p class="price">${card.price}</p>
@@ -603,12 +605,21 @@
         `;
     }
 
+    function isMobileCarousel() {
+        return window.matchMedia('(max-width: 768px)').matches;
+    }
+
     function renderCategoryCards() {
         if (!carousel) return;
-        carousel.innerHTML = categoryCards
-            .concat(categoryCards)
+        var cardsToRender = isMobileCarousel() ? categoryCards : categoryCards.concat(categoryCards);
+        carousel.innerHTML = cardsToRender
             .map(renderCategoryCard)
             .join('');
+        carousel.style.transform = 'translateX(0)';
+        carousel.style.transition = 'none';
+        if (carouselWrapper) {
+            carouselWrapper.scrollLeft = 0;
+        }
     }
 
     function getTranslateX(element) {
@@ -628,7 +639,7 @@
         var firstCard = carousel ? carousel.querySelector('.category-card') : null;
         if (!carousel || !firstCard) return;
 
-        var firstHalfCount = carousel.children.length / 2;
+        var firstHalfCount = isMobileCarousel() ? carousel.children.length : carousel.children.length / 2;
         var gap = parseFloat(window.getComputedStyle(carousel).gap || 0);
         carouselStep = firstCard.getBoundingClientRect().width + gap;
         carouselLoopDistance = carouselStep * firstHalfCount;
@@ -637,18 +648,29 @@
 
     function startAuto() {
         updateCarouselMetrics();
+        if (isMobileCarousel()) {
+            carousel.style.animation = 'none';
+            carousel.style.transition = 'none';
+            carousel.style.transform = 'translateX(0)';
+            return;
+        }
         carousel.style.animation = 'carousel-scroll 30s linear infinite';
         carousel.style.transition = 'none';
         carousel.style.transform = 'translateX(0)';
     }
 
     function stopAuto() {
+        if (isMobileCarousel()) return;
         carousel.style.animation = 'none';
         carousel.style.transform = 'translateX(' + getTranslateX(carousel) + 'px)';
     }
 
     if (nextBtn && prevBtn && carousel) {
         nextBtn.addEventListener('click', function() {
+            if (isMobileCarousel() && carouselWrapper) {
+                carouselWrapper.scrollBy({ left: carouselStep, behavior: 'smooth' });
+                return;
+            }
             stopAuto();
             clearTimeout(autoTimeout);
 
@@ -663,6 +685,10 @@
         });
 
         prevBtn.addEventListener('click', function() {
+            if (isMobileCarousel() && carouselWrapper) {
+                carouselWrapper.scrollBy({ left: -carouselStep, behavior: 'smooth' });
+                return;
+            }
             stopAuto();
             clearTimeout(autoTimeout);
 
@@ -680,7 +706,15 @@
     renderCategoryCards();
     updateCarouselMetrics();
     startAuto();
-    window.addEventListener('resize', updateCarouselMetrics);
+    window.addEventListener('resize', function () {
+        var mobileNow = isMobileCarousel();
+        if (mobileNow !== isMobileMode) {
+            isMobileMode = mobileNow;
+            renderCategoryCards();
+        }
+        updateCarouselMetrics();
+        startAuto();
+    });
 </script>
 
 <!-- BOTÓN SCROLL TO TOP -->
