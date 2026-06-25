@@ -162,7 +162,8 @@ function matchesSubcategory(product, sub, subsub) {
 }
 
 function renderCard(p) {
-  const id = encodeURIComponent(p._id || p.id);
+  const productIdentifier = String(p.id ?? p._id ?? p.sku ?? "").trim();
+  const id = encodeURIComponent(productIdentifier);
   const name = escapeHtml(p.name);
   const price = centsToPesos(p.price_cents ?? 0);
   const img = getImageUrl(p);
