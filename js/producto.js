@@ -38,7 +38,7 @@ function getImageUrl(p) {
   return p.image_url || p.imageUrl || "https://via.placeholder.com/400x400?text=Sin+Imagen";
 }
 
-// Si en tu DB no tenés “características” separadas,
+// Si en tu DB no tenés "características" separadas,
 // generamos una lista útil con lo que sí existe.
 function buildFeatures(p) {
   const feats = [];
@@ -100,8 +100,9 @@ async function loadProduct() {
 
     setListItems(detailsUl, buildFeatures(p));
 
-    // Botón WhatsApp
-    const waText = encodeURIComponent(`Hola, me interesa *${p.name}*`);
+    // Botón WhatsApp - Incluye el nombre del producto y la URL de la página
+    const productPageUrl = window.location.href;
+    const waText = encodeURIComponent(`Hola, me interesa *${p.name}*\n${productPageUrl}`);
     if (buyBtn) buyBtn.href = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
   } catch (e) {
     safeText(nameH1, "Producto no encontrado");
