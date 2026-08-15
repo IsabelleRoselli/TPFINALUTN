@@ -183,8 +183,12 @@ function renderCard(p) {
   const price = centsToPesos(p.price_cents ?? 0);
   const img = getImageUrl(p);
 
+  // Construir URL del producto
+  const productPageUrl = `${window.location.origin}/pages/productos/producto.html?id=${id}`;
+  
+  // Mensaje de WhatsApp con nombre del producto y URL
   const waText = encodeURIComponent(
-    `Hola, me interesa *${p.name}*`
+    `Hola, me interesa *${p.name}*\n${productPageUrl}`
   );
   const waHref = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
 
@@ -258,7 +262,7 @@ async function loadCatalog() {
 
     let items = data.items || [];
 
-    // Filtro “fuerte” por subcategory/subsubcategory cuando la página lo define
+    // Filtro "fuerte" por subcategory/subsubcategory cuando la página lo define
     if (subcategory || subsubcategory) {
       items = items.filter((p) => matchesSubcategory(p, subcategory, subsubcategory));
     }
