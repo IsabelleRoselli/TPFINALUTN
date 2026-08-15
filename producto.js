@@ -108,7 +108,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       img.alt = p.name || "Producto";
     }
     if (buyBtn) {
-      buyBtn.href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`Hola, me interesa *${p.name ?? ""}*`)}`;
+      const productPageUrl = window.location.href;
+      const waText = encodeURIComponent(`Hola, me interesa *${p.name ?? ""}*\n${productPageUrl}`);
+      buyBtn.href = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
       buyBtn.style.display = "";
     }
 
