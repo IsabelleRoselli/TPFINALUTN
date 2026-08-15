@@ -38,7 +38,11 @@ function renderCard(p) {
   const img = imageUrl(p) || "https://via.placeholder.com/250x250?text=Sin+Imagen";
   const subcat = inferSubcategoryFromSku(p.sku);
 
-  const waText = encodeURIComponent(`Hola! Quiero consultar sobre: ${p.name} (ID ${p.id})`);
+  // Construir URL del producto
+  const productPageUrl = `${window.location.origin}/pages/productos/producto.html?id=${id}`;
+  
+  // Mensaje de WhatsApp con nombre del producto y URL
+  const waText = encodeURIComponent(`Hola, me interesa *${p.name}*\n${productPageUrl}`);
   const waHref = `https://wa.me/${WHATSAPP_PHONE}?text=${waText}`;
 
   return `
